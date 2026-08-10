@@ -1,0 +1,66 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:template_test/routes/route_names.dart';
+import 'package:template_test/features/onboarding/presentation/screens/splash_screen.dart';
+import 'package:template_test/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:template_test/features/onboarding/presentation/screens/welcome_screen.dart';
+import 'package:template_test/features/login/presentation/screens/login_screen.dart';
+import 'package:template_test/features/forgot_password/presentation/screens/forgot_password_screen.dart';
+import 'package:template_test/features/reset_password/presentation/screens/reset_password_screen.dart';
+import 'package:template_test/features/main_shell/presentation/screens/main_shell_screen.dart';
+import 'package:template_test/features/home/presentation/screens/home_screen.dart';
+import 'package:template_test/features/activity/presentation/screens/activity_screen.dart';
+import 'package:template_test/features/search/presentation/screens/search_screen.dart';
+import 'package:template_test/features/notifications/presentation/screens/notifications_screen.dart';
+import 'package:template_test/features/profile/presentation/screens/profile_screen.dart';
+import 'package:template_test/features/settings/presentation/screens/settings_screen.dart';
+import 'package:template_test/features/products/presentation/screens/product_list_screen.dart';
+import 'package:template_test/features/system/presentation/screens/not_found_screen.dart';
+import 'package:template_test/features/system/presentation/screens/error_screen.dart';
+import 'package:template_test/features/system/presentation/screens/no_internet_screen.dart';
+import 'package:template_test/features/system/presentation/screens/maintenance_screen.dart';
+// Added: imports for the newly added basic screens
+import 'package:template_test/features/register/presentation/screens/register_screen.dart';
+import 'package:template_test/features/otp_verification/presentation/screens/otp_verification_screen.dart';
+import 'package:template_test/features/change_password/presentation/screens/change_password_screen.dart';
+import 'package:template_test/features/profile/presentation/screens/edit_profile_screen.dart';
+import 'package:template_test/features/help_support/presentation/screens/help_support_screen.dart';
+import 'package:template_test/features/system/presentation/screens/terms_screen.dart';
+import 'package:template_test/features/system/presentation/screens/privacy_policy_screen.dart';
+import 'package:template_test/features/orders/presentation/screens/order_list_screen.dart';
+import 'package:template_test/features/cart/presentation/screens/cart_screen.dart';
+
+final routerProvider = Provider<GoRouter>((ref) => GoRouter(
+  initialLocation: RouteNames.splash,
+  errorBuilder: (context, state) => const NotFoundScreen(),
+  routes: [
+    GoRoute(path: RouteNames.splash, builder: (_, _) => const SplashScreen()),
+    GoRoute(path: RouteNames.onboarding, builder: (_, _) => const OnboardingScreen()),
+    GoRoute(path: RouteNames.welcome, builder: (_, _) => const WelcomeScreen()),
+    GoRoute(path: RouteNames.login, builder: (_, _) => const LoginScreen()),
+    GoRoute(path: RouteNames.forgotPassword, builder: (_, _) => const ForgotPasswordScreen()),
+    GoRoute(path: RouteNames.resetPassword, builder: (_, _) => const ResetPasswordScreen()),
+    GoRoute(path: RouteNames.mainShell, builder: (_, _) => const MainShellScreen()),
+    GoRoute(path: RouteNames.home, builder: (_, _) => const HomeScreen()),
+    GoRoute(path: RouteNames.activity, builder: (_, _) => const ActivityScreen()),
+    GoRoute(path: RouteNames.search, builder: (_, _) => const SearchScreen()),
+    GoRoute(path: RouteNames.notifications, builder: (_, _) => const NotificationsScreen()),
+    GoRoute(path: RouteNames.profile, builder: (_, _) => const ProfileScreen()),
+    GoRoute(path: RouteNames.settings, builder: (_, _) => const SettingsScreen()),
+    GoRoute(path: RouteNames.products, builder: (_, _) => const ProductListScreen()),
+    GoRoute(path: RouteNames.notFound, builder: (_, _) => const NotFoundScreen()),
+    GoRoute(path: RouteNames.error, builder: (_, _) => const ErrorScreen()),
+    GoRoute(path: RouteNames.noInternet, builder: (_, _) => const NoInternetScreen()),
+    GoRoute(path: RouteNames.maintenance, builder: (_, _) => const MaintenanceScreen()),
+    // Added: routes for the newly added basic screens
+    GoRoute(path: RouteNames.register, builder: (_, _) => const RegisterScreen()),
+    GoRoute(path: RouteNames.otpVerification, builder: (_, _) => const OtpVerificationScreen()),
+    GoRoute(path: RouteNames.changePassword, builder: (_, _) => const ChangePasswordScreen()),
+    GoRoute(path: RouteNames.editProfile, builder: (_, _) => const EditProfileScreen()),
+    GoRoute(path: RouteNames.helpSupport, builder: (_, _) => const HelpSupportScreen()),
+    GoRoute(path: RouteNames.terms, builder: (_, _) => const TermsScreen()),
+    GoRoute(path: RouteNames.privacyPolicy, builder: (_, _) => const PrivacyPolicyScreen()),
+    GoRoute(path: RouteNames.orders, builder: (_, _) => const OrderListScreen()),
+    GoRoute(path: RouteNames.cart, builder: (_, _) => const CartScreen()),
+  ],
+));
