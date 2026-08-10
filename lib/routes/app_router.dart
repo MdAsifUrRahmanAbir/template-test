@@ -30,9 +30,12 @@ import 'package:template_test/features/system/presentation/screens/privacy_polic
 import 'package:template_test/features/orders/presentation/screens/order_list_screen.dart';
 import 'package:template_test/features/cart/presentation/screens/cart_screen.dart';
 
+import '../core/navigation/logging_observer.dart';
+
 final routerProvider = Provider<GoRouter>((ref) => GoRouter(
   initialLocation: RouteNames.splash,
   errorBuilder: (context, state) => const NotFoundScreen(),
+  observers: [LoggingObserver()],
   routes: [
     GoRoute(path: RouteNames.splash, builder: (_, _) => const SplashScreen()),
     GoRoute(path: RouteNames.onboarding, builder: (_, _) => const OnboardingScreen()),
