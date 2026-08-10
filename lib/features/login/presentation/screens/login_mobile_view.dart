@@ -19,7 +19,7 @@ class LoginMobileView extends ConsumerWidget {
     return SafeArea(
       child: Column(
         children: [
-          const CustomAppBar(title: AppStrings.signIn),
+          const SizedBox(height: AppSizes.xxl),
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(AppSizes.lg),

@@ -13,6 +13,7 @@ structure = {
     "core": {
         "constants": ["app_colors.dart", "app_strings.dart", "app_sizes.dart", "api_endpoints.dart"],
         "network": ["api_client.dart", "api_exception.dart"],
+        "navigation": ["logging_observer.dart"],
         "di": ["injection_container.dart"],
         "theme": ["app_theme.dart"],
         "utils": ["responsive.dart", "currency_formatter.dart", "date_formatter.dart"]
@@ -208,6 +209,43 @@ API_ENDPOINTS_TEMPLATE = """class ApiEndpoints {
   static String productDetails(String id) => "/products/$id";
 
 }
+
+"""LOGGING_OBSERVE = """import 'package:flutter/widgets.dart';
+import 'dart:developer' as developer;
+
+/// A [NavigatorObserver] that logs navigation events.
+/// It prints the route name (if provided) and the runtime type of the route.
+/// This helps during debugging to see which screen is shown and when it is
+/// popped. The logs appear in the console via `debugPrint`/`developer.log`.
+class LoggingObserver extends NavigatorObserver {
+  @override
+  void didPush(Route route, Route? previousRoute) {
+    final name = route.settings.name ?? route.runtimeType;
+    developer.log('🔁 Pushed route: $name');
+    super.didPush(route, previousRoute);
+  }
+
+  @override
+  void didPop(Route route, Route? previousRoute) {
+    final name = route.settings.name ?? route.runtimeType;
+    developer.log('⤵️ Popped route: $name');
+    super.didPop(route, previousRoute);
+  }
+
+  @override
+  void didRemove(Route route, Route? previousRoute) {
+    final name = route.settings.name ?? route.runtimeType;
+    developer.log('❎ Removed route: $name');
+    super.didRemove(route, previousRoute);
+  }
+
+  @override
+  void didReplace({Route? newRoute, Route? oldRoute}) {
+    final name = newRoute?.settings.name ?? newRoute?.runtimeType;
+    developer.log('🔁 Replaced route with: $name');
+    super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
+  }
+}
 """
 
 API_CLIENT_TEMPLATE = """import 'package:dio/dio.dart';
@@ -375,10 +413,12 @@ import 'package:__PACKAGE_NAME__/features/system/presentation/screens/terms_scre
 import 'package:__PACKAGE_NAME__/features/system/presentation/screens/privacy_policy_screen.dart';
 import 'package:__PACKAGE_NAME__/features/orders/presentation/screens/order_list_screen.dart';
 import 'package:__PACKAGE_NAME__/features/cart/presentation/screens/cart_screen.dart';
+import '../core/navigation/logging_observer.dart';
 
 final routerProvider = Provider<GoRouter>((ref) => GoRouter(
   initialLocation: RouteNames.splash,
   errorBuilder: (context, state) => const NotFoundScreen(),
+  observers: [LoggingObserver()],
   routes: [
     GoRoute(path: RouteNames.splash, builder: (_, __) => const SplashScreen()),
     GoRoute(path: RouteNames.onboarding, builder: (_, __) => const OnboardingScreen()),
@@ -900,6 +940,7 @@ class __CLASSNAME__ extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      // appBar: CustomAppBar(title: ""),
       body: Responsive(
         mobile: const __VIEW_CLASSNAME__MobileView(),
         tablet: const __VIEW_CLASSNAME__TabView(),
@@ -1154,6 +1195,7 @@ SPECIFIC_FILE_TEMPLATES = {
     "app_strings.dart": APP_STRINGS_TEMPLATE,
     "app_sizes.dart": APP_SIZES_TEMPLATE,
     "api_endpoints.dart": API_ENDPOINTS_TEMPLATE,
+    "logging_observer.dart": LOGGING_OBSERVE,
     "api_client.dart": API_CLIENT_TEMPLATE,
     "api_exception.dart": API_EXCEPTION_TEMPLATE,
     "injection_container.dart": DI_CONTAINER_TEMPLATE,
