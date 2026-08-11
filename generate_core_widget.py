@@ -693,104 +693,118 @@ COMMON_WIDGETS: dict[str, str] = {
           }
         }
     '''),
-    "custom_app_bar.dart": dart(r'''
+    "custom_app_bar.dart": dart(r"""
         import 'package:flutter/material.dart';
         import 'package:__PACKAGE_NAME__/core/constants/app_colors.dart';
         import 'package:__PACKAGE_NAME__/core/constants/app_sizes.dart';
 
+        /// App-wide top bar — a bordered square back button on the left, a
+        /// centered title, and an optional trailing widget (or a matching-size
+        /// spacer to keep the title truly centered).
         class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           final String title;
-          final List<Widget>? actions;
-          final Widget? leading;
           final bool showBack;
-          final bool centerTitle;
-          final Color? backgroundColor;
-          final Widget? bottom;
+          final VoidCallback? onBackTap;
+          final Widget? trailing;
 
           const CustomAppBar({
             super.key,
             required this.title,
-            this.actions,
-            this.leading,
             this.showBack = true,
-            this.centerTitle = true,
-            this.backgroundColor,
-            this.bottom,
+            this.onBackTap,
+            this.trailing,
           });
 
           @override
           Widget build(BuildContext context) {
-            return AppBar(
-              title: Text(title),
-              leading: leading,
-              automaticallyImplyLeading: showBack && leading == null,
-              centerTitle: centerTitle,
-              actions: actions,
-              bottom: bottom == null ? null : PreferredSize(preferredSize: const Size.fromHeight(AppSizes.xs), child: bottom!),
-              backgroundColor: backgroundColor ?? AppColors.surface,
-              foregroundColor: AppColors.textPrimary,
-              elevation: 0,
-              scrolledUnderElevation: 0,
-              toolbarHeight: AppSizes.appBarHeight,
+            final sideSpacer = const SizedBox(width: AppSizes.xl, height: AppSizes.xl);
+
+            return SizedBox(
+              height: preferredSize.height,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (showBack)
+                      InkWell(
+                        borderRadius: BorderRadius.circular(AppSizes.radiusSm),
+                        onTap: onBackTap ?? () => Navigator.of(context).maybePop(),
+                        child: Container(
+                          padding: const EdgeInsets.all(AppSizes.sm),
+                          decoration: BoxDecoration(
+                            color: AppColors.surface,
+                            borderRadius: BorderRadius.circular(AppSizes.radiusSm),
+                            border: Border.all(color: AppColors.border),
+                          ),
+                          child: const Icon(Icons.arrow_back_rounded, size: AppSizes.iconSm, color: AppColors.textPrimary),
+                        ),
+                      )
+                    else
+                      sideSpacer,
+                    Text(
+                      title,
+                      style: const TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+                    ),
+                    trailing ?? sideSpacer,
+                  ],
+                ),
+              ),
             );
           }
 
           @override
-          Size get preferredSize => Size.fromHeight(AppSizes.appBarHeight + (bottom == null ? 0 : AppSizes.xs));
+          Size get preferredSize => const Size.fromHeight(AppSizes.appBarHeight);
         }
-    '''),
-    "custom_card.dart": dart(r'''
+    """),
+    "custom_card.dart": dart(r"""
         import 'package:flutter/material.dart';
         import 'package:__PACKAGE_NAME__/core/constants/app_colors.dart';
         import 'package:__PACKAGE_NAME__/core/constants/app_sizes.dart';
 
+        /// Bordered, subtly-shadowed card container — the base surface for
+        /// grouped content (forms, dashboard tiles, list items).
         class CustomCard extends StatelessWidget {
           final Widget child;
           final VoidCallback? onTap;
           final EdgeInsetsGeometry padding;
-          final EdgeInsetsGeometry? margin;
-          final Color? color;
-          final BorderRadius? borderRadius;
-          final Border? border;
-          final bool enabled;
 
           const CustomCard({
             super.key,
             required this.child,
             this.onTap,
-            this.padding = const EdgeInsets.all(AppSizes.md),
-            this.margin,
-            this.color,
-            this.borderRadius,
-            this.border,
-            this.enabled = true,
+            this.padding = const EdgeInsets.all(AppSizes.lg),
           });
 
           @override
           Widget build(BuildContext context) {
-            final radius = borderRadius ?? BorderRadius.circular(AppSizes.radiusLg);
-            final content = Padding(padding: padding, child: child);
-            final decorated = Material(
-              color: color ?? AppColors.surface,
-              borderRadius: radius,
+            return Material(
+              color: AppColors.surface,
+              borderRadius: BorderRadius.circular(AppSizes.radiusMd),
               child: InkWell(
-                onTap: enabled ? onTap : null,
-                borderRadius: radius,
-                child: content,
+                onTap: onTap,
+                borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+                child: Container(
+                  padding: padding,
+                  decoration: BoxDecoration(
+                    color: AppColors.surface,
+                    borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+                    border: Border.all(color: AppColors.border),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.textPrimary.withValues(alpha: 0.02),
+                        blurRadius: AppSizes.md,
+                        offset: const Offset(0, AppSizes.xs),
+                      ),
+                    ],
+                  ),
+                  child: child,
+                ),
               ),
-            );
-            return Container(
-              margin: margin,
-              decoration: BoxDecoration(
-                color: color ?? AppColors.surface,
-                borderRadius: radius,
-                border: border ?? const Border.fromBorderSide(BorderSide(color: AppColors.border)),
-              ),
-              child: decorated,
             );
           }
         }
-    '''),
+    """),
     "custom_list_tile.dart": dart(r'''
         import 'package:flutter/material.dart';
         import 'package:__PACKAGE_NAME__/core/constants/app_colors.dart';
@@ -1018,6 +1032,230 @@ COMMON_WIDGETS: dict[str, str] = {
           }
         }
     '''),
+    "custom_icon_badge.dart": dart(r"""
+        import 'package:flutter/material.dart';
+        import 'package:__PACKAGE_NAME__/core/constants/app_colors.dart';
+        import 'package:__PACKAGE_NAME__/core/constants/app_sizes.dart';
+
+        enum IconBadgeVariant { outlined, filled }
+
+        /// Large circular icon badge for status/confirmation screens.
+        /// - [IconBadgeVariant.outlined]: white circle + border + shadow (OTP
+        ///   verification, error states).
+        /// - [IconBadgeVariant.filled]: soft tinted circle, no border (forgot
+        ///   password, empty states, success confirmations).
+        class CustomIconBadge extends StatelessWidget {
+          final IconData icon;
+          final Color color;
+          final double size;
+          final double iconSize;
+          final IconBadgeVariant variant;
+
+          const CustomIconBadge({
+            super.key,
+            required this.icon,
+            this.color = AppColors.primary,
+            this.size = AppSizes.xxl * 2 + AppSizes.xs,
+            this.iconSize = AppSizes.xxl,
+            this.variant = IconBadgeVariant.outlined,
+          });
+
+          @override
+          Widget build(BuildContext context) {
+            final isFilled = variant == IconBadgeVariant.filled;
+
+            return Container(
+              width: size,
+              height: size,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: isFilled ? color.withValues(alpha: 0.1) : AppColors.surface,
+                border: isFilled ? null : Border.all(color: AppColors.border),
+                boxShadow: isFilled
+                    ? null
+                    : [
+                  BoxShadow(
+                    color: AppColors.textPrimary.withValues(alpha: 0.02),
+                    blurRadius: AppSizes.md,
+                    offset: const Offset(0, AppSizes.xs),
+                  ),
+                ],
+              ),
+              alignment: Alignment.center,
+              child: Icon(icon, color: color, size: iconSize),
+            );
+          }
+        }
+    """),
+    "otp_input_field.dart": dart(r"""
+        import 'package:flutter/material.dart';
+        import 'package:__PACKAGE_NAME__/core/constants/app_colors.dart';
+        import 'package:__PACKAGE_NAME__/core/constants/app_sizes.dart';
+
+        /// Fixed-length OTP / PIN input — one box per digit. Auto-advances
+        /// focus as the user types, calls [onCompleted] once every box is filled.
+        class OtpInputField extends StatefulWidget {
+          final int length;
+          final ValueChanged<String>? onChanged;
+          final ValueChanged<String>? onCompleted;
+
+          const OtpInputField({
+            super.key,
+            this.length = 6,
+            this.onChanged,
+            this.onCompleted,
+          });
+
+          @override
+          State<OtpInputField> createState() => _OtpInputFieldState();
+        }
+
+        class _OtpInputFieldState extends State<OtpInputField> {
+          late final List<TextEditingController> _controllers;
+          late final List<FocusNode> _focusNodes;
+
+          @override
+          void initState() {
+            super.initState();
+            _controllers = List.generate(widget.length, (_) => TextEditingController());
+            _focusNodes = List.generate(widget.length, (_) => FocusNode());
+            for (final node in _focusNodes) {
+              node.addListener(() => setState(() {}));
+            }
+          }
+
+          @override
+          void dispose() {
+            for (final c in _controllers) {
+              c.dispose();
+            }
+            for (final f in _focusNodes) {
+              f.dispose();
+            }
+            super.dispose();
+          }
+
+          void _onChanged(String value, int index) {
+            if (value.isNotEmpty && index < widget.length - 1) {
+              _focusNodes[index + 1].requestFocus();
+            }
+            if (value.isEmpty && index > 0) {
+              _focusNodes[index - 1].requestFocus();
+            }
+
+            final code = _controllers.map((c) => c.text).join();
+            widget.onChanged?.call(code);
+            if (code.length == widget.length) {
+              widget.onCompleted?.call(code);
+            }
+          }
+
+          @override
+          Widget build(BuildContext context) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(widget.length, (index) {
+                final active = _focusNodes[index].hasFocus || _controllers[index].text.isNotEmpty;
+
+                return Padding(
+                  padding: EdgeInsets.only(right: index == widget.length - 1 ? 0 : AppSizes.sm),
+                  child: SizedBox(
+                    width: AppSizes.xxl,
+                    height: AppSizes.xxl,
+                    child: TextField(
+                      controller: _controllers[index],
+                      focusNode: _focusNodes[index],
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      maxLength: 1,
+                      style: TextStyle(
+                        fontSize: AppSizes.fontLg,
+                        fontWeight: FontWeight.w700,
+                        color: active ? AppColors.textPrimary : AppColors.textSecondary,
+                      ),
+                      decoration: InputDecoration(
+                        counterText: '',
+                        hintText: '-',
+                        hintStyle: const TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w700),
+                        filled: true,
+                        fillColor: AppColors.surface,
+                        contentPadding: EdgeInsets.zero,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(AppSizes.radiusSm),
+                          borderSide: BorderSide(color: active ? AppColors.primary : AppColors.border, width: active ? 2 : 1),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(AppSizes.radiusSm),
+                          borderSide: BorderSide(color: active ? AppColors.primary : AppColors.border, width: active ? 2 : 1),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(AppSizes.radiusSm),
+                          borderSide: const BorderSide(color: AppColors.primary, width: 2),
+                        ),
+                      ),
+                      onChanged: (value) => _onChanged(value, index),
+                    ),
+                  ),
+                );
+              }),
+            );
+          }
+        }
+    """),
+    "password_input_field.dart": dart(r"""
+        import 'package:flutter/material.dart';
+        import 'package:__PACKAGE_NAME__/core/constants/app_colors.dart';
+        import 'package:__PACKAGE_NAME__/core/constants/app_sizes.dart';
+        import 'package:__PACKAGE_NAME__/core/widgets/common/primary_input_field.dart';
+
+        /// Password field with a built-in show/hide (eye icon) toggle.
+        /// Drop-in replacement for [PrimaryInputField] on any password input
+        /// (login, register, change password...).
+        class PasswordInputField extends StatefulWidget {
+          final String? label;
+          final String? hint;
+          final TextEditingController? controller;
+          final String? Function(String?)? validator;
+          final ValueChanged<String>? onChanged;
+
+          const PasswordInputField({
+            super.key,
+            this.label = 'Password',
+            this.hint,
+            this.controller,
+            this.validator,
+            this.onChanged,
+          });
+
+          @override
+          State<PasswordInputField> createState() => _PasswordInputFieldState();
+        }
+
+        class _PasswordInputFieldState extends State<PasswordInputField> {
+          bool _obscure = true;
+
+          @override
+          Widget build(BuildContext context) {
+            return PrimaryInputField(
+              label: widget.label,
+              hint: widget.hint,
+              controller: widget.controller,
+              validator: widget.validator,
+              onChanged: widget.onChanged,
+              obscureText: _obscure,
+              prefixIcon: const Icon(Icons.lock_outline_rounded, color: AppColors.textSecondary, size: AppSizes.iconSm),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _obscure ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                  color: AppColors.textSecondary,
+                  size: AppSizes.iconSm,
+                ),
+                onPressed: () => setState(() => _obscure = !_obscure),
+              ),
+            );
+          }
+        }
+    """),
     "avatar.dart": dart(r'''
         import 'package:flutter/material.dart';
         import 'package:__PACKAGE_NAME__/core/constants/app_colors.dart';
@@ -1461,7 +1699,7 @@ UTILITY_WIDGETS: dict[str, str] = {
               onRefresh: onRefresh,
               color: AppColors.primary,
               backgroundColor: AppColors.surface,
-              physics: physics ?? const AlwaysScrollableScrollPhysics(),
+              // physics: physics ?? const AlwaysScrollableScrollPhysics(),
               child: child,
             );
           }
@@ -1515,6 +1753,82 @@ UTILITY_WIDGETS: dict[str, str] = {
           }
         }
     '''),
+    "password_strength_meter.dart": dart(r"""
+        import 'package:flutter/material.dart';
+        import 'package:__PACKAGE_NAME__/core/constants/app_colors.dart';
+        import 'package:__PACKAGE_NAME__/core/constants/app_sizes.dart';
+
+        enum PasswordStrength { weak, fair, good, strong }
+
+        /// "Password Strength" label + 4-segment bar indicator, shown under a
+        /// password field while the user types.
+        class PasswordStrengthMeter extends StatelessWidget {
+          final PasswordStrength strength;
+
+          const PasswordStrengthMeter({super.key, required this.strength});
+
+          int get _filledBars => switch (strength) {
+            PasswordStrength.weak => 1,
+            PasswordStrength.fair => 2,
+            PasswordStrength.good => 3,
+            PasswordStrength.strong => 4,
+          };
+
+          Color get _color => switch (strength) {
+            PasswordStrength.weak => AppColors.error,
+            PasswordStrength.fair => AppColors.warning,
+            PasswordStrength.good => AppColors.info,
+            PasswordStrength.strong => AppColors.success,
+          };
+
+          String get _label => switch (strength) {
+            PasswordStrength.weak => 'Weak',
+            PasswordStrength.fair => 'Medium',
+            PasswordStrength.good => 'Good',
+            PasswordStrength.strong => 'Strong',
+          };
+
+          @override
+          Widget build(BuildContext context) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Password Strength',
+                      style: TextStyle(fontSize: AppSizes.fontXs, color: AppColors.textSecondary),
+                    ),
+                    Text(
+                      _label,
+                      style: TextStyle(fontSize: AppSizes.fontXs, color: _color, fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppSizes.xs),
+                Row(
+                  children: List.generate(4, (index) {
+                    final filled = index < _filledBars;
+                    return Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(right: index == 3 ? 0 : AppSizes.xs),
+                        child: Container(
+                          height: AppSizes.xs / 2,
+                          decoration: BoxDecoration(
+                            color: filled ? _color : AppColors.border,
+                            borderRadius: BorderRadius.circular(AppSizes.radiusSm / 2),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+              ],
+            );
+          }
+        }
+    """),
     "pagination_controls.dart": dart(r'''
         import 'package:flutter/material.dart';
         import 'package:__PACKAGE_NAME__/core/constants/app_colors.dart';

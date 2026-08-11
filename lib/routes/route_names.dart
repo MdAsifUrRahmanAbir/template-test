@@ -18,14 +18,15 @@ class RouteNames {
   static const String error = '/error';
   static const String noInternet = '/no-internet';
   static const String maintenance = '/maintenance';
+
   // Added: routes for the newly added basic screens
   static const String register = '/register';
   static const String otpVerification = '/otp-verification';
   static const String changePassword = '/change-password';
-  static const String editProfile = '/edit-profile';
   static const String helpSupport = '/help-support';
   static const String terms = '/terms';
   static const String privacyPolicy = '/privacy-policy';
   static const String orders = '/orders';
   static const String cart = '/cart';
+  static const String editProfile = '/edit_profile';
 }

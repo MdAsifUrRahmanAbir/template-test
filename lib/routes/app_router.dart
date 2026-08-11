@@ -23,7 +23,6 @@ import 'package:template_test/features/system/presentation/screens/maintenance_s
 import 'package:template_test/features/register/presentation/screens/register_screen.dart';
 import 'package:template_test/features/otp_verification/presentation/screens/otp_verification_screen.dart';
 import 'package:template_test/features/change_password/presentation/screens/change_password_screen.dart';
-import 'package:template_test/features/profile/presentation/screens/edit_profile_screen.dart';
 import 'package:template_test/features/help_support/presentation/screens/help_support_screen.dart';
 import 'package:template_test/features/system/presentation/screens/terms_screen.dart';
 import 'package:template_test/features/system/presentation/screens/privacy_policy_screen.dart';
@@ -31,9 +30,10 @@ import 'package:template_test/features/orders/presentation/screens/order_list_sc
 import 'package:template_test/features/cart/presentation/screens/cart_screen.dart';
 
 import '../core/navigation/logging_observer.dart';
+import '../features/edit_profile/presentation/screens/edit_profile_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) => GoRouter(
-  initialLocation: RouteNames.splash,
+  initialLocation: RouteNames.profile,
   errorBuilder: (context, state) => const NotFoundScreen(),
   observers: [LoggingObserver()],
   routes: [
@@ -59,11 +59,14 @@ final routerProvider = Provider<GoRouter>((ref) => GoRouter(
     GoRoute(path: RouteNames.register, builder: (_, _) => const RegisterScreen()),
     GoRoute(path: RouteNames.otpVerification, builder: (_, _) => const OtpVerificationScreen()),
     GoRoute(path: RouteNames.changePassword, builder: (_, _) => const ChangePasswordScreen()),
-    GoRoute(path: RouteNames.editProfile, builder: (_, _) => const EditProfileScreen()),
     GoRoute(path: RouteNames.helpSupport, builder: (_, _) => const HelpSupportScreen()),
     GoRoute(path: RouteNames.terms, builder: (_, _) => const TermsScreen()),
     GoRoute(path: RouteNames.privacyPolicy, builder: (_, _) => const PrivacyPolicyScreen()),
     GoRoute(path: RouteNames.orders, builder: (_, _) => const OrderListScreen()),
     GoRoute(path: RouteNames.cart, builder: (_, _) => const CartScreen()),
+    GoRoute(
+        path: RouteNames.editProfile,
+        builder: (context, state) => const EditProfileScreen(),
+      ),
   ],
 ));

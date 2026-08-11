@@ -2,40 +2,58 @@ import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
 
-/// App-wide AppBar with consistent height, colors, and centered title —
-/// used as a plain widget at the top of a screen's body (not necessarily
-/// Scaffold.appBar), so it also works inside a Responsive mobile/tablet
-/// view that doesn't own the Scaffold itself.
+/// App-wide top bar — a bordered square back button on the left, a
+/// centered title, and an optional trailing widget (or a matching-size
+/// spacer to keep the title truly centered).
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  final List<Widget>? actions;
   final bool showBack;
-  final Widget? leading;
-  final Color? backgroundColor;
+  final VoidCallback? onBackTap;
+  final Widget? trailing;
 
   const CustomAppBar({
     super.key,
     required this.title,
-    this.actions,
     this.showBack = true,
-    this.leading,
-    this.backgroundColor,
+    this.onBackTap,
+    this.trailing,
   });
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      title: Text(
-        title,
-        style: const TextStyle(fontSize: AppSizes.fontLg, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+    final sideSpacer = const SizedBox(width: AppSizes.xl, height: AppSizes.xl);
+
+    return SizedBox(
+      height: preferredSize.height,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            if (showBack)
+              InkWell(
+                borderRadius: BorderRadius.circular(AppSizes.radiusSm),
+                onTap: onBackTap ?? () => Navigator.of(context).maybePop(),
+                child: Container(
+                  padding: const EdgeInsets.all(AppSizes.sm),
+                  decoration: BoxDecoration(
+                    color: AppColors.surface,
+                    borderRadius: BorderRadius.circular(AppSizes.radiusSm),
+                    border: Border.all(color: AppColors.border),
+                  ),
+                  child: const Icon(Icons.arrow_back_rounded, size: AppSizes.iconSm, color: AppColors.textPrimary),
+                ),
+              )
+            else
+              sideSpacer,
+            Text(
+              title,
+              style: const TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+            ),
+            trailing ?? sideSpacer,
+          ],
+        ),
       ),
-      backgroundColor: backgroundColor ?? AppColors.surface,
-      foregroundColor: AppColors.textPrimary,
-      elevation: 0,
-      centerTitle: true,
-      automaticallyImplyLeading: showBack,
-      leading: leading,
-      actions: actions,
     );
   }
 

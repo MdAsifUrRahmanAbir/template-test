@@ -3,7 +3,7 @@ import re
 
 ROOT = os.getcwd()
 LIB_PATH = os.path.join(ROOT, "lib")
-PACKAGE_NAME = "untitled2"  # 👈 আপনার pubspec.yaml এর package name বসান
+PACKAGE_NAME = "template_test"  # 👈 আপনার pubspec.yaml এর package name বসান
 
 def format_class_name(name):
     """Convert snake_case or clean string to PascalCase (e.g., product_list -> ProductList)"""
@@ -106,7 +106,7 @@ def create_module(module_raw_name):
 """
 
     repo_code = f"""import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:{PACKAGE_NAME}/core/network/api_client.dart';
+import '../../../../core/network/api_client.dart';
 
 final {module_snake}RepositoryProvider = Provider<{class_prefix}Repository>((ref) {{
   return {class_prefix}Repository(ref.watch(apiClientProvider));
@@ -133,9 +133,10 @@ final {module_snake}ControllerProvider = NotifierProvider<{class_prefix}Controll
 
     screen_code = f"""import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:{PACKAGE_NAME}/core/utils/responsive.dart';
-import 'package:{PACKAGE_NAME}/features/{module_snake}/presentation/screens/{module_snake}_mobile_view.dart';
-import 'package:{PACKAGE_NAME}/features/{module_snake}/presentation/screens/{module_snake}_tab_view.dart';
+
+import '../../../../core/utils/responsive.dart';
+import '{module_snake}_mobile_view.dart';
+import '{module_snake}_tab_view.dart';
 
 class {class_prefix}Screen extends ConsumerWidget {{
   const {class_prefix}Screen({{super.key}});

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:template_test/core/utils/responsive.dart';
+
+import '../../../../core/utils/responsive.dart';
 import 'edit_profile_mobile_view.dart';
 import 'edit_profile_tab_view.dart';
 

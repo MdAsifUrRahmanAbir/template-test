@@ -1,0 +1,68 @@
+import 'package:flutter/material.dart';
+import '../../constants/app_colors.dart';
+import '../../constants/app_sizes.dart';
+
+/// Large circular avatar with a camera badge overlapping its bottom
+/// edge, plus a tappable "Change Profile Photo" style link label
+/// underneath. Used on edit-profile forms.
+class AvatarPhotoPicker extends StatelessWidget {
+  final String? imageUrl;
+  final String? label;
+  final String actionLabel;
+  final VoidCallback? onTap;
+  final double radius;
+
+  const AvatarPhotoPicker({
+    super.key,
+    this.imageUrl,
+    this.label,
+    this.actionLabel = 'Change Photo',
+    this.onTap,
+    this.radius = AppSizes.xxl + AppSizes.md,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              CircleAvatar(
+                radius: radius,
+                backgroundColor: AppColors.primaryLight,
+                backgroundImage: imageUrl == null ? null : NetworkImage(imageUrl!),
+                child: imageUrl != null
+                    ? null
+                    : Text(
+                  (label?.trim().isNotEmpty ?? false) ? label!.trim()[0].toUpperCase() : '?',
+                  style: const TextStyle(color: AppColors.primary, fontSize: AppSizes.fontXxl, fontWeight: FontWeight.w700),
+                ),
+              ),
+              Positioned(
+                right: -AppSizes.xs / 2,
+                bottom: -AppSizes.xs / 2,
+                child: Container(
+                  padding: const EdgeInsets.all(AppSizes.xs + AppSizes.xs / 2),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: AppColors.surface, width: 2),
+                  ),
+                  child: const Icon(Icons.camera_alt_rounded, size: AppSizes.iconSm - AppSizes.xs / 2, color: AppColors.textWhite),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSizes.sm),
+          Text(
+            actionLabel,
+            style: const TextStyle(fontSize: AppSizes.fontSm, fontWeight: FontWeight.w600, color: AppColors.primary),
+          ),
+        ],
+      ),
+    );
+  }
+}

@@ -1,1 +1,42 @@
-// TODO: Implement profile_header.dart
+import 'package:flutter/material.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/widgets/common/status_badge.dart';
+import 'gradient_cover_header.dart';
+
+/// Cover gradient + avatar, name, and role badge at the top of the
+/// profile screen.
+class ProfileHeader extends StatelessWidget {
+  final String name;
+  final String role;
+  final String? avatarUrl;
+  final VoidCallback? onAvatarEditTap;
+
+  const ProfileHeader({
+    super.key,
+    required this.name,
+    required this.role,
+    this.avatarUrl,
+    this.onAvatarEditTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        GradientCoverHeader(
+          avatarUrl: avatarUrl,
+          avatarLabel: name,
+          onAvatarEditTap: onAvatarEditTap,
+        ),
+        const SizedBox(height: AppSizes.md),
+        Text(
+          name,
+          style: const TextStyle(fontSize: AppSizes.fontXxl, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+        ),
+        const SizedBox(height: AppSizes.xs),
+        StatusBadge(text: role, type: StatusBadgeType.primary, compact: true),
+      ],
+    );
+  }
+}
