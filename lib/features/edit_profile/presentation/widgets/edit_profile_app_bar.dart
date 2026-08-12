@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_strings.dart';
-import '../../../../core/widgets/common/text_action_app_bar.dart';
+import '../../../../core/widgets/common/app_header_bar.dart';
 
 /// Top bar for the edit-profile screen — back chevron, "Edit Profile"
 /// title, and a "Done" text action.
@@ -11,10 +11,10 @@ class EditProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextActionAppBar(
+    return AppHeaderBar (
       title: AppStrings.editProfileTitle,
-      actionLabel: AppStrings.done,
-      onActionTap: onDoneTap,
+      trailingLabel: AppStrings.done,
+      onTrailingTap: onDoneTap,
     );
   }
 

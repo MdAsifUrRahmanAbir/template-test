@@ -83,7 +83,7 @@ class PrimaryInputField extends StatelessWidget {
             ),
             disabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppSizes.radiusMd),
-              borderSide: BorderSide(color: AppColors.border.withOpacity(0.5)),
+              borderSide: BorderSide(color: AppColors.border.withValues(alpha: 0.5)),
             ),
           ),
         ),

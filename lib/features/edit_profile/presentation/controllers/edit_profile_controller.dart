@@ -7,4 +7,4 @@ class EditProfileController extends Notifier<AsyncValue<void>> {
   }
 }
 
-final edit_profileControllerProvider = NotifierProvider<EditProfileController, AsyncValue<void>>(EditProfileController.new);
+final editProfileControllerProvider = NotifierProvider<EditProfileController, AsyncValue<void>>(EditProfileController.new);

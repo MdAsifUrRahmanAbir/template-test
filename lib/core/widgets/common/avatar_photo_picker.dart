@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
+import 'avatar.dart';
 
-/// Large circular avatar with a camera badge overlapping its bottom
-/// edge, plus a tappable "Change Profile Photo" style link label
-/// underneath. Used on edit-profile forms.
+/// [AppAvatar] with a camera badge overlapping its bottom edge, plus
+/// a tappable action-label link underneath. Used on edit-profile
+/// forms.
 class AvatarPhotoPicker extends StatelessWidget {
   final String? imageUrl;
   final String? label;
@@ -30,17 +31,7 @@ class AvatarPhotoPicker extends StatelessWidget {
           Stack(
             clipBehavior: Clip.none,
             children: [
-              CircleAvatar(
-                radius: radius,
-                backgroundColor: AppColors.primaryLight,
-                backgroundImage: imageUrl == null ? null : NetworkImage(imageUrl!),
-                child: imageUrl != null
-                    ? null
-                    : Text(
-                  (label?.trim().isNotEmpty ?? false) ? label!.trim()[0].toUpperCase() : '?',
-                  style: const TextStyle(color: AppColors.primary, fontSize: AppSizes.fontXxl, fontWeight: FontWeight.w700),
-                ),
-              ),
+              AppAvatar(imageUrl: imageUrl, label: label, radius: radius),
               Positioned(
                 right: -AppSizes.xs / 2,
                 bottom: -AppSizes.xs / 2,
@@ -57,10 +48,7 @@ class AvatarPhotoPicker extends StatelessWidget {
             ],
           ),
           const SizedBox(height: AppSizes.sm),
-          Text(
-            actionLabel,
-            style: const TextStyle(fontSize: AppSizes.fontSm, fontWeight: FontWeight.w600, color: AppColors.primary),
-          ),
+          Text(actionLabel, style: const TextStyle(fontSize: AppSizes.fontSm, fontWeight: FontWeight.w600, color: AppColors.primary)),
         ],
       ),
     );

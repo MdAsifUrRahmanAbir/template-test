@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:template_test/features/profile/presentation/widgets/settings_tile.dart';
 import '../../../../core/constants/app_strings.dart';
-import 'settings_group.dart';
+import '../../../../core/widgets/common/settings_group.dart';
 
 /// All three grouped settings lists (Account, Preferences,
 /// Security & Support) shown on the profile screen. Taps are

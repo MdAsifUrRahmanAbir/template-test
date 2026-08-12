@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/widgets/common/status_badge.dart';
-import 'gradient_cover_header.dart';
+import '../../../../core/widgets/common/gradient_cover_header.dart';
 
 /// Cover gradient + avatar, name, and role badge at the top of the
 /// profile screen.

@@ -7,7 +7,7 @@ import '../../../../core/constants/app_strings.dart';
 import '../../../../core/widgets/common/custom_card.dart';
 import '../../../../routes/route_names.dart';
 import '../widgets/home_header.dart';
-import '../widgets/summary_card.dart';
+import '../../../../core/widgets/common/summary_card.dart';
 import '../widgets/quick_action_item.dart';
 import '../widgets/recent_activity_item.dart';
 

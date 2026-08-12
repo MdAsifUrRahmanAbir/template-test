@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
-import '../../../../core/widgets/common/list_page_header.dart';
-import '../widgets/activity_filter_tabs.dart';
+import '../../../../core/widgets/common/app_header_bar.dart';
+import '../../../../core/widgets/common/activity_filter_tabs.dart';
 import '../widgets/activity_item.dart';
 
 /// Same content as [ActivityMobileView], centered in a fixed-width
@@ -16,7 +16,7 @@ class ActivityTabView extends ConsumerStatefulWidget {
 }
 
 class _ActivityTabViewState extends ConsumerState<ActivityTabView> {
-  int _selectedFilter = 0;
+  String _selectedFilter = 'today';
 
   // TODO: replace with activityControllerProvider once
   // features/activity/data/repositories is implemented.
@@ -77,10 +77,10 @@ class _ActivityTabViewState extends ConsumerState<ActivityTabView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ListPageHeader(
+        AppHeaderBar(
           title: AppStrings.activityLogsTitle,
-          actionIcon: Icons.filter_list_rounded,
-          onActionTap: () {
+          trailingIcon: Icons.filter_list_rounded,
+          onTrailingTap: () {
             // TODO: open activity filter/sort options
           },
         ),
@@ -94,8 +94,8 @@ class _ActivityTabViewState extends ConsumerState<ActivityTabView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ActivityFilterTabs(
-                      selectedIndex: _selectedFilter,
-                      onChanged: (index) => setState(() => _selectedFilter = index),
+                      selected: _selectedFilter,
+                      onChanged: (filter) => setState(() => _selectedFilter = filter),
                     ),
                     const SizedBox(height: AppSizes.xl),
                     Column(children: _items),

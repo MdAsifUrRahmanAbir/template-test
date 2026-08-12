@@ -123,4 +123,68 @@ class AppStrings {
   static const String filterToday = 'Today';
   static const String filterThisWeek = 'This Week';
   static const String filterThisMonth = 'This Month';
+
+  // ---- Added: Notifications screen ----
+  static const String notificationsTitle = 'Notifications';
+  static const String markAllAsRead = 'Mark All as Read';
+  static const String filterAll = 'All';
+  static const String filterUnread = 'Unread';
+  static const String notificationsTip = 'Tip: Swipe left on a notification to archive or configure triggers.';
+  static const String categoryAlert = 'ALERT';
+  static const String categoryOrder = 'ORDER';
+  static const String categorySystem = 'SYSTEM';
+
+  // ---- Added: Settings screen ----
+  // static const String settingsTitle = 'Settings';
+  static const String appearanceSection = 'APPEARANCE';
+  static const String notificationsSection = 'NOTIFICATIONS';
+  static const String securitySection = 'SECURITY';
+  static const String generalSection = 'GENERAL';
+  static const String legalSection = 'LEGAL';
+  static const String darkMode = 'Dark Mode';
+  static const String appTheme = 'App Theme';
+  static const String pushNotifications = 'Push Notifications';
+  static const String emailNotifications = 'Email Notifications';
+  static const String smsAlerts = 'SMS Alerts';
+  static const String biometricAuth = 'Biometric Auth';
+  static const String twoFactorAuth = 'Two-Factor Auth';
+  static const String activeSessions = 'Active Sessions';
+  static const String language = 'Language';
+  static const String region = 'Region';
+  static const String termsOfService = 'Terms of Service';
+  static const String openSourceLicenses = 'Open Source Licenses';
+  static const String logOut = 'Log Out';
+  static const String deleteAccount = 'Delete Account';
+
+
+  // ---- Added: Terms & Privacy screen ----
+  static const String termsPrivacyTitle = 'Terms & Privacy';
+  static const String termsLastUpdated = 'Last updated: January 15, 2026';
+  static const String termsSection1Title = '1. Introduction';
+  static const String termsSection1Body =
+      'Welcome to EnterpriseSuite. By accessing, deploying, or utilizing our cloud platform '
+      'and integrated services, you agree to be bound by these unified terms. Please read '
+      'this agreement carefully.';
+  static const String termsSection2Title = '2. Data Collection';
+  static const String termsSection2Body =
+      'To provision high-performance node servers, maintain container security, and '
+      'optimize query latency, our system architecture collects secure operational metadata:';
+  static const String termsSection3Title = '3. Usage Rights';
+  static const String termsSection3Body =
+      'EnterpriseSuite grants you a restricted, non-exclusive, revocable license to access '
+      'our platform solely for authorized business operations. All dashboard templates, '
+      'metadata pipelines, and user provisioning are governed by your subscription '
+      'agreement tiers.';
+  static const String termsSection4Title = '4. Privacy';
+  static const String termsSection4Body =
+      'We operate on a zero-trust architecture. All client properties, custom parameters, '
+      'database schema descriptions, and system integrations remain your proprietary data. '
+      'EnterpriseSuite does not sell, lease, or monetize organizational usage patterns.';
+  static const String termsSection5Title = '5. Contact Us';
+  static const String termsSection5Body =
+      'For policy concerns, data extraction requests, or server security auditing '
+      'parameters, please contact our specialized compliance division:';
+  static const String termsContactName = 'EnterpriseSuite Compliance';
+  static const String termsContactEmail = 'Email: legal@enterprisesuite.com';
+  static const String termsContactSla = 'Response SLA: Within 2 business days';
 }

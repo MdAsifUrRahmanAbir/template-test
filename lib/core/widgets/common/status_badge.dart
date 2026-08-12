@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:template_test/core/constants/app_colors.dart';
-import 'package:template_test/core/constants/app_sizes.dart';
+import '../../constants/app_colors.dart';
+import '../../constants/app_sizes.dart';
 
 enum StatusBadgeType { success, warning, error, info, neutral, primary }
+enum StatusBadgeShape { pill, square }
 
 class StatusBadge extends StatelessWidget {
   final String text;
   final StatusBadgeType type;
   final IconData? icon;
   final bool compact;
+  final StatusBadgeShape shape;
 
   const StatusBadge({
     super.key,
@@ -16,6 +18,7 @@ class StatusBadge extends StatelessWidget {
     this.type = StatusBadgeType.neutral,
     this.icon,
     this.compact = false,
+    this.shape = StatusBadgeShape.pill,
   });
 
   Color get _color {
@@ -38,15 +41,17 @@ class StatusBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = _color;
+    final isSquare = shape == StatusBadgeShape.square;
+
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: compact ? AppSizes.sm : AppSizes.md,
         vertical: AppSizes.xs,
       ),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(AppSizes.radiusFull),
-        border: Border.all(color: color.withValues(alpha: 0.24)),
+        color: color.withValues(alpha: isSquare ? 0.1 : 0.12),
+        borderRadius: BorderRadius.circular(isSquare ? AppSizes.radiusSm - 2 : AppSizes.radiusFull),
+        border: isSquare ? null : Border.all(color: color.withValues(alpha: 0.24)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -59,8 +64,9 @@ class StatusBadge extends StatelessWidget {
             text,
             style: TextStyle(
               color: color,
-              fontSize: AppSizes.fontSm,
+              fontSize: isSquare ? AppSizes.fontXs : AppSizes.fontSm,
               fontWeight: FontWeight.w600,
+              letterSpacing: isSquare ? 0.3 : null,
             ),
           ),
         ],

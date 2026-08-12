@@ -144,7 +144,7 @@ class ApiClient {
       String fileName = filePath.split('/').last;
       FormData formData = FormData.fromMap({
         fileKey: await MultipartFile.fromFile(filePath, filename: fileName),
-        if (extraData != null) ...extraData,
+        ...?extraData,
       });
       return await _dio.post(
         path,
@@ -177,7 +177,7 @@ class ApiClient {
 
       Map<String, dynamic> mapData = {
         fileKey: multipartFiles,
-        if (extraData != null) ...extraData,
+        ...?extraData,
       };
 
       FormData formData = FormData.fromMap(mapData);

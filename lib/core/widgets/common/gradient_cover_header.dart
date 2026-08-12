@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_sizes.dart';
 
-/// Gradient banner with a circular avatar overlapping the bottom edge
-/// and an optional edit/camera badge on the avatar. Used at the top
-/// of profile-style screens.
+import '../../constants/app_colors.dart';
+import '../../constants/app_sizes.dart';
+import 'avatar.dart';
+
+/// Gradient banner with an [AppAvatar] overlapping the bottom edge
+/// and an optional edit/camera badge on it. Used at the top of
+/// profile-style screens.
 class GradientCoverHeader extends StatelessWidget {
   final String? avatarUrl;
   final String? avatarLabel;
@@ -31,16 +33,12 @@ class GradientCoverHeader extends StatelessWidget {
         clipBehavior: Clip.none,
         alignment: Alignment.topCenter,
         children: [
-          SizedBox(
+          Container(
             height: coverHeight,
             width: double.infinity,
-            // decoration: BoxDecoration(
-            //   gradient: LinearGradient(
-            //     begin: Alignment.topLeft,
-            //     end: Alignment.bottomRight,
-            //     colors: gradientColors,
-            //   ),
-            // ),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: gradientColors),
+            ),
           ),
           Positioned(
             top: coverHeight - avatarRadius,
@@ -50,17 +48,7 @@ class GradientCoverHeader extends StatelessWidget {
               child: Stack(
                 clipBehavior: Clip.none,
                 children: [
-                  CircleAvatar(
-                    radius: avatarRadius,
-                    backgroundColor: AppColors.primaryLight,
-                    backgroundImage: avatarUrl == null ? null : NetworkImage(avatarUrl!),
-                    child: avatarUrl != null
-                        ? null
-                        : Text(
-                      (avatarLabel?.trim().isNotEmpty ?? false) ? avatarLabel!.trim()[0].toUpperCase() : '?',
-                      style: const TextStyle(color: AppColors.primary, fontSize: AppSizes.fontXxl, fontWeight: FontWeight.w700),
-                    ),
-                  ),
+                  AppAvatar(imageUrl: avatarUrl, label: avatarLabel, radius: avatarRadius),
                   if (onAvatarEditTap != null)
                     Positioned(
                       right: -AppSizes.xs,
@@ -72,9 +60,7 @@ class GradientCoverHeader extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: AppColors.primary,
                             shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(color: Colors.black.withValues(alpha: 0.2), blurRadius: AppSizes.xs, offset: const Offset(0, 2)),
-                            ],
+                            boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.2), blurRadius: AppSizes.xs, offset: const Offset(0, 2))],
                           ),
                           child: const Icon(Icons.camera_alt_rounded, size: AppSizes.iconSm - AppSizes.xs, color: AppColors.textWhite),
                         ),

@@ -1,3 +1,4 @@
+import 'package:template_test/features/terms_privacy/presentation/screens/terms_privacy_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:template_test/routes/route_names.dart';
@@ -34,7 +35,7 @@ import '../features/edit_profile/presentation/screens/edit_profile_screen.dart';
 
 final routerProvider = Provider<GoRouter>(
   (ref) => GoRouter(
-    initialLocation: RouteNames.splash,
+    initialLocation: RouteNames.activity,
     errorBuilder: (context, state) => const NotFoundScreen(),
     observers: [LoggingObserver()],
     routes: [
@@ -125,6 +126,10 @@ final routerProvider = Provider<GoRouter>(
       GoRoute(
         path: RouteNames.editProfile,
         builder: (context, state) => const EditProfileScreen(),
+      ),
+    GoRoute(
+        path: RouteNames.termsPrivacy,
+        builder: (context, state) => const TermsPrivacyScreen(),
       ),
   ],
   ),
