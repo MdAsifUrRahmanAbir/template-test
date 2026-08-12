@@ -34,3 +34,10 @@ class LoggingObserver extends NavigatorObserver {
     super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
   }
 }
+
+/*
+Summary for go_router
+context.push(path) -> Adds to top (Back button works).
+context.replace(path) -> Swaps top screen (Back button goes to screen before the replaced one).
+context.go(path) -> Clears stack and jumps to the new location.
+ */

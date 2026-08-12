@@ -31,7 +31,8 @@ class ProfileTabView extends ConsumerWidget {
                 const SizedBox(height: AppSizes.xl),
                 ProfileSettingsSections(
                   onPersonalInfoTap: () => context.go(RouteNames.editProfile),
-                  onNotificationSettingsTap: () => context.go(RouteNames.notifications),
+                  onSettingsTap: () => context.push(RouteNames.settings),
+                  // onNotificationSettingsTap: () => context.go(RouteNames.notifications),
                 ),
               ],
             ),

@@ -29,4 +29,5 @@ class RouteNames {
   static const String orders = '/orders';
   static const String cart = '/cart';
   static const String editProfile = '/edit_profile';
+  static const String dashboard = '/dashboard';
 }

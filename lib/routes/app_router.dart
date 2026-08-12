@@ -32,41 +32,100 @@ import 'package:template_test/features/cart/presentation/screens/cart_screen.dar
 import '../core/navigation/logging_observer.dart';
 import '../features/edit_profile/presentation/screens/edit_profile_screen.dart';
 
-final routerProvider = Provider<GoRouter>((ref) => GoRouter(
-  initialLocation: RouteNames.profile,
-  errorBuilder: (context, state) => const NotFoundScreen(),
-  observers: [LoggingObserver()],
-  routes: [
-    GoRoute(path: RouteNames.splash, builder: (_, _) => const SplashScreen()),
-    GoRoute(path: RouteNames.onboarding, builder: (_, _) => const OnboardingScreen()),
-    GoRoute(path: RouteNames.welcome, builder: (_, _) => const WelcomeScreen()),
-    GoRoute(path: RouteNames.login, builder: (_, _) => const LoginScreen()),
-    GoRoute(path: RouteNames.forgotPassword, builder: (_, _) => const ForgotPasswordScreen()),
-    GoRoute(path: RouteNames.resetPassword, builder: (_, _) => const ResetPasswordScreen()),
-    GoRoute(path: RouteNames.mainShell, builder: (_, _) => const MainShellScreen()),
-    GoRoute(path: RouteNames.home, builder: (_, _) => const HomeScreen()),
-    GoRoute(path: RouteNames.activity, builder: (_, _) => const ActivityScreen()),
-    GoRoute(path: RouteNames.search, builder: (_, _) => const SearchScreen()),
-    GoRoute(path: RouteNames.notifications, builder: (_, _) => const NotificationsScreen()),
-    GoRoute(path: RouteNames.profile, builder: (_, _) => const ProfileScreen()),
-    GoRoute(path: RouteNames.settings, builder: (_, _) => const SettingsScreen()),
-    GoRoute(path: RouteNames.products, builder: (_, _) => const ProductListScreen()),
-    GoRoute(path: RouteNames.notFound, builder: (_, _) => const NotFoundScreen()),
-    GoRoute(path: RouteNames.error, builder: (_, _) => const ErrorScreen()),
-    GoRoute(path: RouteNames.noInternet, builder: (_, _) => const NoInternetScreen()),
-    GoRoute(path: RouteNames.maintenance, builder: (_, _) => const MaintenanceScreen()),
-    // Added: routes for the newly added basic screens
-    GoRoute(path: RouteNames.register, builder: (_, _) => const RegisterScreen()),
-    GoRoute(path: RouteNames.otpVerification, builder: (_, _) => const OtpVerificationScreen()),
-    GoRoute(path: RouteNames.changePassword, builder: (_, _) => const ChangePasswordScreen()),
-    GoRoute(path: RouteNames.helpSupport, builder: (_, _) => const HelpSupportScreen()),
-    GoRoute(path: RouteNames.terms, builder: (_, _) => const TermsScreen()),
-    GoRoute(path: RouteNames.privacyPolicy, builder: (_, _) => const PrivacyPolicyScreen()),
-    GoRoute(path: RouteNames.orders, builder: (_, _) => const OrderListScreen()),
-    GoRoute(path: RouteNames.cart, builder: (_, _) => const CartScreen()),
-    GoRoute(
+final routerProvider = Provider<GoRouter>(
+  (ref) => GoRouter(
+    initialLocation: RouteNames.splash,
+    errorBuilder: (context, state) => const NotFoundScreen(),
+    observers: [LoggingObserver()],
+    routes: [
+      GoRoute(path: RouteNames.splash, builder: (_, _) => const SplashScreen()),
+      GoRoute(
+        path: RouteNames.onboarding,
+        builder: (_, _) => const OnboardingScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.welcome,
+        builder: (_, _) => const WelcomeScreen(),
+      ),
+      GoRoute(path: RouteNames.login, builder: (_, _) => const LoginScreen()),
+      GoRoute(
+        path: RouteNames.forgotPassword,
+        builder: (_, _) => const ForgotPasswordScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.resetPassword,
+        builder: (_, _) => const ResetPasswordScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.mainShell,
+        builder: (_, _) => const MainShellScreen(),
+      ),
+      GoRoute(path: RouteNames.home, builder: (_, _) => const HomeScreen()),
+      GoRoute(
+        path: RouteNames.activity,
+        builder: (_, _) => const ActivityScreen(),
+      ),
+      GoRoute(path: RouteNames.search, builder: (_, _) => const SearchScreen()),
+      GoRoute(
+        path: RouteNames.notifications,
+        builder: (_, _) => const NotificationsScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.profile,
+        builder: (_, _) => const ProfileScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.settings,
+        builder: (_, _) => const SettingsScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.products,
+        builder: (_, _) => const ProductListScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.notFound,
+        builder: (_, _) => const NotFoundScreen(),
+      ),
+      GoRoute(path: RouteNames.error, builder: (_, _) => const ErrorScreen()),
+      GoRoute(
+        path: RouteNames.noInternet,
+        builder: (_, _) => const NoInternetScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.maintenance,
+        builder: (_, _) => const MaintenanceScreen(),
+      ),
+      // Added: routes for the newly added basic screens
+      GoRoute(
+        path: RouteNames.register,
+        builder: (_, _) => const RegisterScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.otpVerification,
+        builder: (_, _) => const OtpVerificationScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.changePassword,
+        builder: (_, _) => const ChangePasswordScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.helpSupport,
+        builder: (_, _) => const HelpSupportScreen(),
+      ),
+      GoRoute(path: RouteNames.terms, builder: (_, _) => const TermsScreen()),
+      GoRoute(
+        path: RouteNames.privacyPolicy,
+        builder: (_, _) => const PrivacyPolicyScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.orders,
+        builder: (_, _) => const OrderListScreen(),
+      ),
+      GoRoute(path: RouteNames.cart, builder: (_, _) => const CartScreen()),
+      GoRoute(
         path: RouteNames.editProfile,
         builder: (context, state) => const EditProfileScreen(),
       ),
   ],
-));
+  ),
+);

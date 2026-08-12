@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:template_test/core/network/api_client.dart';
 
+import '../../../../core/constants/api_endpoints.dart';
+
 final loginRepositoryProvider = Provider<LoginRepository>((ref) {
   return LoginRepository(ref.watch(apiClientProvider));
 });
@@ -8,4 +10,5 @@ final loginRepositoryProvider = Provider<LoginRepository>((ref) {
 class LoginRepository {
   final ApiClient _apiClient;
   LoginRepository(this._apiClient);
+
 }

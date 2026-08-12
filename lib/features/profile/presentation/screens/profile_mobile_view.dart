@@ -27,8 +27,9 @@ class ProfileMobileView extends ConsumerWidget {
             const ProfileStatsRow(projects: '24', tasks: '156', rating: '4.8'),
             const SizedBox(height: AppSizes.lg),
             ProfileSettingsSections(
-              onPersonalInfoTap: () => context.go(RouteNames.editProfile),
-              onNotificationSettingsTap: () => context.go(RouteNames.notifications),
+              onPersonalInfoTap: () => context.push(RouteNames.editProfile),
+              // onNotificationSettingsTap: () => context.push(RouteNames.notifications),
+              onSettingsTap: () => context.push(RouteNames.settings),
               // TODO: wire remaining rows to their routes once those
               // screens/routes exist (language, privacy, connected apps,
               // 2FA, help center).

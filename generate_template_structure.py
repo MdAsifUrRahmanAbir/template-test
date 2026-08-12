@@ -4,7 +4,7 @@ import subprocess
 
 ROOT = os.getcwd()
 LIB_PATH = os.path.join(ROOT, "lib")
-PACKAGE_NAME = "untitled2"  # Change this to your actual package name
+PACKAGE_NAME = "template_test2"  # Change this to your actual package name
 
 # =========================================================
 # Feature-First Architecture + DI + API + Router Structure
@@ -96,13 +96,10 @@ structure = {
             "presentation": {
                 "controllers": ["profile_controller.dart"],
                 "screens": [
-                    "profile_screen.dart", "profile_mobile_view.dart", "profile_tab_view.dart",
-                    # Added: basic "edit profile" screen missing from the original template
-                    "edit_profile_screen.dart", "edit_profile_mobile_view.dart", "edit_profile_tab_view.dart",
+                    "profile_screen.dart", "profile_mobile_view.dart", "profile_tab_view.dart"
                 ],
                 "widgets": [
-                    "profile_header.dart", "profile_info_section.dart", "profile_action_tile.dart",
-                    "edit_profile_form.dart",
+                    "profile_header.dart", "profile_info_section.dart", "profile_action_tile.dart"
                 ]
             }
         },
@@ -189,7 +186,7 @@ structure = {
             }
         },
     },
-    "routes": ["app_router.dart", "route_names.dart"]
+    "routes": ["app_router.dart", "route_names.dart", "app_initialization.dart"]
 }
 
 
@@ -210,7 +207,8 @@ API_ENDPOINTS_TEMPLATE = """class ApiEndpoints {
 
 }
 
-"""LOGGING_OBSERVE = """import 'package:flutter/widgets.dart';
+"""
+LOGGING_OBSERVE = """import 'package:flutter/widgets.dart';
 import 'dart:developer' as developer;
 
 /// A [NavigatorObserver] that logs navigation events.
@@ -246,24 +244,32 @@ class LoggingObserver extends NavigatorObserver {
     super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
   }
 }
+
+/*
+Summary for go_router
+context.push(path) -> Adds to top (Back button works).
+context.replace(path) -> Swaps top screen (Back button goes to screen before the replaced one).
+context.go(path) -> Clears stack and jumps to the new location.
+ */
 """
 
 API_CLIENT_TEMPLATE = """import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:__PACKAGE_NAME__/core/constants/api_endpoints.dart';
-import 'package:__PACKAGE_NAME__/core/network/api_exception.dart';
+import '../constants/api_endpoints.dart';
+import 'api_exception.dart';
 
 final apiClientProvider = Provider<ApiClient>((ref) => ApiClient());
 
 class ApiClient {
   late final Dio _dio;
+  String? _authToken;
 
   ApiClient() {
     _dio = Dio(
       BaseOptions(
         baseUrl: ApiEndpoints.baseUrl,
-        connectTimeout: const Duration(seconds: 15),
-        receiveTimeout: const Duration(seconds: 15),
+        connectTimeout: const Duration(seconds: 20),
+        receiveTimeout: const Duration(seconds: 20),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -272,70 +278,276 @@ class ApiClient {
     );
 
     _dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) {
+        if (_authToken != null && _authToken!.isNotEmpty) {
+          options.headers['Authorization'] = 'Bearer $_authToken';
+        }
+        return handler.next(options);
+      },
       onError: (DioException e, handler) {
         handler.next(e);
       },
     ));
   }
 
-  Future<Response> get(String path, {Map<String, dynamic>? queryParameters}) async {
+  void setAuthToken(String? token) {
+    _authToken = token;
+  }
+
+  Future<Response> get(
+      String path, {
+        Map<String, dynamic>? queryParameters,
+        Options? options,
+        CancelToken? cancelToken,
+      }) async {
     try {
-      return await _dio.get(path, queryParameters: queryParameters);
+      return await _dio.get(
+        path,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+      );
     } on DioException catch (e) {
       throw ApiException.fromDioError(e);
     }
   }
 
-  Future<Response> post(String path, {dynamic data, Map<String, dynamic>? queryParameters}) async {
+  Future<Response> post(
+      String path, {
+        dynamic data,
+        Map<String, dynamic>? queryParameters,
+        Options? options,
+        CancelToken? cancelToken,
+      }) async {
     try {
-      return await _dio.post(path, data: data, queryParameters: queryParameters);
+      return await _dio.post(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+      );
     } on DioException catch (e) {
       throw ApiException.fromDioError(e);
     }
   }
 
-  Future<Response> put(String path, {dynamic data}) async {
+  Future<Response> put(
+      String path, {
+        dynamic data,
+        Options? options,
+        CancelToken? cancelToken,
+      }) async {
     try {
-      return await _dio.put(path, data: data);
+      return await _dio.put(
+        path,
+        data: data,
+        options: options,
+        cancelToken: cancelToken,
+      );
     } on DioException catch (e) {
       throw ApiException.fromDioError(e);
     }
   }
 
-  Future<Response> delete(String path, {dynamic data}) async {
+  Future<Response> patch(
+      String path, {
+        dynamic data,
+        Options? options,
+        CancelToken? cancelToken,
+      }) async {
     try {
-      return await _dio.delete(path, data: data);
+      return await _dio.patch(
+        path,
+        data: data,
+        options: options,
+        cancelToken: cancelToken,
+      );
     } on DioException catch (e) {
       throw ApiException.fromDioError(e);
     }
   }
+
+  Future<Response> delete(
+      String path, {
+        dynamic data,
+        Options? options,
+        CancelToken? cancelToken,
+      }) async {
+    try {
+      return await _dio.delete(
+        path,
+        data: data,
+        options: options,
+        cancelToken: cancelToken,
+      );
+    } on DioException catch (e) {
+      throw ApiException.fromDioError(e);
+    }
+  }
+
+  /// Upload a single file (photo, document, etc.)
+  Future<Response> uploadFile(
+      String path,
+      String filePath, {
+        String fileKey = 'file',
+        Map<String, dynamic>? extraData,
+        ProgressCallback? onSendProgress,
+        CancelToken? cancelToken,
+      }) async {
+    try {
+      String fileName = filePath.split('/').last;
+      FormData formData = FormData.fromMap({
+        fileKey: await MultipartFile.fromFile(filePath, filename: fileName),
+        if (extraData != null) ...extraData,
+      });
+      return await _dio.post(
+        path,
+        data: formData,
+        onSendProgress: onSendProgress,
+        cancelToken: cancelToken,
+      );
+    } on DioException catch (e) {
+      throw ApiException.fromDioError(e);
+    }
+  }
+
+  /// Upload multiple files (photos, documents, etc.) in a single request
+  Future<Response> uploadFiles(
+      String path,
+      List<String> filePaths, {
+        String fileKey = 'files[]',
+        Map<String, dynamic>? extraData,
+        ProgressCallback? onSendProgress,
+        CancelToken? cancelToken,
+      }) async {
+    try {
+      List<MultipartFile> multipartFiles = [];
+      for (String filePath in filePaths) {
+        String fileName = filePath.split('/').last;
+        multipartFiles.add(
+          await MultipartFile.fromFile(filePath, filename: fileName),
+        );
+      }
+
+      Map<String, dynamic> mapData = {
+        fileKey: multipartFiles,
+        if (extraData != null) ...extraData,
+      };
+
+      FormData formData = FormData.fromMap(mapData);
+
+      return await _dio.post(
+        path,
+        data: formData,
+        onSendProgress: onSendProgress,
+        cancelToken: cancelToken,
+      );
+    } on DioException catch (e) {
+      throw ApiException.fromDioError(e);
+    }
+  }
+
 }
 """
 
-API_EXCEPTION_TEMPLATE = """import 'package:dio/dio.dart';
+API_EXCEPTION_TEMPLATE = """
+import 'package:dio/dio.dart';
 
 class ApiException implements Exception {
   final String message;
   final int? statusCode;
+  final dynamic errors;
 
-  const ApiException({required this.message, this.statusCode});
+  const ApiException({
+    required this.message,
+    this.statusCode,
+    this.errors,
+  });
 
   factory ApiException.fromDioError(DioException e) {
     switch (e.type) {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.receiveTimeout:
       case DioExceptionType.sendTimeout:
-        return const ApiException(message: 'Connection timed out. Please try again.');
-      case DioExceptionType.badResponse:
-        return ApiException(
-          message: e.response?.data?['message'] ?? 'Server error occurred.',
-          statusCode: e.response?.statusCode,
+        return const ApiException(
+          message: 'Connection timed out. Please check your internet connection and try again.',
+          statusCode: 408,
         );
+
       case DioExceptionType.connectionError:
-        return const ApiException(message: 'No internet connection.');
+        return const ApiException(
+          message: 'No internet connection available.',
+          statusCode: 0,
+        );
+
+      case DioExceptionType.badResponse:
+        return _handleBadResponse(e.response);
+
+      case DioExceptionType.cancel:
+        return const ApiException(
+          message: 'Request was cancelled.',
+          statusCode: 499,
+        );
+
+      case DioExceptionType.badCertificate:
+        return const ApiException(
+          message: 'Security certificate validation failed.',
+          statusCode: 495,
+        );
+
+      case DioExceptionType.unknown:
       default:
-        return const ApiException(message: 'An unexpected error occurred.');
+        return ApiException(
+          message: e.message ?? 'An unexpected error occurred. Please try again.',
+          statusCode: 500,
+        );
     }
+  }
+
+  static ApiException _handleBadResponse(Response? response) {
+    final statusCode = response?.statusCode;
+    final data = response?.data;
+
+    String message = 'Server error occurred.';
+    dynamic errors;
+
+    if (data is Map<String, dynamic>) {
+      message = data['message'] ?? data['error'] ?? data['msg'] ?? 'Server error ($statusCode)';
+      errors = data['errors'] ?? data['data'];
+    } else if (data is String && data.isNotEmpty) {
+      message = data;
+    }
+
+    switch (statusCode) {
+      case 400:
+        message = message != 'Server error occurred.' ? message : 'Bad request.';
+        break;
+      case 401:
+        message = message != 'Server error occurred.' ? message : 'Unauthorized. Please login again.';
+        break;
+      case 403:
+        message = message != 'Server error occurred.' ? message : 'Access forbidden.';
+        break;
+      case 404:
+        message = message != 'Server error occurred.' ? message : 'Requested resource not found.';
+        break;
+      case 422:
+        message = message != 'Server error occurred.' ? message : 'Validation failed.';
+        break;
+      case 500:
+      case 502:
+      case 503:
+      case 504:
+        message = 'Internal server error. Please try again later.';
+        break;
+    }
+
+    return ApiException(
+      message: message,
+      statusCode: statusCode,
+      errors: errors,
+    );
   }
 
   @override
@@ -450,6 +662,24 @@ final routerProvider = Provider<GoRouter>((ref) => GoRouter(
     GoRoute(path: RouteNames.cart, builder: (_, __) => const CartScreen()),
   ],
 ));
+"""
+
+APP_INITIALIZATION = """import 'package:flutter/cupertino.dart';
+
+class AppInitialization {
+  AppInitialization();
+
+  static void init(){
+    // SystemChrome.setSystemUIOverlayStyle(
+    //   const SystemUiOverlayStyle(
+    //     statusBarColor: Colors.transparent, // স্ট্যাটাস বারের ব্যাকগ্রাউন্ড ট্রান্সপারেন্ট
+    //     statusBarIconBrightness: Brightness.dark, // Android-এর জন্য (Battery, WiFi আইকন ডার্ক করবে)
+    //     statusBarBrightness: Brightness.light, // iOS-এর জন্য (Status bar text/icons ডার্ক করবে)
+    //   ),
+    // );
+
+  }
+}
 """
 
 APP_COLORS_TEMPLATE = """import 'package:flutter/material.dart';
@@ -1096,8 +1326,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:__PACKAGE_NAME__/core/theme/app_theme.dart';
 import 'package:__PACKAGE_NAME__/routes/app_router.dart';
 
+import 'routes/app_initialization.dart';
+
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+    WidgetsFlutterBinding.ensureInitialized();
+  AppInitialization.init();
   runApp(
     const ProviderScope(
       child: PosApp(),
@@ -1204,6 +1437,7 @@ SPECIFIC_FILE_TEMPLATES = {
     "date_formatter.dart": DATE_FORMATTER_TEMPLATE,
     "route_names.dart": ROUTE_NAMES_TEMPLATE,
     "app_router.dart": APP_ROUTER_TEMPLATE,
+    "app_initialization.dart": APP_INITIALIZATION,
 }
 
 # =========================================================

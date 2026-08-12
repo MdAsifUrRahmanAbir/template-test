@@ -104,6 +104,8 @@ class AppStrings {
   static const String twoFactorAuthTitle = 'Two-Factor Auth';
   static const String helpCenterTitle = 'Help Center';
   static const String helpCenterSubtitle = 'Documentation, ticket desk & server diagnostics';
+  static const String settingsTitle = 'Settings';
+  static const String settingsSubtitle = 'App preferences, account management & security';
 
   // ---- Added: Edit Profile screen ----
   static const String editProfileTitle = 'Edit Profile';
@@ -115,4 +117,10 @@ class AppStrings {
   static const String bio = 'Bio';
   // static const String saveChanges = 'Save Changes';
   // static const String fullNameRequired = 'Full name is required';
+
+// ---- Added: Activity screen ----
+  static const String activityLogsTitle = 'Activity Logs';
+  static const String filterToday = 'Today';
+  static const String filterThisWeek = 'This Week';
+  static const String filterThisMonth = 'This Month';
 }

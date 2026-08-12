@@ -10,9 +10,12 @@ class ActivityScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: Responsive(
-        mobile: const ActivityMobileView(),
-        tablet: const ActivityTabView(),
+      body: SafeArea(
+        bottom: false,
+        child: Responsive(
+          mobile: const ActivityMobileView(),
+          tablet: const ActivityTabView(),
+        ),
       ),
     );
   }

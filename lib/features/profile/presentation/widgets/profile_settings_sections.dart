@@ -9,22 +9,24 @@ import 'settings_group.dart';
 /// the caller's hands.
 class ProfileSettingsSections extends StatelessWidget {
   final VoidCallback? onPersonalInfoTap;
-  final VoidCallback? onNotificationSettingsTap;
-  final VoidCallback? onLanguageTap;
+  // final VoidCallback? onNotificationSettingsTap;
+  // final VoidCallback? onLanguageTap;
   final VoidCallback? onPrivacyTap;
   final VoidCallback? onConnectedAppsTap;
   final VoidCallback? onTwoFactorAuthTap;
   final VoidCallback? onHelpCenterTap;
+  final VoidCallback? onSettingsTap;
 
   const ProfileSettingsSections({
     super.key,
     this.onPersonalInfoTap,
-    this.onNotificationSettingsTap,
-    this.onLanguageTap,
+    // this.onNotificationSettingsTap,
+    // this.onLanguageTap,
     this.onPrivacyTap,
     this.onConnectedAppsTap,
     this.onTwoFactorAuthTap,
     this.onHelpCenterTap,
+    this.onSettingsTap,
   });
 
   @override
@@ -41,17 +43,23 @@ class ProfileSettingsSections extends StatelessWidget {
               subtitle: AppStrings.personalInfoSubtitle,
               onTap: onPersonalInfoTap,
             ),
+            // SettingsTile(
+            //   icon: Icons.notifications_outlined,
+            //   title: AppStrings.notificationSettingsTitle,
+            //   subtitle: AppStrings.notificationSettingsSubtitle,
+            //   onTap: onNotificationSettingsTap,
+            // ),
+            // SettingsTile(
+            //   icon: Icons.language_rounded,
+            //   title: AppStrings.languageTitle,
+            //   subtitle: 'English (US) • UTC -05:00',
+            //   onTap: onLanguageTap,
+            // ),
             SettingsTile(
-              icon: Icons.notifications_outlined,
-              title: AppStrings.notificationSettingsTitle,
-              subtitle: AppStrings.notificationSettingsSubtitle,
-              onTap: onNotificationSettingsTap,
-            ),
-            SettingsTile(
-              icon: Icons.language_rounded,
-              title: AppStrings.languageTitle,
-              subtitle: 'English (US) • UTC -05:00',
-              onTap: onLanguageTap,
+              icon: Icons.settings_outlined,
+              title: AppStrings.settingsTitle,
+              subtitle: AppStrings.settingsSubtitle,
+              onTap: onSettingsTap,
             ),
           ],
         ),
