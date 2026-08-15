@@ -24,11 +24,11 @@ class RouteNames {
   static const String otpVerification = '/otp-verification';
   static const String changePassword = '/change-password';
   static const String helpSupport = '/help-support';
-  static const String terms = '/terms';
-  static const String privacyPolicy = '/privacy-policy';
-  static const String orders = '/orders';
   static const String cart = '/cart';
   static const String editProfile = '/edit_profile';
   static const String dashboard = '/dashboard';
   static const String termsPrivacy = '/terms_privacy';
+  static const String auditLog = '/audit_log';
+  static const String orderList = '/order_list';
+  static const String analyticsMode = '/analytics_mode';
 }

@@ -1,6 +1,10 @@
 class AppStrings {
   AppStrings._();
 
+  // ---- Added: Splash screen ----
+  static const String appTagline = 'Next-Gen Business Platform';
+  static const String connectingToServers = 'Connecting to secure servers...';
+
   static const String appName = 'POS App';
   static const String welcomeTitle = 'Welcome to POS App';
   static const String welcomeSubtitle = 'Manage your sales, products, and receipts seamlessly.';
@@ -11,6 +15,12 @@ class AppStrings {
   static const String skip = 'Skip';
   static const String next = 'Next';
   static const String errorOccurred = 'Something went wrong. Please try again.';
+
+  // ---- Added: Welcome screen ----
+  static const String welcomeToApp = 'Welcome to EnterpriseSuite';
+  static const String welcomeToAppSubtitle =
+      'Manage operations, analyze global metrics, and streamline communications with modern secure systems.';
+
 
   // ---- Added: Sign In screen ----
   static const String signIn = 'Sign In';
@@ -87,6 +97,13 @@ class AppStrings {
 // ---- Added: Home screen ----
 //   static const String welcomeBack = 'Welcome back,';
   static const String quickActions = 'Quick Actions';
+  static const String newOrder = 'New Order';
+  static const String reports = 'Reports';
+  static const String inventory = 'Inventory';
+  static const String messages = 'Messages';
+  static const String calender = 'Calender';
+  static const String tasks = 'Tasks';
+  static const String invoices = 'Invoices';
   static const String recentActivity = 'Recent Activity';
 
   // ---- Added: Profile screen ----
@@ -187,4 +204,72 @@ class AppStrings {
   static const String termsContactName = 'EnterpriseSuite Compliance';
   static const String termsContactEmail = 'Email: legal@enterprisesuite.com';
   static const String termsContactSla = 'Response SLA: Within 2 business days';
+
+  // ---- Added: Help & Support screen ----
+  static const String helpSupportTitle = 'Help & Support';
+  static const String searchFaqsHint = 'Search FAQs...';
+  static const String faqSectionTitle = 'Frequently Asked Questions';
+  static const String submitTicket = 'Submit a Ticket';
+  static const String contactSupportTitle = 'Contact Support';
+  static const String liveChat = 'Live Chat';
+  static const String chatNow = 'Chat Now';
+  static const String emailContact = 'Email';
+  static const String callContact = 'Call';
+
+  // ---- Added: Audit Log screen ----
+  static const String auditLogTitle = 'Audit Log';
+  static const String statusSuccess = 'Success';
+  static const String statusFailed = 'Failed';
+  static const String statusPending = 'Pending';
+
+// ---- Added: Order List screen ----
+  static const String myOrdersTitle = 'My Orders';
+  static const String orderTabAll = 'All';
+  static const String orderTabPending = 'Pending';
+  static const String orderTabCompleted = 'Completed';
+  static const String orderTabCancelled = 'Cancelled';
+  static const String viewDetails = 'View Details';
+
+  // ---- Added: Analytics screen ----
+  static const String analyticsTitle = 'Analytics';
+  static const String exportLabel = 'Export';
+  static const String revenueVsExpenses = 'Revenue vs Expenses';
+  static const String categoryBreakdown = 'Category Breakdown';
+  static const String revenueLabel = 'Revenue';
+  static const String expensesLabel = 'Expenses';
+  static const String netProfitLabel = 'Net Profit';
+  static const String ordersLabel2 = 'Orders';
+
+  // ---- Added: Products screen ----
+  static const String productsTitle = 'Products';
+  static const String searchProductsHint = 'Search products...';
+  static const String stockInStock = 'In Stock';
+  static const String stockLowStock = 'Low Stock';
+  static const String stockOutOfStock = 'Out of Stock';
+
+
+
+
+  // ---- Added: Not Found screen ----
+  static const String notFoundCode = '404';
+  static const String notFoundTitle = 'Page Not Found';
+  static const String notFoundSubtitle = "The page you're looking for doesn't exist or has been moved.";
+  static const String backToHome = 'Back to Home';
+
+  // ---- Added: No Internet screen ----
+  static const String noInternetTitle = 'No Internet Connection';
+  static const String noInternetSubtitle = 'Please check your network settings and try again.';
+  static const String checkConnection = 'Check Connection';
+  static const String workOffline = 'Work Offline';
+
+  // ---- Added: Maintenance screen ----
+  static const String maintenanceTitle = 'Under Maintenance';
+  static const String maintenanceSubtitle = "We're performing scheduled maintenance to improve your experience.";
+  static const String notifyMeWhenReady = 'Notify Me When Ready';
+
+  // ---- Added: Error screen ----
+  static const String errorTitle = 'Something Went Wrong';
+  static const String errorSubtitle = 'An unexpected error occurred. Please try again.';
+  static const String retry = 'Retry';
+  static const String reportIssue = 'Report Issue';
 }

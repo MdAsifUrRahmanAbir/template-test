@@ -15,6 +15,7 @@ class SettingsSecurityGeneralSection extends StatelessWidget {
   final VoidCallback? onLanguageTap;
   final String regionValue;
   final VoidCallback? onRegionTap;
+  final VoidCallback? onChangePssword;
 
   const SettingsSecurityGeneralSection({
     super.key,
@@ -26,6 +27,7 @@ class SettingsSecurityGeneralSection extends StatelessWidget {
     this.onLanguageTap,
     this.regionValue = 'United States',
     this.onRegionTap,
+    this.onChangePssword,
   });
 
   @override
@@ -64,6 +66,11 @@ class SettingsSecurityGeneralSection extends StatelessWidget {
               title: AppStrings.region,
               value: regionValue,
               onTap: onRegionTap,
+            ),
+            SettingsTile(
+              title: AppStrings.changePasswordTitle,
+              // value: regionValue,
+              onTap: onChangePssword,
             ),
           ],
         ),

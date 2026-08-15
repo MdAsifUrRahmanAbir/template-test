@@ -41,7 +41,7 @@ class RegisterTabView extends ConsumerWidget {
                                 // TODO: wire to registerControllerProvider.register(...)
                                 context.push(RouteNames.otpVerification);
                               },
-                              onTermsTap: () => context.push(RouteNames.terms),
+                              onTermsTap: () => context.push(RouteNames.termsPrivacy),
                             ),
                           ],
                         ),

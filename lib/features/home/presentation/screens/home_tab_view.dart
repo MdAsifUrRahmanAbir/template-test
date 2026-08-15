@@ -97,7 +97,7 @@ class HomeTabView extends ConsumerWidget {
                           child: QuickActionItem(
                             icon: Icons.add_rounded,
                             label: 'New Order',
-                            onTap: () => context.go(RouteNames.orders),
+                            onTap: () => context.go(RouteNames.orderList),
                           ),
                         ),
                         const SizedBox(width: AppSizes.sm),
@@ -129,7 +129,7 @@ class HomeTabView extends ConsumerWidget {
                           child: QuickActionItem(
                             icon: Icons.receipt_long_outlined,
                             label: 'Invoices',
-                            onTap: () => context.go(RouteNames.orders),
+                            onTap: () => context.go(RouteNames.orderList),
                           ),
                         ),
                         const SizedBox(width: AppSizes.sm),

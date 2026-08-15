@@ -31,6 +31,7 @@ class QuickActionItem extends StatelessWidget {
           Text(
             label,
             textAlign: TextAlign.center,
+            maxLines: 1,
             style: const TextStyle(
               fontSize: AppSizes.fontSm,
               fontWeight: FontWeight.w600,

@@ -5,16 +5,19 @@ import 'custom_card.dart';
 import 'status_badge.dart';
 import 'square_icon_tile.dart';
 
-/// General-purpose stat card — label + big value, with an optional
-/// icon and an optional trend badge. Omit [icon]/[trendLabel] for a
-/// plain label/value card (was previously a separate `MiniStatCard`);
-/// supply them for the full icon+trend variant (Home dashboard).
+/// General-purpose stat card. Three layouts, chosen by which params
+/// are supplied:
+/// 1. [icon] + [trendLabel]: icon/trend header row, label, value (Home dashboard).
+/// 2. [trendLabel] only (no [icon]): label+trend row, then value
+///    (+ optional [trailing] widget, e.g. a sparkline) — Analytics screen.
+/// 3. Neither: compact centered label/value (was `MiniStatCard`) — Profile screen.
 class SummaryCard extends StatelessWidget {
   final String label;
   final String value;
   final IconData? icon;
   final String? trendLabel;
   final bool isPositiveTrend;
+  final Widget? trailing;
 
   const SummaryCard({
     super.key,
@@ -23,48 +26,67 @@ class SummaryCard extends StatelessWidget {
     this.icon,
     this.trendLabel,
     this.isPositiveTrend = true,
+    this.trailing,
   });
 
   @override
   Widget build(BuildContext context) {
-    final hasHeader = icon != null || trendLabel != null;
+    final hasIcon = icon != null;
+    final hasTrend = trendLabel != null;
+    final isCompact = !hasIcon && !hasTrend;
+
+    final trendBadge = hasTrend
+        ? StatusBadge(
+      text: trendLabel!,
+      type: isPositiveTrend ? StatusBadgeType.success : StatusBadgeType.error,
+      compact: true,
+    )
+        : null;
 
     return CustomCard(
       padding: EdgeInsets.symmetric(
-        vertical: hasHeader ? AppSizes.md : AppSizes.md,
-        horizontal: hasHeader ? AppSizes.md : AppSizes.sm,
+        vertical: AppSizes.md,
+        horizontal: isCompact ? AppSizes.sm : AppSizes.md,
       ),
       child: Column(
-        crossAxisAlignment: hasHeader ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+        crossAxisAlignment: isCompact ? CrossAxisAlignment.center : CrossAxisAlignment.start,
         children: [
-          if (hasHeader) ...[
+          if (hasIcon) ...[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                if (icon != null) SquareIconTile(icon: icon!, color: AppColors.primary),
-                if (trendLabel != null)
-                  StatusBadge(
-                    text: trendLabel!,
-                    type: isPositiveTrend ? StatusBadgeType.success : StatusBadgeType.error,
-                    compact: true,
-                  ),
+                SquareIconTile(icon: icon!, color: AppColors.primary),
+                ?trendBadge,
               ],
             ),
             const SizedBox(height: AppSizes.md),
-          ],
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: hasHeader ? AppSizes.fontSm : AppSizes.fontXs,
-              color: AppColors.textSecondary,
-              letterSpacing: hasHeader ? null : 0.5,
+            Text(label, style: const TextStyle(fontSize: AppSizes.fontSm, color: AppColors.textSecondary)),
+            Text(value, style: const TextStyle(fontSize: AppSizes.fontXxl, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+          ] else if (hasTrend) ...[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(label, style: const TextStyle(fontSize: AppSizes.fontSm, fontWeight: FontWeight.w600, color: AppColors.textSecondary)),
+                trendBadge!,
+              ],
             ),
-          ),
-          if (!hasHeader) const SizedBox(height: AppSizes.xs),
-          Text(
-            value,
-            style: const TextStyle(fontSize: AppSizes.fontXxl, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
-          ),
+            const SizedBox(height: AppSizes.sm + AppSizes.xs),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(value, style: const TextStyle(fontSize: AppSizes.fontXxl, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+                ?trailing,
+              ],
+            ),
+          ] else ...[
+            Text(
+              label,
+              style: const TextStyle(fontSize: AppSizes.fontXs, color: AppColors.textSecondary, letterSpacing: 0.5),
+            ),
+            const SizedBox(height: AppSizes.xs),
+            Text(value, style: const TextStyle(fontSize: AppSizes.fontXxl, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+          ],
         ],
       ),
     );

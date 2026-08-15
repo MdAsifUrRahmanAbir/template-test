@@ -17,6 +17,7 @@ class CustomTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TabBar(
+      dividerColor: Colors.transparent,
       controller: controller,
       tabs: tabs,
       isScrollable: isScrollable,

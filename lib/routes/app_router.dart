@@ -1,3 +1,6 @@
+import 'package:template_test/features/analytics_mode/presentation/screens/analytics_mode_screen.dart';
+import 'package:template_test/features/order_list/presentation/screens/order_list_screen.dart';
+import 'package:template_test/features/audit_log/presentation/screens/audit_log_screen.dart';
 import 'package:template_test/features/terms_privacy/presentation/screens/terms_privacy_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -25,9 +28,6 @@ import 'package:template_test/features/register/presentation/screens/register_sc
 import 'package:template_test/features/otp_verification/presentation/screens/otp_verification_screen.dart';
 import 'package:template_test/features/change_password/presentation/screens/change_password_screen.dart';
 import 'package:template_test/features/help_support/presentation/screens/help_support_screen.dart';
-import 'package:template_test/features/system/presentation/screens/terms_screen.dart';
-import 'package:template_test/features/system/presentation/screens/privacy_policy_screen.dart';
-import 'package:template_test/features/orders/presentation/screens/order_list_screen.dart';
 import 'package:template_test/features/cart/presentation/screens/cart_screen.dart';
 
 import '../core/navigation/logging_observer.dart';
@@ -35,10 +35,11 @@ import '../features/edit_profile/presentation/screens/edit_profile_screen.dart';
 
 final routerProvider = Provider<GoRouter>(
   (ref) => GoRouter(
-    initialLocation: RouteNames.activity,
+    initialLocation: RouteNames.splash,
     errorBuilder: (context, state) => const NotFoundScreen(),
     observers: [LoggingObserver()],
     routes: [
+
       GoRoute(path: RouteNames.splash, builder: (_, _) => const SplashScreen()),
       GoRoute(
         path: RouteNames.onboarding,
@@ -113,15 +114,6 @@ final routerProvider = Provider<GoRouter>(
         path: RouteNames.helpSupport,
         builder: (_, _) => const HelpSupportScreen(),
       ),
-      GoRoute(path: RouteNames.terms, builder: (_, _) => const TermsScreen()),
-      GoRoute(
-        path: RouteNames.privacyPolicy,
-        builder: (_, _) => const PrivacyPolicyScreen(),
-      ),
-      GoRoute(
-        path: RouteNames.orders,
-        builder: (_, _) => const OrderListScreen(),
-      ),
       GoRoute(path: RouteNames.cart, builder: (_, _) => const CartScreen()),
       GoRoute(
         path: RouteNames.editProfile,
@@ -130,6 +122,18 @@ final routerProvider = Provider<GoRouter>(
     GoRoute(
         path: RouteNames.termsPrivacy,
         builder: (context, state) => const TermsPrivacyScreen(),
+      ),
+    GoRoute(
+        path: RouteNames.auditLog,
+        builder: (context, state) => const AuditLogScreen(),
+      ),
+    GoRoute(
+        path: RouteNames.orderList,
+        builder: (context, state) => const OrderListScreen(),
+      ),
+    GoRoute(
+        path: RouteNames.analyticsMode,
+        builder: (context, state) => const AnalyticsModeScreen(),
       ),
   ],
   ),

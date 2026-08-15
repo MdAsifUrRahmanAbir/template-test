@@ -43,6 +43,7 @@ class HomeHeader extends StatelessWidget {
               const SizedBox(width: AppSizes.sm + AppSizes.xs),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
                     AppStrings.welcomeBack,

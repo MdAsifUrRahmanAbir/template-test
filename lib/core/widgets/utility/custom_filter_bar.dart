@@ -34,6 +34,7 @@ class CustomFilterBar<T> extends StatelessWidget {
                 selectedColor: AppColors.primaryLight,
                 checkmarkColor: AppColors.primary,
                 side: const BorderSide(color: AppColors.border),
+                showCheckmark: false,
               ),
             ),
           ),

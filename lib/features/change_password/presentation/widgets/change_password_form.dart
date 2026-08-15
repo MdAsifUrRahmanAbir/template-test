@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/widgets/common/password_input_field.dart';
 import '../../../../core/widgets/common/password_strength_meter.dart';
 import '../../../../core/widgets/common/primary_button.dart';
+import '../controllers/change_password_controller.dart';
 
-/// Current / new / confirm password fields + strength meter + Save
-/// Changes button.
-///
-/// Purely presentational — owns only local UI state (controllers,
-/// password-strength calculation, validation). The actual "change
-/// password" call is supplied by the caller via [onSave], so this
-/// widget doesn't reach into data/repositories.
-class ChangePasswordForm extends StatefulWidget {
+class ChangePasswordForm extends ConsumerWidget {
   final bool loading;
-  final void Function(String currentPassword, String newPassword) onSave;
+
+  final void Function(
+      String currentPassword,
+      String newPassword,
+      ) onSave;
 
   const ChangePasswordForm({
     super.key,
@@ -23,93 +23,72 @@ class ChangePasswordForm extends StatefulWidget {
   });
 
   @override
-  State<ChangePasswordForm> createState() => _ChangePasswordFormState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.watch(
+      changePasswordControllerProvider.notifier,
+    );
 
-class _ChangePasswordFormState extends State<ChangePasswordForm> {
-  final _formKey = GlobalKey<FormState>();
-  final _currentPasswordController = TextEditingController();
-  final _newPasswordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+    final state = ref.watch(
+      changePasswordControllerProvider,
+    );
 
-  @override
-  void dispose() {
-    _currentPasswordController.dispose();
-    _newPasswordController.dispose();
-    _confirmPasswordController.dispose();
-    super.dispose();
-  }
-
-  PasswordStrength _strengthOf(String password) {
-    var score = 0;
-    if (password.length >= 8) score++;
-    if (RegExp(r'[A-Z]').hasMatch(password)) score++;
-    if (RegExp(r'[0-9]').hasMatch(password)) score++;
-    if (RegExp(r'[!@#\$&*~%^()_\-+=]').hasMatch(password)) score++;
-
-    return switch (score) {
-      0 || 1 => PasswordStrength.weak,
-      2 => PasswordStrength.fair,
-      3 => PasswordStrength.good,
-      _ => PasswordStrength.strong,
-    };
-  }
-
-  String? _validateCurrentPassword(String? value) {
-    if (value == null || value.isEmpty) return AppStrings.currentPasswordRequired;
-    return null;
-  }
-
-  String? _validateNewPassword(String? value) {
-    if (value == null || value.isEmpty) return AppStrings.passwordRequired;
-    if (value == _currentPasswordController.text) return AppStrings.newPasswordSameAsCurrent;
-    return null;
-  }
-
-  String? _validateConfirmPassword(String? value) {
-    if (value == null || value.isEmpty) return AppStrings.confirmPasswordRequired;
-    if (value != _newPasswordController.text) return AppStrings.passwordsDoNotMatch;
-    return null;
-  }
-
-  void _submit() {
-    if (_formKey.currentState?.validate() ?? false) {
-      widget.onSave(_currentPasswordController.text, _newPasswordController.text);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
+      key: controller.formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           PasswordInputField(
             label: AppStrings.currentPassword,
-            controller: _currentPasswordController,
-            validator: _validateCurrentPassword,
+            controller:
+            controller.currentPasswordController,
+            validator:
+            controller.validateCurrentPassword,
           ),
-          const SizedBox(height: AppSizes.lg),
+
+          const SizedBox(
+            height: AppSizes.lg,
+          ),
+
           PasswordInputField(
             label: AppStrings.newPassword,
-            controller: _newPasswordController,
-            validator: _validateNewPassword,
-            onChanged: (_) => setState(() {}),
+            controller:
+            controller.newPasswordController,
+            validator:
+            controller.validateNewPassword,
+            onChanged:
+            controller.onNewPasswordChanged,
           ),
-          const SizedBox(height: AppSizes.lg),
+
+          const SizedBox(
+            height: AppSizes.lg,
+          ),
+
           PasswordInputField(
             label: AppStrings.confirmPassword,
-            controller: _confirmPasswordController,
-            validator: _validateConfirmPassword,
+            controller:
+            controller.confirmPasswordController,
+            validator:
+            controller.validateConfirmPassword,
           ),
-          const SizedBox(height: AppSizes.xs),
-          PasswordStrengthMeter(strength: _strengthOf(_newPasswordController.text)),
-          const SizedBox(height: AppSizes.lg),
+
+          const SizedBox(
+            height: AppSizes.xs,
+          ),
+
+          PasswordStrengthMeter(
+            strength: state.passwordStrength,
+          ),
+
+          const SizedBox(
+            height: AppSizes.lg,
+          ),
+
           PrimaryButton(
             label: AppStrings.saveChanges,
-            loading: widget.loading,
-            onPressed: _submit,
+            loading: loading,
+            onPressed: () {
+              controller.submit(onSave);
+            },
           ),
         ],
       ),

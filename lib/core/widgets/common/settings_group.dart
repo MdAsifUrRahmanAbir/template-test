@@ -32,7 +32,7 @@ class SettingsGroup extends StatelessWidget {
           decoration: BoxDecoration(
             color: AppColors.surface,
             borderRadius: BorderRadius.circular(AppSizes.radiusMd),
-            border: Border.all(color: AppColors.border),
+            // border: Border.all(color: AppColors.border),
           ),
           clipBehavior: Clip.antiAlias,
           child: Column(

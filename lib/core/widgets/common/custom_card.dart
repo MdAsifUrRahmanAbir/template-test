@@ -13,6 +13,7 @@ class CustomCard extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final Color? accentColor;
   final bool tinted;
+  final bool fullWidth;
 
   const CustomCard({
     super.key,
@@ -21,6 +22,7 @@ class CustomCard extends StatelessWidget {
     this.padding = const EdgeInsets.all(AppSizes.lg),
     this.accentColor,
     this.tinted = false,
+    this.fullWidth = false,
   });
 
   @override
@@ -28,18 +30,19 @@ class CustomCard extends StatelessWidget {
     final bg = tinted ? AppColors.primaryLight : AppColors.surface;
 
     final content = Container(
+      width: fullWidth ? double.infinity : double.maxFinite,
       padding: padding,
       decoration: BoxDecoration(
         color: bg,
         borderRadius: BorderRadius.circular(AppSizes.radiusMd),
-        border: Border.all(color: AppColors.border),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.textPrimary.withValues(alpha: 0.02),
-            blurRadius: AppSizes.md,
-            offset: const Offset(0, AppSizes.xs),
-          ),
-        ],
+        // border: Border.all(color: AppColors.border),
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: AppColors.textPrimary.withValues(alpha: 0.02),
+        //     blurRadius: AppSizes.md,
+        //     offset: const Offset(0, AppSizes.xs),
+        //   ),
+        // ],
       ),
       child: child,
     );

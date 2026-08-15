@@ -37,18 +37,29 @@ class GradientCoverHeader extends StatelessWidget {
             height: coverHeight,
             width: double.infinity,
             decoration: BoxDecoration(
-              gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: gradientColors),
+              gradient: LinearGradient(
+                begin: Alignment(0.00, 0.00),
+                end: Alignment(1.00, 1.00),
+                colors: [const Color(0xFF4F46E5), const Color(0xFF312E81)],
+              ),
             ),
           ),
           Positioned(
             top: coverHeight - avatarRadius,
             child: Container(
               padding: const EdgeInsets.all(AppSizes.xs),
-              decoration: const BoxDecoration(color: AppColors.background, shape: BoxShape.circle),
+              decoration: const BoxDecoration(
+                color: AppColors.background,
+                shape: BoxShape.circle,
+              ),
               child: Stack(
                 clipBehavior: Clip.none,
                 children: [
-                  AppAvatar(imageUrl: avatarUrl, label: avatarLabel, radius: avatarRadius),
+                  AppAvatar(
+                    imageUrl: avatarUrl,
+                    label: avatarLabel,
+                    radius: avatarRadius,
+                  ),
                   if (onAvatarEditTap != null)
                     Positioned(
                       right: -AppSizes.xs,
@@ -56,13 +67,25 @@ class GradientCoverHeader extends StatelessWidget {
                       child: GestureDetector(
                         onTap: onAvatarEditTap,
                         child: Container(
-                          padding: const EdgeInsets.all(AppSizes.sm - AppSizes.xs / 2),
+                          padding: const EdgeInsets.all(
+                            AppSizes.sm - AppSizes.xs / 2,
+                          ),
                           decoration: BoxDecoration(
                             color: AppColors.primary,
                             shape: BoxShape.circle,
-                            boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.2), blurRadius: AppSizes.xs, offset: const Offset(0, 2))],
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.2),
+                                blurRadius: AppSizes.xs,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
                           ),
-                          child: const Icon(Icons.camera_alt_rounded, size: AppSizes.iconSm - AppSizes.xs, color: AppColors.textWhite),
+                          child: const Icon(
+                            Icons.camera_alt_rounded,
+                            size: AppSizes.iconSm - AppSizes.xs,
+                            color: AppColors.textWhite,
+                          ),
                         ),
                       ),
                     ),

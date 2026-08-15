@@ -23,7 +23,7 @@ class HomeMobileView extends ConsumerWidget {
         HomeHeader(
           userName: 'Alex Carter',
           hasUnreadNotifications: true,
-          onNotificationTap: () => context.go(RouteNames.notifications),
+          onNotificationTap: () => context.push(RouteNames.notifications),
         ),
         Expanded(
           child: SingleChildScrollView(
@@ -96,57 +96,73 @@ class HomeMobileView extends ConsumerWidget {
                     Expanded(
                       child: QuickActionItem(
                         icon: Icons.add_rounded,
-                        label: 'New Order',
-                        onTap: () => context.go(RouteNames.orders),
+                        label: AppStrings.newOrder,
+                        onTap: () => context.push(RouteNames.orderList),
                       ),
                     ),
                     const SizedBox(width: AppSizes.sm),
-                    const Expanded(
+                    Expanded(
                       // TODO: wire to a reports route once that feature exists
-                      child: QuickActionItem(icon: Icons.description_outlined, label: 'Reports'),
+                      child: QuickActionItem(
+                          icon: Icons.description_outlined,
+                        label: AppStrings.reports,
+                        onTap: () => context.push(RouteNames.notFound),
+                      ),
                     ),
                     const SizedBox(width: AppSizes.sm),
                     Expanded(
                       child: QuickActionItem(
                         icon: Icons.inventory_2_outlined,
-                        label: 'Inventory',
-                        onTap: () => context.go(RouteNames.products),
+                        label: AppStrings.inventory,
+                        onTap: () => context.push(RouteNames.error),
                       ),
                     ),
                     const SizedBox(width: AppSizes.sm),
-                    const Expanded(
+                    Expanded(
                       // TODO: wire to a messages route once that feature exists
-                      child: QuickActionItem(icon: Icons.mail_outline_rounded, label: 'Messages'),
+                      child: QuickActionItem(
+                          icon: Icons.mail_outline_rounded,
+                        label: AppStrings.auditLogTitle,
+                        onTap: () => context.push(RouteNames.auditLog),
+                      ),
                     ),
                   ],
                 ),
                 const SizedBox(height: AppSizes.sm + AppSizes.xs),
                 Row(
                   children: [
-                    const Expanded(
+                    Expanded(
                       // TODO: wire to a calendar route once that feature exists
-                      child: QuickActionItem(icon: Icons.calendar_today_outlined, label: 'Calendar'),
+                      child: QuickActionItem(
+                          icon: Icons.calendar_today_outlined,
+                        label: AppStrings.calender,
+                        onTap: () => context.push(RouteNames.products),
+                      ),
                     ),
                     const SizedBox(width: AppSizes.sm),
-                    const Expanded(
+                    Expanded(
                       // TODO: wire to a tasks route once that feature exists
-                      child: QuickActionItem(icon: Icons.check_rounded, label: 'Tasks'),
+                      child: QuickActionItem(
+                          icon: Icons.check_rounded,
+                        label: AppStrings.tasks,
+                        onTap: () => context.push(RouteNames.maintenance),
+                      ),
                     ),
                     const SizedBox(width: AppSizes.sm),
                     Expanded(
                       // TODO: point to a dedicated invoices route once available
                       child: QuickActionItem(
                         icon: Icons.receipt_long_outlined,
-                        label: 'Invoices',
-                        onTap: () => context.go(RouteNames.orders),
+                          label: AppStrings.invoices,
+                        onTap: () => context.push(RouteNames.noInternet)
                       ),
                     ),
                     const SizedBox(width: AppSizes.sm),
                     Expanded(
                       child: QuickActionItem(
                         icon: Icons.settings_outlined,
-                        label: 'Settings',
-                        onTap: () => context.go(RouteNames.settings),
+                        label: AppStrings.settingsTitle,
+                        onTap: () => context.push(RouteNames.settings),
                       ),
                     ),
                   ],
@@ -164,7 +180,7 @@ class HomeMobileView extends ConsumerWidget {
                 ),
                 const SizedBox(height: AppSizes.md),
                 CustomCard(
-                  padding: const EdgeInsets.all(AppSizes.md),
+                  padding: const EdgeInsets.all(AppSizes.sm),
                   child: const Column(
                     children: [
                       RecentActivityItem(

@@ -14,25 +14,34 @@ class ProfileMobileView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(AppSizes.md, 0, AppSizes.md, AppSizes.xl),
+        padding: const EdgeInsets.fromLTRB(
+          0,
+          0,
+          0,
+          AppSizes.xl,
+        ),
         child: Column(
           children: [
-            // TODO: replace hardcoded profile data with profileControllerProvider
-            // once features/profile/data/repositories is implemented.
-            const ProfileHeader(
-              name: 'Alex Johnson',
-              role: 'Workspace Admin',
-            ),
+            const ProfileHeader(name: 'Alex Johnson', role: 'Workspace Admin'),
             const SizedBox(height: AppSizes.lg),
-            const ProfileStatsRow(projects: '24', tasks: '156', rating: '4.8'),
-            const SizedBox(height: AppSizes.lg),
-            ProfileSettingsSections(
-              onPersonalInfoTap: () => context.push(RouteNames.editProfile),
-              // onNotificationSettingsTap: () => context.push(RouteNames.notifications),
-              onSettingsTap: () => context.push(RouteNames.settings),
-              // TODO: wire remaining rows to their routes once those
-              // screens/routes exist (language, privacy, connected apps,
-              // 2FA, help center).
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                AppSizes.md,
+                0,
+                AppSizes.md,
+                0,
+              ),              child: Column(
+                children: [
+                  const ProfileStatsRow(projects: '24', tasks: '156', rating: '4.8'),
+                  const SizedBox(height: AppSizes.lg),
+                  ProfileSettingsSections(
+                    onPersonalInfoTap: () => context.push(RouteNames.editProfile),
+                    onSettingsTap: () => context.push(RouteNames.settings),
+                    onPrivacyTap: () => context.push(RouteNames.termsPrivacy),
+                    onHelpCenterTap: () => context.push(RouteNames.helpSupport),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

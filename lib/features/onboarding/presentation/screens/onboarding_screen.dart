@@ -1,113 +1,186 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:template_test/core/constants/app_colors.dart';
-import 'package:template_test/core/constants/app_sizes.dart';
-import 'package:template_test/core/constants/app_strings.dart';
-import 'package:template_test/features/onboarding/presentation/controllers/onboarding_controller.dart';
-import 'package:template_test/routes/route_names.dart';
+import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/constants/app_strings.dart';
+import '../../../../core/widgets/common/custom_step_indicator.dart';
+import '../../../../core/widgets/common/primary_button.dart';
+import '../../../../routes/route_names.dart';
+import '../controllers/onboarding_controller.dart';
+import '../widgets/onboarding_top_bar.dart';
+import '../widgets/onboarding_item_widget.dart';
 
-class OnboardingScreen extends ConsumerStatefulWidget {
+import '../../../../core/utils/responsive.dart';
+
+class OnboardingScreen extends ConsumerWidget {
   const OnboardingScreen({super.key});
 
   @override
-  ConsumerState<OnboardingScreen> createState() => _OnboardingScreenState();
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+      body: Responsive(
+        mobile: const OnboardingMobileView(),
+        tablet: const OnboardingTabView(),
+      ),
+    );
+  }
 }
 
-class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
-  final PageController _pageController = PageController();
+
+
+class OnboardingMobileView extends ConsumerStatefulWidget {
+  const OnboardingMobileView({super.key});
+
+  @override
+  ConsumerState<OnboardingMobileView> createState() => _OnboardingMobileViewState();
+}
+
+class _OnboardingMobileViewState extends ConsumerState<OnboardingMobileView> {
+  final _pageController = PageController();
   int _currentIndex = 0;
 
-  void _onFinish() {
-    context.go(RouteNames.welcome);
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
+
+  void _finish() => context.go(RouteNames.welcome);
 
   @override
   Widget build(BuildContext context) {
-    final onboardingList = ref.watch(onboardingControllerProvider);
+    final slides = ref.watch(onboardingControllerProvider);
+    final isLastSlide = _currentIndex == slides.length - 1;
 
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          TextButton(
-            onPressed: _onFinish,
-            child: const Text(AppStrings.skip),
+    return SafeArea(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSizes.lg, vertical: AppSizes.sm),
+            child: OnboardingTopBar(onSkip: _finish),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppSizes.lg),
+              child: Stack(
+                children: [
+                  PageView.builder(
+                    controller: _pageController,
+                    itemCount: slides.length,
+                    onPageChanged: (index) => setState(() => _currentIndex = index),
+                    itemBuilder: (context, index) => OnboardingItemWidget(data: slides[index]),
+                  ),
+                  Positioned(
+                    bottom: 120,
+                    left: 0,
+                    right: 0,
+                    child: Column(
+                      children: [
+                        const SizedBox(height: AppSizes.lg),
+                        CustomStepIndicator(stepCount: slides.length, currentStep: _currentIndex),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(AppSizes.lg),
+            child: PrimaryButton(
+              label: isLastSlide ? AppStrings.getStarted : AppStrings.next,
+              onPressed: () {
+                if (isLastSlide) {
+                  _finish();
+                } else {
+                  _pageController.nextPage(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                  );
+                }
+              },
+            ),
           ),
         ],
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: onboardingList.length,
-                onPageChanged: (index) {
-                  setState(() => _currentIndex = index);
-                },
-                itemBuilder: (context, index) {
-                  final item = onboardingList[index];
-                  return Padding(
-                    padding: const EdgeInsets.all(AppSizes.lg),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.touch_app, size: 100, color: AppColors.primary),
-                        const SizedBox(height: AppSizes.xl),
-                        Text(
-                          item.title,
-                          style: Theme.of(context).textTheme.titleLarge,
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: AppSizes.md),
-                        Text(
-                          item.description,
-                          style: Theme.of(context).textTheme.bodySmall,
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  );
-                },
+    );
+  }
+}
+
+
+/// Same content as [OnboardingMobileView], centered in a fixed-width
+/// column for wider (tablet/web) viewports.
+class OnboardingTabView extends ConsumerStatefulWidget {
+  const OnboardingTabView({super.key});
+
+  @override
+  ConsumerState<OnboardingTabView> createState() => _OnboardingTabViewState();
+}
+
+class _OnboardingTabViewState extends ConsumerState<OnboardingTabView> {
+  final _pageController = PageController();
+  int _currentIndex = 0;
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _finish() => context.go(RouteNames.welcome);
+
+  @override
+  Widget build(BuildContext context) {
+    final slides = ref.watch(onboardingControllerProvider);
+    final isLastSlide = _currentIndex == slides.length - 1;
+
+    return SafeArea(
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 480),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSizes.xl, vertical: AppSizes.sm),
+                child: OnboardingTopBar(onSkip: _finish),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                onboardingList.length,
-                (index) => AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
-                  height: 8,
-                  width: _currentIndex == index ? 24 : 8,
-                  decoration: BoxDecoration(
-                    color: _currentIndex == index ? AppColors.primary : AppColors.border,
-                    borderRadius: BorderRadius.circular(4),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.xl),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: PageView.builder(
+                          controller: _pageController,
+                          itemCount: slides.length,
+                          onPageChanged: (index) => setState(() => _currentIndex = index),
+                          itemBuilder: (context, index) => OnboardingItemWidget(data: slides[index]),
+                        ),
+                      ),
+                      const SizedBox(height: AppSizes.lg),
+                      CustomStepIndicator(stepCount: slides.length, currentStep: _currentIndex),
+                    ],
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(AppSizes.lg),
-              child: ElevatedButton(
-                onPressed: () {
-                  if (_currentIndex == onboardingList.length - 1) {
-                    _onFinish();
-                  } else {
-                    _pageController.nextPage(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                  }
-                },
-                child: Text(
-                  _currentIndex == onboardingList.length - 1
-                      ? AppStrings.getStarted
-                      : AppStrings.next,
+              Padding(
+                padding: const EdgeInsets.all(AppSizes.xl),
+                child: PrimaryButton(
+                  label: isLastSlide ? AppStrings.getStarted : AppStrings.next,
+                  onPressed: () {
+                    if (isLastSlide) {
+                      _finish();
+                    } else {
+                      _pageController.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                      );
+                    }
+                  },
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

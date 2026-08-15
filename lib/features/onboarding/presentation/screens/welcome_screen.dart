@@ -1,54 +1,84 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:template_test/core/constants/app_colors.dart';
-import 'package:template_test/core/constants/app_sizes.dart';
-import 'package:template_test/core/constants/app_strings.dart';
-import 'package:template_test/routes/route_names.dart';
+import '../../../../core/constants/app_sizes.dart';
+import '../../../../routes/route_names.dart';
+import '../widgets/welcome_content.dart';
+import '../widgets/welcome_actions.dart';
+import '../../../../core/utils/responsive.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends ConsumerWidget {
   const WelcomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(AppSizes.lg),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Spacer(),
-              const Icon(Icons.rocket_launch, size: 90, color: AppColors.primary),
-              const SizedBox(height: AppSizes.lg),
-              Text(
-                AppStrings.welcomeTitle,
-                style: Theme.of(context).textTheme.displayLarge,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: AppSizes.md),
-              Text(
-                AppStrings.welcomeSubtitle,
-                style: Theme.of(context).textTheme.bodySmall,
-                textAlign: TextAlign.center,
-              ),
-              const Spacer(),
-              ElevatedButton(
-                onPressed: () => context.go(RouteNames.login),
-                child: const Text(AppStrings.login),
-              ),
-              const SizedBox(height: AppSizes.md),
-              OutlinedButton(
-                onPressed: () => context.go(RouteNames.products),
-                style: OutlinedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(AppSizes.buttonHeight),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppSizes.radiusMd),
-                  ),
+      body: Responsive(
+        mobile: const WelcomeMobileView(),
+        tablet: const WelcomeTabView(),
+      ),
+    );
+  }
+}
+
+class WelcomeMobileView extends ConsumerWidget {
+  const WelcomeMobileView({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSizes.lg,
+          vertical: AppSizes.xl,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            const SizedBox(height: AppSizes.xl),
+            const WelcomeContent(),
+            const SizedBox(height: AppSizes.xxl),
+            // Spacer(),
+            WelcomeActions(
+              onLoginTap: () => context.push(RouteNames.login),
+              onRegisterTap: () => context.push(RouteNames.register),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Same content as [WelcomeMobileView], centered in a fixed-width
+/// column for wider (tablet/web) viewports.
+class WelcomeTabView extends ConsumerWidget {
+  const WelcomeTabView({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return SafeArea(
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 480),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSizes.xl,
+              vertical: AppSizes.xl,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const SizedBox(height: AppSizes.xl),
+                const WelcomeContent(),
+                const SizedBox(height: AppSizes.xxl),
+                // Spacer(),
+                WelcomeActions(
+                  onLoginTap: () => context.push(RouteNames.login),
+                  onRegisterTap: () => context.push(RouteNames.register),
                 ),
-                child: const Text('Continue as Guest'),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

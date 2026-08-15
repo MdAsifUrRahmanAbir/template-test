@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// import 'package:template_test/core/constants/app_strings.dart';
+// import 'package:template_test/core/widgets/common/app_header_bar.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/widgets/common/status_badge.dart';
@@ -24,6 +26,7 @@ class ProfileHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        // AppHeaderBar(title: AppStrings.appName),
         GradientCoverHeader(
           avatarUrl: avatarUrl,
           avatarLabel: name,
