@@ -76,27 +76,19 @@ def create_module(module_raw_name):
 
     state_code = f"""class {class_prefix}State {{
   final bool isInitialLoading;
-  final bool isUpdatingInfo;
-  final bool isUploadingImage;
   final String? errorMessage;
 
   const {class_prefix}State({{
     this.isInitialLoading = false,
-    this.isUpdatingInfo = false,
-    this.isUploadingImage = false,
     this.errorMessage,
   }});
 
   {class_prefix}State copyWith({{
     bool? isInitialLoading,
-    bool? isUpdatingInfo,
-    bool? isUploadingImage,
     String? errorMessage,
   }}) {{
     return {class_prefix}State(
       isInitialLoading: isInitialLoading ?? this.isInitialLoading,
-      isUpdatingInfo: isUpdatingInfo ?? this.isUpdatingInfo,
-      isUploadingImage: isUploadingImage ?? this.isUploadingImage,
       errorMessage: errorMessage,
     );
   }}

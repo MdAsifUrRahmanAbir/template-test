@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constants/api_endpoints.dart';
 import 'api_exception.dart';
+import 'api_logging_interceptor.dart';
 
 final apiClientProvider = Provider<ApiClient>((ref) => ApiClient());
 
@@ -21,6 +22,8 @@ class ApiClient {
         },
       ),
     );
+
+    _dio.interceptors.add(ApiLoggingInterceptor());
 
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {

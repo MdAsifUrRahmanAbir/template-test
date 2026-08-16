@@ -1,37 +1,42 @@
 import 'package:flutter/widgets.dart';
-import 'dart:developer' as developer;
+import '../utils/app_logger.dart';
 
-/// A [NavigatorObserver] that logs navigation events.
-/// It prints the route name (if provided) and the runtime type of the route.
-/// This helps during debugging to see which screen is shown and when it is
-/// popped. The logs appear in the console via `debugPrint`/`developer.log`.
+/// A [NavigatorObserver] that logs navigation events through [AppLogger].
+/// Shows both the destination and the previous route for full context.
 class LoggingObserver extends NavigatorObserver {
+  String _describe(Route? route) {
+    if (route == null) return 'none';
+    return route.settings.name ?? route.runtimeType.toString();
+  }
+
   @override
   void didPush(Route route, Route? previousRoute) {
-    final name = route.settings.name ?? route.runtimeType;
-    developer.log('🔁 Pushed route: $name');
+    AppLogger.navigation('Pushed: ${_describe(route)}\nFrom  : ${_describe(previousRoute)}');
     super.didPush(route, previousRoute);
   }
 
   @override
   void didPop(Route route, Route? previousRoute) {
-    final name = route.settings.name ?? route.runtimeType;
-    developer.log('⤵️ Popped route: $name');
+    AppLogger.navigation('Popped: ${_describe(route)}\nBack to: ${_describe(previousRoute)}');
     super.didPop(route, previousRoute);
   }
 
   @override
   void didRemove(Route route, Route? previousRoute) {
-    final name = route.settings.name ?? route.runtimeType;
-    developer.log('❎ Removed route: $name');
+    AppLogger.navigation('Removed: ${_describe(route)}\nContext: ${_describe(previousRoute)}');
     super.didRemove(route, previousRoute);
   }
 
   @override
   void didReplace({Route? newRoute, Route? oldRoute}) {
-    final name = newRoute?.settings.name ?? newRoute?.runtimeType;
-    developer.log('🔁 Replaced route with: $name');
+    AppLogger.navigation('Replaced: ${_describe(oldRoute)} → ${_describe(newRoute)}');
     super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
+  }
+
+  @override
+  void didStartUserGesture(Route route, Route? previousRoute) {
+    AppLogger.navigation('Gesture started: ${_describe(route)}');
+    super.didStartUserGesture(route, previousRoute);
   }
 }
 

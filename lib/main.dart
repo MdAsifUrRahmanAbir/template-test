@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:template_test/core/theme/app_theme.dart';
 import 'package:template_test/routes/app_router.dart';
 
+import 'core/observers/riverpod_logging_observer.dart';
 import 'routes/app_initialization.dart';
 
 void main() {
@@ -10,7 +11,8 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(
-    const ProviderScope(
+    ProviderScope(
+      observers: [RiverpodLoggingObserver()],
       child: PosApp(),
     ),
   );

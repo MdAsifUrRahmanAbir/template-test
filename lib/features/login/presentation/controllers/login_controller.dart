@@ -20,6 +20,13 @@ class LoginFormState {
   }
 }
 
+
+/*
+final editProfileControllerProvider = NotifierProvider.autoDispose<EditProfileController, EditProfileState>(
+  EditProfileController.new,
+);
+ */
+
 class LoginController extends Notifier<LoginFormState> {
   final formKey = GlobalKey<FormState>();
 
