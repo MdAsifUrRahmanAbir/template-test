@@ -30,7 +30,7 @@ import 'package:template_test/features/change_password/presentation/screens/chan
 import 'package:template_test/features/help_support/presentation/screens/help_support_screen.dart';
 import 'package:template_test/features/cart/presentation/screens/cart_screen.dart';
 
-import '../core/navigation/logging_observer.dart';
+import '../core/observers/logging_observer.dart';
 import '../features/edit_profile/presentation/screens/edit_profile_screen.dart';
 
 final routerProvider = Provider<GoRouter>(
