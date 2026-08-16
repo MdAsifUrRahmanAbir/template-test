@@ -43,7 +43,7 @@ class CustomFilterBar<T> extends StatelessWidget {
               label: const Text('Clear'),
               onPressed: onClear,
               backgroundColor: context.appColors.surface,
-              side: const BorderSide(color: AppColors.border),
+              side: BorderSide(color: context.appColors.border),
             ),
         ],
       ),

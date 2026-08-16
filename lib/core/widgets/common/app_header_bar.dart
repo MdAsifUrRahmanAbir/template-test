@@ -87,7 +87,7 @@ class AppHeaderBar extends StatelessWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.all(AppSizes.xs),
           child: Text(
             trailingLabel!,
-            style: const TextStyle(fontSize: AppSizes.fontSm, fontWeight: FontWeight.w600, color: AppColors.primary),
+            style: TextStyle(fontSize: AppSizes.fontSm, fontWeight: FontWeight.w600, color: AppColors.primary),
           ),
         ),
       );
@@ -115,10 +115,10 @@ class AppHeaderBar extends StatelessWidget implements PreferredSizeWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(title, style: const TextStyle(fontSize: AppSizes.fontXl, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+                Text(title, style: TextStyle(fontSize: AppSizes.fontXl, fontWeight: FontWeight.w700, color: context.appColors.textPrimary)),
                 if (subtitle != null) ...[
                   const SizedBox(height: AppSizes.xs / 2),
-                  Text(subtitle!, style: const TextStyle(fontSize: AppSizes.fontSm, color: AppColors.textSecondary)),
+                  Text(subtitle!, style: TextStyle(fontSize: AppSizes.fontSm, color: context.appColors.textSecondary)),
                 ],
               ],
             ),

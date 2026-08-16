@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:template_test/core/constants/app_colors.dart';
 import 'package:template_test/core/constants/app_sizes.dart';
 
+import '../../theme/app_color_scheme.dart';
+
 class SectionHeader extends StatelessWidget {
   final String title;
   final String? subtitle;
@@ -28,10 +30,10 @@ class SectionHeader extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: const TextStyle(fontSize: AppSizes.fontLg, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+              Text(title, style: TextStyle(fontSize: AppSizes.fontLg, fontWeight: FontWeight.w700, color: context.appColors.textPrimary)),
               if (subtitle != null) ...[
                 const SizedBox(height: AppSizes.xs),
-                Text(subtitle!, style: const TextStyle(fontSize: AppSizes.fontSm, color: AppColors.textSecondary)),
+                Text(subtitle!, style: TextStyle(fontSize: AppSizes.fontSm, color: context.appColors.textSecondary)),
               ],
             ],
           ),

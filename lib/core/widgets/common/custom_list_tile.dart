@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:template_test/core/constants/app_colors.dart';
 import 'package:template_test/core/constants/app_sizes.dart';
 
+import '../../theme/app_color_scheme.dart';
+
 class CustomListTile extends StatelessWidget {
   final String title;
   final String? subtitle;
@@ -31,8 +33,8 @@ class CustomListTile extends StatelessWidget {
       trailing: trailing,
       onTap: onTap,
       contentPadding: const EdgeInsets.symmetric(horizontal: AppSizes.md, vertical: AppSizes.xs),
-      iconColor: AppColors.textSecondary,
-      textColor: AppColors.textPrimary,
+      iconColor: context.appColors.textSecondary,
+      textColor: context.appColors.textPrimary,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.radiusMd)),
     );
   }

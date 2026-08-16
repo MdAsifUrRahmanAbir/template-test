@@ -21,10 +21,10 @@ class SettingsGroup extends StatelessWidget {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: AppSizes.fontXs,
             fontWeight: FontWeight.w700,
-            color: AppColors.textSecondary,
+            color: context.appColors.textSecondary,
             letterSpacing: 0.5,
           ),
         ),

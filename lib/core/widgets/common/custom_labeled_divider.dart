@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
+import '../../theme/app_color_scheme.dart';
 
 /// Horizontal divider with a centered label — "or continue with",
 /// "or sign up with", etc.
@@ -18,10 +19,10 @@ class CustomLabeledDivider extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: AppSizes.sm),
           child: Text(
             label,
-            style: const TextStyle(fontSize: AppSizes.fontSm, color: AppColors.textSecondary),
+            style: TextStyle(fontSize: AppSizes.fontSm, color: context.appColors.textSecondary),
           ),
         ),
-        const Expanded(child: Divider(color: AppColors.divider, thickness: 1)),
+        Expanded(child: Divider(color: context.appColors.divider, thickness: 1)),
       ],
     );
   }

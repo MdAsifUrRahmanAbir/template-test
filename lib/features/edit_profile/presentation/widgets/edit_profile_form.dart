@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/custom_card.dart';
 import '../../../../core/widgets/common/primary_input_field.dart';
 import '../../../../core/widgets/common/primary_button.dart';
@@ -54,8 +55,8 @@ class EditProfileForm extends ConsumerWidget {
               label: AppStrings.phoneNumber,
               controller: controller.phoneController,
               keyboardType: TextInputType.phone,
-              prefixIcon: const Padding(
-                padding: EdgeInsets.only(
+              prefixIcon: Padding(
+                padding: const EdgeInsets.only(
                   left: AppSizes.sm,
                 ),
                 child: Center(
@@ -65,7 +66,7 @@ class EditProfileForm extends ConsumerWidget {
                     style: TextStyle(
                       fontSize: AppSizes.fontMd,
                       fontWeight: FontWeight.w500,
-                      color: AppColors.textSecondary,
+                      color: context.appColors.textSecondary,
                     ),
                   ),
                 ),

@@ -41,10 +41,10 @@ class PrimaryInputField extends StatelessWidget {
         if (label != null) ...[
           Text(
             label!,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: AppSizes.fontSm,
               fontWeight: FontWeight.w600,
-              color: AppColors.textPrimary,
+              color: context.appColors.textPrimary,
             ),
           ),
           const SizedBox(height: AppSizes.sm),

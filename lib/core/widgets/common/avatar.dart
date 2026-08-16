@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:template_test/core/constants/app_colors.dart';
 import 'package:template_test/core/constants/app_sizes.dart';
 
+
 class AppAvatar extends StatelessWidget {
   final String? imageUrl;
   final String? label;
@@ -26,7 +27,7 @@ class AppAvatar extends StatelessWidget {
           ? null
           : Text(
               (label?.trim().isNotEmpty ?? false) ? label!.trim()[0].toUpperCase() : '?',
-              style: const TextStyle(color: AppColors.primary, fontSize: AppSizes.fontXl, fontWeight: FontWeight.w700),
+              style: TextStyle(color: AppColors.primary, fontSize: AppSizes.fontXl, fontWeight: FontWeight.w700),
             ),
     );
     return onTap == null ? avatar : GestureDetector(onTap: onTap, child: avatar);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
+import '../../theme/app_color_scheme.dart';
 
 /// Compact checkbox + label, e.g. "Remember Me", "I agree to the Terms".
 /// Sized to sit inline in a Row (unlike a full-width ListTile) —
@@ -41,7 +42,7 @@ class PrimaryCheckbox extends StatelessWidget {
               const SizedBox(width: AppSizes.xs),
               Text(
                 label!,
-                style: const TextStyle(fontSize: AppSizes.fontSm, color: AppColors.textPrimary),
+                style: TextStyle(fontSize: AppSizes.fontSm, color: context.appColors.textPrimary),
               ),
             ],
           ],

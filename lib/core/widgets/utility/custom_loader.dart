@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:template_test/core/constants/app_colors.dart';
 import 'package:template_test/core/constants/app_sizes.dart';
 
+import '../../theme/app_color_scheme.dart';
+
 class CustomLoader extends StatelessWidget {
   final double? size;
   final Color? color;
@@ -25,7 +27,7 @@ class CustomLoader extends StatelessWidget {
         ),
         if (label != null) ...[
           const SizedBox(height: AppSizes.md),
-          Text(label!, style: const TextStyle(color: AppColors.textSecondary, fontSize: AppSizes.fontSm)),
+          Text(label!, style: TextStyle(color: context.appColors.textSecondary, fontSize: AppSizes.fontSm)),
         ],
       ],
     );

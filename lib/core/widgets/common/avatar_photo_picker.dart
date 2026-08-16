@@ -49,7 +49,7 @@ class AvatarPhotoPicker extends StatelessWidget {
             ],
           ),
           const SizedBox(height: AppSizes.sm),
-          Text(actionLabel, style: const TextStyle(fontSize: AppSizes.fontSm, fontWeight: FontWeight.w600, color: AppColors.primary)),
+          Text(actionLabel, style: TextStyle(fontSize: AppSizes.fontSm, fontWeight: FontWeight.w600, color: AppColors.primary)),
         ],
       ),
     );

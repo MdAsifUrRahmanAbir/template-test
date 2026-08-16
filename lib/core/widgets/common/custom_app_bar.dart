@@ -49,7 +49,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               sideSpacer,
             Text(
               title,
-              style: const TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+              style: TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w600, color: context.appColors.textPrimary),
             ),
             trailing ?? sideSpacer,
           ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
+import '../../theme/app_color_scheme.dart';
 
 /// Row with a tinted numbered chip ("01", "02"...) on the left and
 /// body text on the right. Used for enumerated policy points, steps,
@@ -33,7 +34,7 @@ class NumberedListItem extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(fontSize: AppSizes.fontMd, color: AppColors.textSecondary, height: 1.5),
+              style: TextStyle(fontSize: AppSizes.fontMd, color: context.appColors.textSecondary, height: 1.5),
             ),
           ),
         ],

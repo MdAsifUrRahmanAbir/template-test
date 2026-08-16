@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:template_test/core/constants/app_colors.dart';
 import 'package:template_test/core/constants/app_sizes.dart';
 
+import '../../theme/app_color_scheme.dart';
+
 class ErrorState extends StatelessWidget {
   final String message;
   final VoidCallback? onRetry;
@@ -24,7 +26,7 @@ class ErrorState extends StatelessWidget {
           children: [
             const Icon(Icons.error_outline, size: AppSizes.iconLg * 2, color: AppColors.error),
             const SizedBox(height: AppSizes.md),
-            Text(message, textAlign: TextAlign.center, style: const TextStyle(fontSize: AppSizes.fontMd, color: AppColors.textSecondary)),
+            Text(message, textAlign: TextAlign.center, style: TextStyle(fontSize: AppSizes.fontMd, color: context.appColors.textSecondary)),
             if (onRetry != null) ...[
               const SizedBox(height: AppSizes.lg),
               OutlinedButton(onPressed: onRetry, child: Text(retryLabel)),

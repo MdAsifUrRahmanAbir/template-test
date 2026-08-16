@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
+import '../../theme/app_color_scheme.dart';
 import 'custom_card.dart';
 import 'status_badge.dart';
 import 'square_icon_tile.dart';
@@ -60,13 +61,13 @@ class SummaryCard extends StatelessWidget {
               ],
             ),
             const SizedBox(height: AppSizes.md),
-            Text(label, style: const TextStyle(fontSize: AppSizes.fontSm, color: AppColors.textSecondary)),
-            Text(value, style: const TextStyle(fontSize: AppSizes.fontXxl, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+            Text(label, style: TextStyle(fontSize: AppSizes.fontSm, color: context.appColors.textSecondary)),
+            Text(value, style: TextStyle(fontSize: AppSizes.fontXxl, fontWeight: FontWeight.w700, color: context.appColors.textPrimary)),
           ] else if (hasTrend) ...[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(label, style: const TextStyle(fontSize: AppSizes.fontSm, fontWeight: FontWeight.w600, color: AppColors.textSecondary)),
+                Text(label, style: TextStyle(fontSize: AppSizes.fontSm, fontWeight: FontWeight.w600, color: context.appColors.textSecondary)),
                 trendBadge!,
               ],
             ),
@@ -75,17 +76,17 @@ class SummaryCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(value, style: const TextStyle(fontSize: AppSizes.fontXxl, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+                Text(value, style: TextStyle(fontSize: AppSizes.fontXxl, fontWeight: FontWeight.w700, color: context.appColors.textPrimary)),
                 ?trailing,
               ],
             ),
           ] else ...[
             Text(
               label,
-              style: const TextStyle(fontSize: AppSizes.fontXs, color: AppColors.textSecondary, letterSpacing: 0.5),
+              style: TextStyle(fontSize: AppSizes.fontXs, color: context.appColors.textSecondary, letterSpacing: 0.5),
             ),
             const SizedBox(height: AppSizes.xs),
-            Text(value, style: const TextStyle(fontSize: AppSizes.fontXxl, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+            Text(value, style: TextStyle(fontSize: AppSizes.fontXxl, fontWeight: FontWeight.w700, color: context.appColors.textPrimary)),
           ],
         ],
       ),

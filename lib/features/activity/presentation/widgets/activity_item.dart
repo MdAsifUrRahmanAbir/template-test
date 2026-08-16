@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/custom_card.dart';
 import '../../../../core/widgets/common/square_icon_tile.dart';
 import '../../../../core/widgets/utility/timeline_indicator.dart';
@@ -65,10 +66,10 @@ class ActivityItem extends StatelessWidget {
                       children: [
                         Text(
                           title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: AppSizes.fontMd,
                             fontWeight: FontWeight.w600,
-                            color: AppColors.textPrimary,
+                            color: context.appColors.textPrimary,
                           ),
                         ),
                         const SizedBox(height: AppSizes.xs / 2),
@@ -76,12 +77,12 @@ class ActivityItem extends StatelessWidget {
                           description,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(fontSize: AppSizes.fontSm, color: AppColors.textSecondary),
+                          style: TextStyle(fontSize: AppSizes.fontSm, color: context.appColors.textSecondary),
                         ),
                         const SizedBox(height: AppSizes.xs / 2),
                         Text(
                           time,
-                          style: const TextStyle(fontSize: AppSizes.fontXs, color: AppColors.textSecondary),
+                          style: TextStyle(fontSize: AppSizes.fontXs, color: context.appColors.textSecondary),
                         ),
                       ],
                     ),

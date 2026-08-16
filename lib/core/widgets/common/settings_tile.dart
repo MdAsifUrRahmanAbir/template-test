@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
+import '../../theme/app_color_scheme.dart';
 
 enum SettingsTileTrailing { chevron, externalLink, none }
 
@@ -60,7 +61,7 @@ class SettingsTile extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (value != null) ...[
-          Text(value!, style: const TextStyle(fontSize: AppSizes.fontMd, color: AppColors.textSecondary)),
+          Text(value!, style: TextStyle(fontSize: AppSizes.fontMd, color: AppColors.textSecondary)),
           if (indicator != null) const SizedBox(width: AppSizes.xs + AppSizes.xs / 2),
         ],
         ?indicator,
@@ -88,7 +89,7 @@ class SettingsTile extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+                    style: TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w600, color: context.appColors.textPrimary),
                   ),
                   if (subtitle != null) ...[
                     const SizedBox(height: AppSizes.xs / 2),
@@ -96,7 +97,7 @@ class SettingsTile extends StatelessWidget {
                       subtitle!,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontSize: AppSizes.fontSm, color: AppColors.textSecondary),
+                      style: TextStyle(fontSize: AppSizes.fontSm, color: context.appColors.textSecondary),
                     ),
                   ],
                 ],

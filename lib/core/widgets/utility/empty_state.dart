@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:template_test/core/constants/app_colors.dart';
 import 'package:template_test/core/constants/app_sizes.dart';
 
+import '../../theme/app_color_scheme.dart';
+
 class EmptyState extends StatelessWidget {
   final String title;
   final String? message;
@@ -28,10 +30,10 @@ class EmptyState extends StatelessWidget {
           children: [
             Icon(icon, size: AppSizes.iconLg * 2, color: AppColors.textHint),
             const SizedBox(height: AppSizes.lg),
-            Text(title, textAlign: TextAlign.center, style: const TextStyle(fontSize: AppSizes.fontXl, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+            Text(title, textAlign: TextAlign.center, style: TextStyle(fontSize: AppSizes.fontXl, fontWeight: FontWeight.w700, color: context.appColors.textPrimary)),
             if (message != null) ...[
               const SizedBox(height: AppSizes.sm),
-              Text(message!, textAlign: TextAlign.center, style: const TextStyle(fontSize: AppSizes.fontMd, color: AppColors.textSecondary)),
+              Text(message!, textAlign: TextAlign.center, style: TextStyle(fontSize: AppSizes.fontMd, color: context.appColors.textSecondary)),
             ],
             if (onAction != null) ...[
               const SizedBox(height: AppSizes.lg),

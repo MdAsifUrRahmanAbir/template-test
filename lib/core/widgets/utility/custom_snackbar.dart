@@ -9,7 +9,7 @@ class CustomSnackbar {
   static void show(BuildContext context, String message, {bool error = false}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message, style: const TextStyle(color: AppColors.textWhite)),
+        content: Text(message, style: TextStyle(color: AppColors.textWhite)),
         backgroundColor: error ? AppColors.error : AppColors.textPrimary,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.radiusMd)),
