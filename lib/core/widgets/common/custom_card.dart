@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
+import '../../theme/app_color_scheme.dart';
 
 /// Bordered, subtly-shadowed card container — the base surface for
 /// grouped content (forms, dashboard tiles, list items). Pass
@@ -27,7 +28,7 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bg = tinted ? AppColors.primaryLight : AppColors.surface;
+    final bg = tinted ? AppColors.primaryLight : context.appColors.surface;
 
     final content = Container(
       width: fullWidth ? double.infinity : double.maxFinite,

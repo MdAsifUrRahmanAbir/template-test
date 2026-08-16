@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:template_test/core/constants/app_colors.dart';
 import 'package:template_test/core/constants/app_sizes.dart';
 
+import '../../theme/app_color_scheme.dart';
+
 class DateField extends StatelessWidget {
   final String label;
   final String? hint;
@@ -47,7 +49,7 @@ class DateField extends StatelessWidget {
                   data: Theme.of(context).copyWith(
                     colorScheme: Theme.of(context).colorScheme.copyWith(
                       primary: AppColors.primary,
-                      surface: AppColors.surface,
+                      surface: context.appColors.surface,
                     ),
                   ),
                   child: child!,
@@ -60,7 +62,7 @@ class DateField extends StatelessWidget {
         hintText: hint,
         suffixIcon: const Icon(Icons.calendar_today_outlined, size: AppSizes.iconMd),
         filled: true,
-        fillColor: AppColors.surface,
+        fillColor: context.appColors.surface,
         contentPadding: const EdgeInsets.symmetric(horizontal: AppSizes.md, vertical: AppSizes.sm),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSizes.radiusMd),

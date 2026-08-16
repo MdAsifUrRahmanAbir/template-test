@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/avatar.dart';
 
 /// Top welcome bar — avatar, greeting + user name, and a notification
@@ -25,8 +26,8 @@ class HomeHeader extends StatelessWidget {
     return Container(
       height: AppSizes.bottomNavBarHeight,
       padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-      decoration: const BoxDecoration(
-        color: AppColors.surface,
+      decoration: BoxDecoration(
+        color: context.appColors.surface,
         border: Border(bottom: BorderSide(color: AppColors.border)),
       ),
       child: Row(
@@ -70,7 +71,7 @@ class HomeHeader extends StatelessWidget {
                   width: AppSizes.xl + AppSizes.xs,
                   height: AppSizes.xl + AppSizes.xs,
                   decoration: BoxDecoration(
-                    color: AppColors.surface,
+                    color: context.appColors.surface,
                     shape: BoxShape.circle,
                     border: Border.all(color: AppColors.border),
                   ),

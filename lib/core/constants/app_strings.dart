@@ -263,4 +263,9 @@ class AppStrings {
   static const String errorSubtitle = 'An unexpected error occurred. Please try again.';
   static const String retry = 'Retry';
   static const String reportIssue = 'Report Issue';
+
+  static const String appearance = 'Appearance';
+  static const String themeSystem = 'System';
+  static const String themeLight = 'Light';
+  static const String themeDark = 'Dark';
 }

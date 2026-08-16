@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/custom_card.dart';
 import '../../../../core/widgets/common/avatar.dart';
 import '../../../../core/widgets/common/secondary_button.dart';
@@ -79,9 +80,9 @@ class OrderCardItem extends StatelessWidget {
                       Positioned(
                         left: i * overlapStep,
                         child: Container(
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.fromBorderSide(BorderSide(color: AppColors.surface, width: 2)),
+                            border: Border.fromBorderSide(BorderSide(color: context.appColors.surface, width: 2)),
                           ),
                           child: AppAvatar(imageUrl: itemImageUrls[i], radius: AppSizes.md),
                         ),

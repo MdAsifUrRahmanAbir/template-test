@@ -600,7 +600,7 @@ class AnalyticsHeader extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(AppSizes.md),
       decoration: const BoxDecoration(
-        color: AppColors.surface,
+        color: context.appColors.surface,
         border: Border(bottom: BorderSide(color: AppColors.border)),
       ),
       child: Column(
@@ -3254,7 +3254,7 @@ class HomeHeader extends StatelessWidget {
       height: AppSizes.bottomNavBarHeight,
       padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
       decoration: const BoxDecoration(
-        color: AppColors.surface,
+        color: context.appColors.surface,
         border: Border(bottom: BorderSide(color: AppColors.border)),
       ),
       child: Row(

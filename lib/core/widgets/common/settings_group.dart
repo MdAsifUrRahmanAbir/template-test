@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
+import '../../theme/app_color_scheme.dart';
 
 
 /// Uppercase section label + a bordered, rounded container of
@@ -30,7 +31,7 @@ class SettingsGroup extends StatelessWidget {
         const SizedBox(height: AppSizes.sm),
         Container(
           decoration: BoxDecoration(
-            color: AppColors.surface,
+            color: context.appColors.surface,
             borderRadius: BorderRadius.circular(AppSizes.radiusMd),
             // border: Border.all(color: AppColors.border),
           ),

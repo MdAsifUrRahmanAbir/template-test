@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
+import '../../theme/app_color_scheme.dart';
 
 enum HeaderBackStyle { none, chevron, circle }
 
@@ -56,7 +57,7 @@ class AppHeaderBar extends StatelessWidget implements PreferredSizeWidget {
             height: AppSizes.xl + AppSizes.xs,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: AppColors.surface,
+              color: context.appColors.surface,
               border: Border.all(color: AppColors.border),
             ),
             alignment: Alignment.center,
@@ -102,9 +103,9 @@ class AppHeaderBar extends StatelessWidget implements PreferredSizeWidget {
     return Container(
       height: preferredSize.height,
       padding: const EdgeInsets.symmetric(horizontal: AppSizes.lg),
-      decoration: const BoxDecoration(
-        color: AppColors.surface,
-        border: Border(bottom: BorderSide(color: AppColors.border)),
+      decoration: BoxDecoration(
+        color: context.appColors.surface,
+        border: const Border(bottom: BorderSide(color: AppColors.border)),
       ),
       child: Row(
         children: [

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
+import '../../theme/app_color_scheme.dart';
 
 class CustomBottomNav extends StatelessWidget {
   final int selectedIndex;
@@ -24,7 +25,7 @@ class CustomBottomNav extends StatelessWidget {
       height: AppSizes.bottomNavBarHeight,
       child: NavigationBarTheme(
         data: NavigationBarThemeData(
-          backgroundColor: AppColors.surface,
+          backgroundColor: context.appColors.surface,
           indicatorColor: indicatorColor,
 
           // Selected/unselected icon colors

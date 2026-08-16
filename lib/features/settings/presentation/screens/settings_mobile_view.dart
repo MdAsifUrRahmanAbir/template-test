@@ -4,8 +4,11 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/theme/theme_controller.dart';
 import '../../../../core/widgets/common/app_header_bar.dart';
+import '../../../../core/widgets/common/radio_option.dart';
 import '../../../../core/widgets/utility/custom_alert_dialog.dart';
+import '../../../../core/widgets/utility/custom_bottom_sheet.dart';
 import '../../../../routes/route_names.dart';
 import '../controllers/settings_controller.dart';
 import '../widgets/settings_toggles_section.dart';
@@ -16,10 +19,43 @@ import '../widgets/settings_footer_actions.dart';
 class SettingsMobileView extends ConsumerWidget {
   const SettingsMobileView({super.key});
 
+  String _themeLabel(ThemeMode mode) => switch (mode) {
+    ThemeMode.system => AppStrings.themeSystem,
+    ThemeMode.light => AppStrings.themeLight,
+    ThemeMode.dark => AppStrings.themeDark,
+  };
+
+  Future<void> _openThemePicker(BuildContext context, WidgetRef ref) {
+    final themeController = ref.read(themeControllerProvider.notifier);
+    final current = ref.read(themeControllerProvider);
+
+    return CustomBottomSheet.show<void>(
+      context,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(AppStrings.appTheme, style: Theme.of(context).textTheme.titleLarge),
+          const SizedBox(height: AppSizes.sm),
+          for (final mode in ThemeMode.values)
+            RadioOption<ThemeMode>(
+              value: mode,
+              groupValue: current,
+              title: _themeLabel(mode),
+              onChanged: (v) {
+                themeController.setThemeMode(v!);
+                Navigator.of(context).pop();
+              },
+            ),
+        ],
+      ),
+    );
+  }
+
   Future<void> _confirmDeleteAccount(
-    BuildContext context,
-    WidgetRef ref,
-  ) async {
+      BuildContext context,
+      WidgetRef ref,
+      ) async {
     final confirmed = await CustomAlertDialog.confirm(
       context,
       title: AppStrings.deleteAccount,
@@ -36,8 +72,10 @@ class SettingsMobileView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(settingsControllerProvider.notifier);
-
     final state = ref.watch(settingsControllerProvider);
+
+    final themeMode = ref.watch(themeControllerProvider);
+    final themeController = ref.read(themeControllerProvider.notifier);
 
     return Column(
       children: [
@@ -49,13 +87,14 @@ class SettingsMobileView extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SettingsTogglesSection(
-                  darkMode: state.darkMode,
-                  onDarkModeChanged: controller.setDarkMode,
 
-                  onAppThemeTap: () {
-                    // TODO: open app-theme picker
-                  },
+                SettingsTogglesSection(
+                  darkMode: themeMode == ThemeMode.dark,
+                  onDarkModeChanged: (val) => themeController
+                      .setThemeMode(val ? ThemeMode.dark : ThemeMode.light),
+
+                  appThemeValue: _themeLabel(themeMode),
+                  onAppThemeTap: () => _openThemePicker(context, ref),
 
                   pushNotifications: state.pushNotifications,
                   onPushNotificationsChanged: controller.setPushNotifications,

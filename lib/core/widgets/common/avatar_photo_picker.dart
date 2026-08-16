@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
+import '../../theme/app_color_scheme.dart';
 import 'avatar.dart';
 
 /// [AppAvatar] with a camera badge overlapping its bottom edge, plus
@@ -40,7 +41,7 @@ class AvatarPhotoPicker extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: AppColors.primary,
                     shape: BoxShape.circle,
-                    border: Border.all(color: AppColors.surface, width: 2),
+                    border: Border.all(color: context.appColors.surface, width: 2),
                   ),
                   child: const Icon(Icons.camera_alt_rounded, size: AppSizes.iconSm - AppSizes.xs / 2, color: AppColors.textWhite),
                 ),

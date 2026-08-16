@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:template_test/core/constants/app_colors.dart';
 
+import '../../theme/app_color_scheme.dart';
+
 class CustomRefreshWrapper extends StatelessWidget {
   final Widget child;
   final Future<void> Function() onRefresh;
@@ -18,7 +20,7 @@ class CustomRefreshWrapper extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: onRefresh,
       color: AppColors.primary,
-      backgroundColor: AppColors.surface,
+      backgroundColor: context.appColors.surface,
       // physics: physics ?? const AlwaysScrollableScrollPhysics(),
       child: child,
     );

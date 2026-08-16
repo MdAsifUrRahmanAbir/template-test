@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:template_test/core/constants/app_colors.dart';
 import 'package:template_test/core/constants/app_sizes.dart';
 
+import '../../theme/app_color_scheme.dart';
+
 class CustomBottomSheet {
   CustomBottomSheet._();
 
@@ -15,7 +17,7 @@ class CustomBottomSheet {
       context: context,
       isScrollControlled: isScrollControlled,
       useSafeArea: useSafeArea,
-      backgroundColor: AppColors.surface,
+      backgroundColor: context.appColors.surface,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(AppSizes.radiusXl)),
       ),

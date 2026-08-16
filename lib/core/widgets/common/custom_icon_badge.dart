@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
+import '../../theme/app_color_scheme.dart';
 
 enum IconBadgeVariant { outlined, filled }
 
@@ -34,7 +35,7 @@ class CustomIconBadge extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: isFilled ? color.withValues(alpha: 0.1) : AppColors.surface,
+        color: isFilled ? color.withValues(alpha: 0.1) : context.appColors.surface,
         border: isFilled ? null : Border.all(color: AppColors.border),
         boxShadow: isFilled
             ? null

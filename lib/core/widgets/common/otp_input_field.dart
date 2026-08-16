@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
+import '../../theme/app_color_scheme.dart';
 
 /// Fixed-length OTP / PIN input — one box per digit. Auto-advances
 /// focus as the user types, calls [onCompleted] once every box is filled.
@@ -88,7 +89,7 @@ class _OtpInputFieldState extends State<OtpInputField> {
                 hintText: '-',
                 hintStyle: const TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w700),
                 filled: true,
-                fillColor: AppColors.surface,
+                fillColor: context.appColors.surface,
                 contentPadding: EdgeInsets.zero,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(AppSizes.radiusSm),

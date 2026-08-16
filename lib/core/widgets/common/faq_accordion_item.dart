@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
+import '../../theme/app_color_scheme.dart';
 
 /// Single expandable FAQ row — question + chevron that rotates on
 /// expand, answer text revealed beneath. Manages its own open/closed
@@ -31,7 +32,7 @@ class _FaqAccordionItemState extends State<FaqAccordionItem> {
       width: double.infinity,
       padding: const EdgeInsets.all(AppSizes.md),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: context.appColors.surface,
         borderRadius: BorderRadius.circular(AppSizes.radiusMd),
         border: Border.all(color: AppColors.border),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
+import '../../theme/app_color_scheme.dart';
 
 class CustomFilterBar<T> extends StatelessWidget {
   final List<T> filters;
@@ -41,7 +42,7 @@ class CustomFilterBar<T> extends StatelessWidget {
             ActionChip(
               label: const Text('Clear'),
               onPressed: onClear,
-              backgroundColor: AppColors.surface,
+              backgroundColor: context.appColors.surface,
               side: const BorderSide(color: AppColors.border),
             ),
         ],

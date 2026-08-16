@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/search_field.dart';
 import '../../../../core/widgets/common/icon_button.dart';
 
@@ -25,7 +26,7 @@ class ProductSearchBar extends StatelessWidget {
         const SizedBox(width: AppSizes.sm),
         Container(
           decoration: BoxDecoration(
-            color: AppColors.surface,
+            color: context.appColors.surface,
             borderRadius: BorderRadius.circular(AppSizes.radiusSm),
             border: Border.all(color: AppColors.border),
           ),

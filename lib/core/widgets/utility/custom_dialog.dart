@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:template_test/core/constants/app_colors.dart';
 import 'package:template_test/core/constants/app_sizes.dart';
 
+import '../../theme/app_color_scheme.dart';
+
 class CustomDialog {
   CustomDialog._();
 
@@ -16,7 +18,7 @@ class CustomDialog {
       context: context,
       barrierDismissible: barrierDismissible,
       builder: (context) => AlertDialog(
-        backgroundColor: AppColors.surface,
+        backgroundColor: context.appColors.surface,
         title: Text(title),
         content: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: AppSizes.xxl * 8),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../controllers/main_shell_controller.dart';
 import '../widgets/shell_tab_body.dart';
 import '../widgets/shell_navigation_item.dart';
@@ -21,7 +22,7 @@ class MainShellTabView extends ConsumerWidget {
           NavigationRail(
             selectedIndex: selectedIndex,
             onDestinationSelected: (index) => ref.read(mainShellControllerProvider.notifier).selectTab(index),
-            backgroundColor: AppColors.surface,
+            backgroundColor: context.appColors.surface,
             labelType: NavigationRailLabelType.all,
             indicatorColor: Colors.transparent,
             selectedIconTheme: const IconThemeData(color: AppColors.primary),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 
 
 /// Bordered panel showing a small-caps label and monospace error/log
@@ -25,7 +26,7 @@ class TechnicalDetailsPanel extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(AppSizes.md),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: context.appColors.surface,
         borderRadius: BorderRadius.circular(AppSizes.radiusSm),
         border: Border.all(color: AppColors.border),
       ),
