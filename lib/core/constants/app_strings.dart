@@ -85,17 +85,13 @@ class AppStrings {
   static const String resetPasswordTitle = 'Create New Password';
   static const String resetPasswordSubtitle =
       'Your new password must be different from previous passwords.';
-  // static const String newPassword = 'New Password';
-  // static const String confirmPassword = 'Confirm Password';
   static const String updatePassword = 'Update Password';
   static const String reqMinLength = '8+ characters';
   static const String reqNumber = 'Contains a number';
   static const String reqSymbol = 'Contains a symbol';
   static const String reqMatch = 'Passwords match';
-  // static const String passwordRequired = 'Password is required';
 
 // ---- Added: Home screen ----
-//   static const String welcomeBack = 'Welcome back,';
   static const String quickActions = 'Quick Actions';
   static const String newOrder = 'New Order';
   static const String reports = 'Reports';
@@ -152,7 +148,6 @@ class AppStrings {
   static const String categorySystem = 'SYSTEM';
 
   // ---- Added: Settings screen ----
-  // static const String settingsTitle = 'Settings';
   static const String appearanceSection = 'APPEARANCE';
   static const String notificationsSection = 'NOTIFICATIONS';
   static const String securitySection = 'SECURITY';
@@ -172,7 +167,6 @@ class AppStrings {
   static const String openSourceLicenses = 'Open Source Licenses';
   static const String logOut = 'Log Out';
   static const String deleteAccount = 'Delete Account';
-
 
   // ---- Added: Terms & Privacy screen ----
   static const String termsPrivacyTitle = 'Terms & Privacy';
@@ -246,9 +240,6 @@ class AppStrings {
   static const String stockInStock = 'In Stock';
   static const String stockLowStock = 'Low Stock';
   static const String stockOutOfStock = 'Out of Stock';
-
-
-
 
   // ---- Added: Not Found screen ----
   static const String notFoundCode = '404';
