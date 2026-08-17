@@ -26,9 +26,9 @@ class MainShellTabView extends ConsumerWidget {
             labelType: NavigationRailLabelType.all,
             indicatorColor: Colors.transparent,
             selectedIconTheme: const IconThemeData(color: AppColors.primary),
-            unselectedIconTheme: const IconThemeData(color: AppColors.textSecondary),
-            selectedLabelTextStyle: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.w600),
-            unselectedLabelTextStyle: const TextStyle(color: AppColors.textSecondary),
+            unselectedIconTheme: IconThemeData(color: context.appColors.textSecondary),
+            selectedLabelTextStyle: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w600),
+            unselectedLabelTextStyle: TextStyle(color: context.appColors.textSecondary),
             destinations: [
               for (final item in shellNavItems)
                 NavigationRailDestination(
@@ -38,7 +38,7 @@ class MainShellTabView extends ConsumerWidget {
                 ),
             ],
           ),
-          const VerticalDivider(width: 1, color: AppColors.border),
+          VerticalDivider(width: 1, color: context.appColors.border),
           Expanded(child: ShellTabBody(selectedIndex: selectedIndex)),
         ],
       ),

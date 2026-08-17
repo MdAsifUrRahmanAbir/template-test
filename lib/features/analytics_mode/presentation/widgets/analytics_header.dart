@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/app_color_scheme.dart';
@@ -24,7 +23,7 @@ class AnalyticsHeader extends StatelessWidget {
       padding: const EdgeInsets.all(AppSizes.md),
       decoration: BoxDecoration(
         color: context.appColors.surface,
-        // border: Border(bottom: BorderSide(color: AppColors.border)),
+        // border: Border(bottom: BorderSide(color: context.appColors.border)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,19 +31,19 @@ class AnalyticsHeader extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 AppStrings.analyticsTitle,
-                style: TextStyle(fontSize: AppSizes.fontXl, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+                style: TextStyle(fontSize: AppSizes.fontXl, fontWeight: FontWeight.w700, color: context.appColors.textPrimary),
               ),
               OutlinedButton.icon(
                 onPressed: onExportTap,
                 style: OutlinedButton.styleFrom(
-                  foregroundColor: AppColors.textSecondary,
-                  side: const BorderSide(color: AppColors.border),
+                  foregroundColor: context.appColors.textSecondary,
+                  side: BorderSide(color: context.appColors.border),
                   padding: const EdgeInsets.symmetric(horizontal: AppSizes.sm + AppSizes.xs, vertical: AppSizes.xs),
                 ),
-                icon: const Icon(Icons.expand_more_rounded, size: AppSizes.iconSm),
-                label: const Text(AppStrings.exportLabel, style: TextStyle(fontSize: AppSizes.fontSm, fontWeight: FontWeight.w600)),
+                icon: Icon(Icons.expand_more_rounded, size: AppSizes.iconSm),
+                label:  Text(AppStrings.exportLabel, style: TextStyle(fontSize: AppSizes.fontSm, fontWeight: FontWeight.w600)),
               ),
             ],
           ),
@@ -54,13 +53,13 @@ class AnalyticsHeader extends StatelessWidget {
             borderRadius: BorderRadius.circular(AppSizes.radiusSm),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: AppSizes.sm + AppSizes.xs, vertical: AppSizes.sm),
-              decoration: BoxDecoration(color: AppColors.background, borderRadius: BorderRadius.circular(AppSizes.radiusSm)),
+              decoration: BoxDecoration(color: context.appColors.background, borderRadius: BorderRadius.circular(AppSizes.radiusSm)),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.calendar_today_outlined, size: AppSizes.iconSm, color: AppColors.textSecondary),
+                   Icon(Icons.calendar_today_outlined, size: AppSizes.iconSm, color: context.appColors.textSecondary),
                   const SizedBox(width: AppSizes.sm),
-                  Text(dateRangeLabel, style: const TextStyle(fontSize: AppSizes.fontSm, fontWeight: FontWeight.w500, color: AppColors.textPrimary)),
+                  Text(dateRangeLabel, style: TextStyle(fontSize: AppSizes.fontSm, fontWeight: FontWeight.w500, color: context.appColors.textPrimary)),
                 ],
               ),
             ),

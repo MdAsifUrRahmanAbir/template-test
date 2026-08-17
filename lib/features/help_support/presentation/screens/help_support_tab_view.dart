@@ -37,7 +37,7 @@ class HelpSupportTabView extends ConsumerWidget {
                       },
                     ),
                     const SizedBox(height: AppSizes.xl),
-                    const Text(
+                     Text(
                       AppStrings.faqSectionTitle,
                       style: TextStyle(fontSize: AppSizes.fontLg, fontWeight: FontWeight.w700, color: Color(0xFF0F172A)),
                     ),
@@ -81,7 +81,7 @@ class HelpSupportTabView extends ConsumerWidget {
                       },
                     ),
                     const SizedBox(height: AppSizes.xl),
-                    const Text(
+                     Text(
                       AppStrings.contactSupportTitle,
                       style: TextStyle(fontSize: AppSizes.fontLg, fontWeight: FontWeight.w700, color: Color(0xFF0F172A)),
                     ),

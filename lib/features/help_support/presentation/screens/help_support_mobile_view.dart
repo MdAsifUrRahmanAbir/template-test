@@ -33,7 +33,7 @@ class HelpSupportMobileView extends ConsumerWidget {
                   },
                 ),
                 const SizedBox(height: AppSizes.lg),
-                const Text(
+                 Text(
                   AppStrings.faqSectionTitle,
                   style: TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w700, color: Color(0xFF0F172A)),
                 ),
@@ -79,7 +79,7 @@ class HelpSupportMobileView extends ConsumerWidget {
                   },
                 ),
                 const SizedBox(height: AppSizes.lg),
-                const Text(
+                 Text(
                   AppStrings.contactSupportTitle,
                   style: TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w700, color: Color(0xFF0F172A)),
                 ),

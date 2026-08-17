@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/primary_input_field.dart';
 import '../../../../core/widgets/common/password_input_field.dart';
 import '../../../../core/widgets/common/password_strength_meter.dart';
@@ -47,7 +47,7 @@ class RegisterForm extends ConsumerWidget {
             label: AppStrings.fullName,
             hint: AppStrings.fullNameHint,
             controller: controller.nameController,
-            prefixIcon: const Icon(
+            prefixIcon: Icon(
               Icons.person_outline_rounded,
             ),
             validator: controller.validateName,
@@ -60,7 +60,7 @@ class RegisterForm extends ConsumerWidget {
             hint: AppStrings.registerEmailHint,
             controller: controller.emailController,
             keyboardType: TextInputType.emailAddress,
-            prefixIcon: const Icon(
+            prefixIcon: Icon(
               Icons.mail_outline_rounded,
             ),
             validator: controller.validateEmail,
@@ -107,11 +107,11 @@ class RegisterForm extends ConsumerWidget {
                 },
               ),
 
-              const Text(
+               Text(
                 AppStrings.agreeToTermsPrefix,
                 style: TextStyle(
                   fontSize: AppSizes.fontSm,
-                  color: AppColors.textPrimary,
+                  color: context.appColors.textPrimary,
                 ),
               ),
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/custom_card.dart';
 import '../../../../core/widgets/utility/legend_dot_item.dart';
 import '../../../../core/widgets/utility/multi_line_chart.dart';
@@ -42,9 +43,9 @@ class RevenueExpenseChartCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     AppStrings.revenueVsExpenses,
-                    style: TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+                    style: TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w700, color: context.appColors.textPrimary),
                   ),
                   const SizedBox(height: AppSizes.xs),
                   Row(

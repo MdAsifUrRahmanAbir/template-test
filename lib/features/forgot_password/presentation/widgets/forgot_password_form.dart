@@ -57,7 +57,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
             hint: AppStrings.registerEmailHint,
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
-            prefixIcon: const Icon(Icons.mail_outline_rounded),
+            prefixIcon: Icon(Icons.mail_outline_rounded),
             validator: _validateEmail,
           ),
           const SizedBox(height: 20),

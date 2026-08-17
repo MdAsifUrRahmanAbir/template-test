@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/numbered_list_item.dart';
 import '../../../../core/widgets/common/custom_card.dart';
 
@@ -11,14 +11,14 @@ import '../../../../core/widgets/common/custom_card.dart';
 class TermsPrivacyContent extends StatelessWidget {
   const TermsPrivacyContent({super.key});
 
-  Widget _sectionTitle(String text) => Text(
+  Widget _sectionTitle(String text, BuildContext context) => Text(
     text,
-    style: const TextStyle(fontSize: AppSizes.fontLg, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+    style: TextStyle(fontSize: AppSizes.fontLg, fontWeight: FontWeight.w600, color: context.appColors.textPrimary),
   );
 
-  Widget _sectionBody(String text) => Text(
+  Widget _sectionBody(String text, BuildContext context) => Text(
     text,
-    style: const TextStyle(fontSize: AppSizes.fontMd, color: AppColors.textSecondary, height: 1.5),
+    style: TextStyle(fontSize: AppSizes.fontMd, color: context.appColors.textSecondary, height: 1.5),
   );
 
   @override
@@ -26,50 +26,50 @@ class TermsPrivacyContent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionTitle(AppStrings.termsSection1Title),
+        _sectionTitle(AppStrings.termsSection1Title, context),
         const SizedBox(height: AppSizes.sm + AppSizes.xs),
-        _sectionBody(AppStrings.termsSection1Body),
+        _sectionBody(AppStrings.termsSection1Body, context),
         const SizedBox(height: AppSizes.xl),
 
-        _sectionTitle(AppStrings.termsSection2Title),
+        _sectionTitle(AppStrings.termsSection2Title, context),
         const SizedBox(height: AppSizes.sm + AppSizes.xs),
-        _sectionBody(AppStrings.termsSection2Body),
+        _sectionBody(AppStrings.termsSection2Body, context),
         const SizedBox(height: AppSizes.sm),
         const NumberedListItem(number: '01', text: 'Secure system telemetry and active diagnostic profiles.'),
         const NumberedListItem(number: '02', text: 'Encrypted performance packets for secure cluster analytics.'),
         const NumberedListItem(number: '03', text: 'OAuth validation tokens for authenticated third-party connections.'),
         const SizedBox(height: AppSizes.md),
 
-        _sectionTitle(AppStrings.termsSection3Title),
+        _sectionTitle(AppStrings.termsSection3Title, context),
         const SizedBox(height: AppSizes.sm + AppSizes.xs),
-        _sectionBody(AppStrings.termsSection3Body),
+        _sectionBody(AppStrings.termsSection3Body, context),
         const SizedBox(height: AppSizes.xl),
 
-        _sectionTitle(AppStrings.termsSection4Title),
+        _sectionTitle(AppStrings.termsSection4Title, context),
         const SizedBox(height: AppSizes.sm + AppSizes.xs),
-        _sectionBody(AppStrings.termsSection4Body),
+        _sectionBody(AppStrings.termsSection4Body, context),
         const SizedBox(height: AppSizes.xl),
 
-        _sectionTitle(AppStrings.termsSection5Title),
+        _sectionTitle(AppStrings.termsSection5Title, context),
         const SizedBox(height: AppSizes.sm + AppSizes.xs),
-        _sectionBody(AppStrings.termsSection5Body),
+        _sectionBody(AppStrings.termsSection5Body, context),
         const SizedBox(height: AppSizes.md),
         CustomCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+               Text(
                 AppStrings.termsContactName,
-                style: TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+                style: TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w600, color: context.appColors.textPrimary),
               ),
               const SizedBox(height: AppSizes.xs),
-              const Text(
+               Text(
                 AppStrings.termsContactEmail,
-                style: TextStyle(fontSize: AppSizes.fontSm, color: AppColors.textSecondary),
+                style: TextStyle(fontSize: AppSizes.fontSm, color: context.appColors.textSecondary),
               ),
-              const Text(
+               Text(
                 AppStrings.termsContactSla,
-                style: TextStyle(fontSize: AppSizes.fontSm, color: AppColors.textSecondary),
+                style: TextStyle(fontSize: AppSizes.fontSm, color: context.appColors.textSecondary),
               ),
             ],
           ),

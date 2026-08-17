@@ -3,6 +3,7 @@ import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/app_svg_icon.dart';
 import '../../../../core/widgets/common/primary_button.dart';
 import '../../../../core/widgets/common/secondary_button.dart';
@@ -34,16 +35,16 @@ class ErrorContent extends StatelessWidget {
           size: AppSizes.xxl * 2 + AppSizes.xl,
         ),
         const SizedBox(height: AppSizes.xl),
-        const Text(
+         Text(
           AppStrings.errorTitle,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: AppSizes.fontXxl, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+          style: TextStyle(fontSize: AppSizes.fontXxl, fontWeight: FontWeight.w700, color: context.appColors.textPrimary),
         ),
         const SizedBox(height: AppSizes.sm + AppSizes.xs),
-        const Text(
+         Text(
           AppStrings.errorSubtitle,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: AppSizes.fontMd, color: AppColors.textSecondary, height: 1.5),
+          style: TextStyle(fontSize: AppSizes.fontMd, color: context.appColors.textSecondary, height: 1.5),
         ),
         const SizedBox(height: AppSizes.xl),
         TechnicalDetailsPanel(details: errorDetails),

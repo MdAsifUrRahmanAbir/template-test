@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/app_color_scheme.dart';
@@ -54,12 +53,12 @@ class OrderCardItem extends StatelessWidget {
                 children: [
                   Text(
                     orderId,
-                    style: const TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+                    style: TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w700, color: context.appColors.textPrimary),
                   ),
                   const SizedBox(height: AppSizes.xs / 2),
                   Text(
                     date,
-                    style: const TextStyle(fontSize: AppSizes.fontSm, color: AppColors.textSecondary),
+                    style: TextStyle(fontSize: AppSizes.fontSm, color: context.appColors.textSecondary),
                   ),
                 ],
               ),
@@ -95,12 +94,12 @@ class OrderCardItem extends StatelessWidget {
                 children: [
                   Text(
                     '$itemCount items',
-                    style: const TextStyle(fontSize: AppSizes.fontSm, color: AppColors.textSecondary),
+                    style: TextStyle(fontSize: AppSizes.fontSm, color: context.appColors.textSecondary),
                   ),
                   const SizedBox(height: AppSizes.xs / 2),
                   Text(
                     total,
-                    style: const TextStyle(fontSize: AppSizes.fontLg, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+                    style: TextStyle(fontSize: AppSizes.fontLg, fontWeight: FontWeight.w700, color: context.appColors.textPrimary),
                   ),
                 ],
               ),

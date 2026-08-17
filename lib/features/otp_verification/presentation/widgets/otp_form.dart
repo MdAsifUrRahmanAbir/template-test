@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/otp_input_field.dart';
 import '../../../../core/widgets/common/primary_button.dart';
 import '../../../../core/widgets/common/link_button.dart';
@@ -88,12 +89,12 @@ class _OtpFormState extends State<OtpForm> {
         if (!canResend)
           RichText(
             text: TextSpan(
-              style: const TextStyle(fontSize: AppSizes.fontMd, color: AppColors.textSecondary),
+              style: TextStyle(fontSize: AppSizes.fontMd, color: context.appColors.textSecondary),
               children: [
                 const TextSpan(text: AppStrings.resendOtpInPrefix),
                 TextSpan(
                   text: _formattedTime,
-                  style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.w700),
+                  style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w700),
                 ),
               ],
             ),
@@ -108,14 +109,14 @@ class _OtpFormState extends State<OtpForm> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+             Text(
               AppStrings.didntReceiveCode,
-              style: TextStyle(fontSize: AppSizes.fontSm, color: AppColors.textSecondary),
+              style: TextStyle(fontSize: AppSizes.fontSm, color: context.appColors.textSecondary),
             ),
             LinkButton(
               label: AppStrings.resendOtp,
               fontSize: AppSizes.fontSm,
-              color: canResend ? AppColors.primary : AppColors.textHint,
+              color: canResend ? AppColors.primary : context.appColors.textHint,
               onPressed: canResend ? _handleResend : null,
             ),
           ],

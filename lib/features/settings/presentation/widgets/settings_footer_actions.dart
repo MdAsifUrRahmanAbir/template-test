@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 
 /// App version label, plus destructive Log Out / Delete Account
 /// actions at the bottom of the settings list.
@@ -23,7 +24,7 @@ class SettingsFooterActions extends StatelessWidget {
       children: [
         Text(
           versionLabel,
-          style: const TextStyle(fontSize: AppSizes.fontSm, color: AppColors.textSecondary),
+          style: TextStyle(fontSize: AppSizes.fontSm, color: context.appColors.textSecondary),
         ),
         const SizedBox(height: AppSizes.sm + AppSizes.xs),
         SizedBox(
@@ -36,7 +37,7 @@ class SettingsFooterActions extends StatelessWidget {
               foregroundColor: AppColors.error,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.radiusSm)),
             ),
-            child: const Text(
+            child:  Text(
               AppStrings.logOut,
               style: TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w600),
             ),
@@ -53,7 +54,7 @@ class SettingsFooterActions extends StatelessWidget {
               side: const BorderSide(color: AppColors.error),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.radiusSm)),
             ),
-            child: const Text(
+            child:  Text(
               AppStrings.deleteAccount,
               style: TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w600),
             ),

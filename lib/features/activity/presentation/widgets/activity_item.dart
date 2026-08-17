@@ -87,7 +87,7 @@ class ActivityItem extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Icon(Icons.chevron_right_rounded, size: AppSizes.iconSm, color: AppColors.textHint),
+                  Icon(Icons.chevron_right_rounded, size: AppSizes.iconSm, color: context.appColors.textHint),
                 ],
               ),
             ),

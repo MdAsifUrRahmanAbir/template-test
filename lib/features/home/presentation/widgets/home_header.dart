@@ -28,7 +28,7 @@ class HomeHeader extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
       decoration: BoxDecoration(
         color: context.appColors.surface,
-        // border: Border(bottom: BorderSide(color: AppColors.border)),
+        // border: Border(bottom: BorderSide(color: context.appColors.border)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,16 +46,16 @@ class HomeHeader extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                   Text(
                     AppStrings.welcomeBack,
-                    style: TextStyle(fontSize: AppSizes.fontSm, color: AppColors.textSecondary),
+                    style: TextStyle(fontSize: AppSizes.fontSm, color: context.appColors.textSecondary),
                   ),
                   Text(
                     userName,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: AppSizes.fontMd,
                       fontWeight: FontWeight.w700,
-                      color: AppColors.textPrimary,
+                      color: context.appColors.textPrimary,
                     ),
                   ),
                 ],
@@ -73,13 +73,13 @@ class HomeHeader extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: context.appColors.surface,
                     shape: BoxShape.circle,
-                    border: Border.all(color: AppColors.border),
+                    border: Border.all(color: context.appColors.border),
                   ),
                   alignment: Alignment.center,
-                  child: const Icon(
+                  child: Icon(
                     Icons.notifications_outlined,
                     size: AppSizes.iconSm,
-                    color: AppColors.textPrimary,
+                    color: context.appColors.textPrimary,
                   ),
                 ),
                 if (hasUnreadNotifications)

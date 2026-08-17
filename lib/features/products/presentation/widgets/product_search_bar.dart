@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/app_color_scheme.dart';
@@ -28,7 +27,7 @@ class ProductSearchBar extends StatelessWidget {
           decoration: BoxDecoration(
             color: context.appColors.surface,
             borderRadius: BorderRadius.circular(AppSizes.radiusSm),
-            border: Border.all(color: AppColors.border),
+            border: Border.all(color: context.appColors.border),
           ),
           child: AppIconButton(
             icon: Icons.tune_rounded,

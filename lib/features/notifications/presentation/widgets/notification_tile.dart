@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/custom_card.dart';
 import '../../../../core/widgets/common/status_badge.dart';
 
@@ -72,7 +73,7 @@ class NotificationTile extends StatelessWidget {
                 compact: true,
               ),              Text(
                 time,
-                style: const TextStyle(fontSize: AppSizes.fontXs, color: AppColors.textSecondary),
+                style: TextStyle(fontSize: AppSizes.fontXs, color: context.appColors.textSecondary),
               ),
             ],
           ),
@@ -82,7 +83,7 @@ class NotificationTile extends StatelessWidget {
             style: TextStyle(
               fontSize: AppSizes.fontMd,
               fontWeight: isUnread ? FontWeight.w700 : FontWeight.w500,
-              color: AppColors.textPrimary,
+              color: context.appColors.textPrimary,
             ),
           ),
           const SizedBox(height: AppSizes.xs / 2),
@@ -90,7 +91,7 @@ class NotificationTile extends StatelessWidget {
             description,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontSize: AppSizes.fontSm, color: AppColors.textSecondary),
+            style: TextStyle(fontSize: AppSizes.fontSm, color: context.appColors.textSecondary),
           ),
         ],
       ),

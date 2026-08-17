@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/custom_card.dart';
 import '../../../../core/widgets/common/square_icon_tile.dart';
 
@@ -32,10 +33,10 @@ class QuickActionItem extends StatelessWidget {
             label,
             textAlign: TextAlign.center,
             maxLines: 1,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: AppSizes.fontSm,
               fontWeight: FontWeight.w600,
-              color: AppColors.textPrimary,
+              color: context.appColors.textPrimary,
             ),
           ),
         ],

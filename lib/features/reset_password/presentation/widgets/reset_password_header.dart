@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/custom_icon_badge.dart';
 
 /// Key/lock icon badge + "Create New Password" heading + subtitle at
@@ -12,7 +12,7 @@ class ResetPasswordHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
         CustomIconBadge(
           icon: Icons.lock_reset_rounded,
@@ -25,7 +25,7 @@ class ResetPasswordHeader extends StatelessWidget {
           style: TextStyle(
             fontSize: AppSizes.fontDisplay,
             fontWeight: FontWeight.w700,
-            color: AppColors.textPrimary,
+            color: context.appColors.textPrimary,
           ),
         ),
         SizedBox(height: AppSizes.sm),
@@ -34,7 +34,7 @@ class ResetPasswordHeader extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: AppSizes.fontMd,
-            color: AppColors.textSecondary,
+            color: context.appColors.textSecondary,
           ),
         ),
       ],

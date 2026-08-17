@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/app_header_bar.dart';
 import '../controllers/product_controller.dart';
 import '../widgets/product_category_tabs.dart';
@@ -58,10 +58,10 @@ class ProductListMobileView extends ConsumerWidget {
                   children: _products,
                 ),
                 const SizedBox(height: AppSizes.sm),
-                const Center(
+                Center(
                   child: Text(
                     'Showing 4 of 124 products',
-                    style: TextStyle(fontSize: AppSizes.fontSm, color: AppColors.textSecondary),
+                    style: TextStyle(fontSize: AppSizes.fontSm, color: context.appColors.textSecondary),
                   ),
                 ),
               ],

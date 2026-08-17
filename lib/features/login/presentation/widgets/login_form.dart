@@ -38,7 +38,7 @@ class LoginForm extends ConsumerWidget {
             hint: AppStrings.emailHint,
             controller: controller.emailController,
             keyboardType: TextInputType.emailAddress,
-            prefixIcon: const Icon(Icons.mail_outline_rounded),
+            prefixIcon: Icon(Icons.mail_outline_rounded),
             validator: controller.validateEmail,
           ),
           const SizedBox(height: AppSizes.md),

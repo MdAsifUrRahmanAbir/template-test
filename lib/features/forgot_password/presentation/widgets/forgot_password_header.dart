@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/custom_icon_badge.dart';
 
 /// Key icon badge + "Forgot Password?" heading + subtitle at the top
@@ -11,7 +11,7 @@ class ForgotPasswordHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
         CustomIconBadge(
           icon: Icons.vpn_key_outlined,
@@ -21,13 +21,13 @@ class ForgotPasswordHeader extends StatelessWidget {
         Text(
           AppStrings.forgotPasswordTitle,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: AppSizes.fontDisplay, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+          style: TextStyle(fontSize: AppSizes.fontDisplay, fontWeight: FontWeight.w700, color: context.appColors.textPrimary),
         ),
         SizedBox(height: AppSizes.sm),
         Text(
           AppStrings.forgotPasswordSubtitle,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: AppSizes.fontMd, color: AppColors.textSecondary),
+          style: TextStyle(fontSize: AppSizes.fontMd, color: context.appColors.textSecondary),
         ),
       ],
     );

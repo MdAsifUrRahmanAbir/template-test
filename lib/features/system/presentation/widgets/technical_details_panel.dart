@@ -28,17 +28,17 @@ class TechnicalDetailsPanel extends StatelessWidget {
       decoration: BoxDecoration(
         color: context.appColors.surface,
         borderRadius: BorderRadius.circular(AppSizes.radiusSm),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: context.appColors.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: AppSizes.fontXs,
               fontWeight: FontWeight.w700,
-              color: AppColors.textSecondary,
+              color: context.appColors.textSecondary,
               letterSpacing: 0.5,
             ),
           ),

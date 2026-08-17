@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/custom_card.dart';
 import '../../../../routes/route_names.dart';
 import '../widgets/home_header.dart';
@@ -82,12 +83,12 @@ class HomeTabView extends ConsumerWidget {
                     const SizedBox(height: AppSizes.xl),
 
                     // ---- Quick Actions ----
-                    const Text(
+                     Text(
                       AppStrings.quickActions,
                       style: TextStyle(
                         fontSize: AppSizes.fontLg,
                         fontWeight: FontWeight.w700,
-                        color: AppColors.textPrimary,
+                        color: context.appColors.textPrimary,
                       ),
                     ),
                     const SizedBox(height: AppSizes.md),
@@ -145,12 +146,12 @@ class HomeTabView extends ConsumerWidget {
                     const SizedBox(height: AppSizes.xl),
 
                     // ---- Recent Activity ----
-                    const Text(
+                     Text(
                       AppStrings.recentActivity,
                       style: TextStyle(
                         fontSize: AppSizes.fontLg,
                         fontWeight: FontWeight.w700,
-                        color: AppColors.textPrimary,
+                        color: context.appColors.textPrimary,
                       ),
                     ),
                     const SizedBox(height: AppSizes.md),

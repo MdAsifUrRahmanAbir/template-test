@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/custom_card.dart';
 import '../../../../core/widgets/common/avatar.dart';
 import '../../../../core/widgets/common/status_badge.dart';
@@ -69,18 +70,18 @@ class AuditLogEntryCard extends StatelessWidget {
             children: [
               Text(
                 timestamp,
-                style: const TextStyle(fontSize: AppSizes.fontXs, fontWeight: FontWeight.w500, color: AppColors.textSecondary),
+                style: TextStyle(fontSize: AppSizes.fontXs, fontWeight: FontWeight.w500, color: context.appColors.textSecondary),
               ),
               Text(
                 transactionId,
-                style: const TextStyle(fontSize: AppSizes.fontXs, fontWeight: FontWeight.w700, color: AppColors.primary),
+                style: TextStyle(fontSize: AppSizes.fontXs, fontWeight: FontWeight.w700, color: AppColors.primary),
               ),
             ],
           ),
           const SizedBox(height: AppSizes.sm + AppSizes.xs),
           Text(
             title,
-            style: const TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+            style: TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w600, color: context.appColors.textPrimary),
           ),
           const SizedBox(height: AppSizes.sm + AppSizes.xs),
           Row(
@@ -93,7 +94,7 @@ class AuditLogEntryCard extends StatelessWidget {
                   const SizedBox(width: AppSizes.xs + AppSizes.xs / 2),
                   Text(
                     actorName,
-                    style: const TextStyle(fontSize: AppSizes.fontSm, fontWeight: FontWeight.w500, color: AppColors.textSecondary),
+                    style: TextStyle(fontSize: AppSizes.fontSm, fontWeight: FontWeight.w500, color: context.appColors.textSecondary),
                   ),
                 ],
               ),

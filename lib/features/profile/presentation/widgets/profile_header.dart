@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 // import 'package:template_test/core/constants/app_strings.dart';
 // import 'package:template_test/core/widgets/common/app_header_bar.dart';
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/status_badge.dart';
 import '../../../../core/widgets/common/gradient_cover_header.dart';
 
@@ -35,7 +35,7 @@ class ProfileHeader extends StatelessWidget {
         const SizedBox(height: AppSizes.md),
         Text(
           name,
-          style: const TextStyle(fontSize: AppSizes.fontXxl, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+          style: TextStyle(fontSize: AppSizes.fontXxl, fontWeight: FontWeight.w700, color: context.appColors.textPrimary),
         ),
         const SizedBox(height: AppSizes.xs),
         StatusBadge(text: role, type: StatusBadgeType.primary, compact: true),

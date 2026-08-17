@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/custom_card.dart';
 import '../../../../core/widgets/common/status_badge.dart';
 
@@ -51,7 +51,7 @@ class ProductCardItem extends StatelessWidget {
             aspectRatio: 1.05,
             child: Container(
               decoration: BoxDecoration(
-                color: AppColors.background,
+                color: context.appColors.background,
                 borderRadius: BorderRadius.circular(AppSizes.radiusSm),
                 image: imageUrl != null
                     ? DecorationImage(image: NetworkImage(imageUrl!), fit: BoxFit.cover)
@@ -62,14 +62,14 @@ class ProductCardItem extends StatelessWidget {
           const SizedBox(height: AppSizes.sm + AppSizes.xs),
           Text(
             category.toUpperCase(),
-            style: const TextStyle(fontSize: AppSizes.fontXs, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+            style: TextStyle(fontSize: AppSizes.fontXs, fontWeight: FontWeight.w600, color: context.appColors.textSecondary),
           ),
           const SizedBox(height: AppSizes.xs / 2),
           Text(
             name,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+            style: TextStyle(fontSize: AppSizes.fontMd, fontWeight: FontWeight.w700, color: context.appColors.textPrimary),
           ),
           const SizedBox(height: AppSizes.sm + AppSizes.xs),
           Row(
@@ -78,7 +78,7 @@ class ProductCardItem extends StatelessWidget {
               Flexible(
                 child: Text(
                   price,
-                  style: const TextStyle(fontSize: AppSizes.fontLg, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+                  style: TextStyle(fontSize: AppSizes.fontLg, fontWeight: FontWeight.w700, color: context.appColors.textPrimary),
                 ),
               ),
               StatusBadge(text: stockLabel, type: stockType, compact: true),

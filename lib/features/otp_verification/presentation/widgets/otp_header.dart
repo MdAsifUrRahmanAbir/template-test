@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/theme/app_color_scheme.dart';
 import '../../../../core/widgets/common/custom_icon_badge.dart';
 
 /// Icon badge + "Verify Your Account" heading + subtitle at the top of
@@ -15,16 +15,16 @@ class OtpHeader extends StatelessWidget {
       children: [
         const CustomIconBadge(icon: Icons.error_outline_rounded),
         const SizedBox(height: AppSizes.lg),
-        const Text(
+         Text(
           AppStrings.verifyYourAccount,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: AppSizes.fontXl, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+          style: TextStyle(fontSize: AppSizes.fontXl, fontWeight: FontWeight.w700, color: context.appColors.textPrimary),
         ),
         const SizedBox(height: AppSizes.sm),
-        const Text(
+         Text(
           AppStrings.otpSubtitle,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: AppSizes.fontMd, color: AppColors.textSecondary),
+          style: TextStyle(fontSize: AppSizes.fontMd, color: context.appColors.textSecondary),
         ),
       ],
     );
