@@ -3,14 +3,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constants/api_endpoints.dart';
 import 'api_exception.dart';
 import 'api_logging_interceptor.dart';
+import 'connectivity_provider.dart';
 
-final apiClientProvider = Provider<ApiClient>((ref) => ApiClient());
+final apiClientProvider = Provider<ApiClient>((ref) {
+  final connectivityService = ref.watch(connectivityServiceProvider);
+  return ApiClient(isConnected: () => connectivityService.isConnected);
+});
 
 class ApiClient {
   late final Dio _dio;
   String? _authToken;
 
-  ApiClient() {
+  /// Synchronous connectivity check, read fresh on every request. Defaults
+  /// to always-true so ApiClient can still be constructed directly (tests,
+  /// tools) without wiring up connectivity — real app usage always goes
+  /// through [apiClientProvider], which injects the real check.
+  final bool Function() _isConnected;
+
+  ApiClient({bool Function()? isConnected}) : _isConnected = isConnected ?? (() => true) {
     _dio = Dio(
       BaseOptions(
         baseUrl: ApiEndpoints.baseUrl,
@@ -22,6 +32,26 @@ class ApiClient {
         },
       ),
     );
+
+    // Added first, deliberately: blocks offline requests before they reach
+    // the logging interceptor (so nothing gets logged as "sent" when it
+    // never left the device) and before the auth interceptor (so no token
+    // work happens on a request that's about to be rejected anyway).
+    _dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) {
+        if (!_isConnected()) {
+          handler.reject(
+            DioException(
+              requestOptions: options,
+              type: DioExceptionType.connectionError,
+              error: 'No internet connection — request blocked before dispatch.',
+            ),
+          );
+          return;
+        }
+        return handler.next(options);
+      },
+    ));
 
     _dio.interceptors.add(ApiLoggingInterceptor());
 

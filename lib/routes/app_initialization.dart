@@ -1,9 +1,10 @@
 
-
 class AppInitialization {
   AppInitialization();
 
-  static void init(){
+  static void init() async{
+
+
     // SystemChrome.setSystemUIOverlayStyle(
     //   const SystemUiOverlayStyle(
     //     statusBarColor: Colors.transparent, // স্ট্যাটাস বারের ব্যাকগ্রাউন্ড ট্রান্সপারেন্ট

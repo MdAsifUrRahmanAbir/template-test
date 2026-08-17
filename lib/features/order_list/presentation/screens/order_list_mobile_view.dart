@@ -3,22 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/widgets/common/app_header_bar.dart';
-import '../../../../core/widgets/common/custom_tab_bar.dart';
+import '../controllers/order_list_controller.dart';
 import '../widgets/order_card_item.dart';
+import '../widgets/order_filter_tabs.dart';
 import '../widgets/order_status_badge.dart';
 
-class OrderListMobileView extends ConsumerStatefulWidget {
+class OrderListMobileView extends ConsumerWidget {
   const OrderListMobileView({super.key});
 
-  @override
-  ConsumerState<OrderListMobileView> createState() => _OrderListMobileViewState();
-}
-
-class _OrderListMobileViewState extends ConsumerState<OrderListMobileView> with SingleTickerProviderStateMixin {
-  late final TabController _tabController = TabController(length: 4, vsync: this);
-
-  // TODO: replace hardcoded orders with orderControllerProvider once
-  // features/orders/data/repositories is implemented.
   static const _orders = [
     OrderCardItem(
       orderId: '#ORD-2026-1284',
@@ -47,33 +39,28 @@ class _OrderListMobileViewState extends ConsumerState<OrderListMobileView> with 
   ];
 
   @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedFilter = ref.watch(orderListControllerProvider).selectedFilter;
 
-  @override
-  Widget build(BuildContext context) {
+    final filteredOrders = selectedFilter == 'all'
+        ? _orders
+        : _orders.where((order) => order.status.name == selectedFilter).toList();
+
     return Column(
       children: [
         const AppHeaderBar(title: AppStrings.myOrdersTitle),
-        CustomTabBar(
-          controller: _tabController,
-          tabs: const [
-            Tab(text: AppStrings.orderTabAll),
-            Tab(text: AppStrings.orderTabPending),
-            Tab(text: AppStrings.orderTabCompleted),
-            Tab(text: AppStrings.orderTabCancelled),
-          ],
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: AppSizes.md, vertical: AppSizes.sm),
+          child: OrderFilterTabs(),
         ),
         Expanded(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(AppSizes.md),
             child: Column(
               children: [
-                for (final order in _orders) ...[
+                for (final order in filteredOrders) ...[
                   order,
-                  if (order != _orders.last) const SizedBox(height: AppSizes.sm + AppSizes.xs),
+                  if (order != filteredOrders.last) const SizedBox(height: AppSizes.sm + AppSizes.xs),
                 ],
               ],
             ),

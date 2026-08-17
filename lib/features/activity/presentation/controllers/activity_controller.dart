@@ -1,10 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../states/activity_state.dart';
 
-class ActivityController extends Notifier<AsyncValue<void>> {
+
+class ActivityController extends Notifier<ActivityState> {
   @override
-  AsyncValue<void> build() {
-    return const AsyncValue.data(null);
+  ActivityState build() => const ActivityState();
+
+  void selectFilter(String filter) {
+    state = state.copyWith(selectedFilter: filter);
   }
+
 }
 
-final activityControllerProvider = NotifierProvider<ActivityController, AsyncValue<void>>(ActivityController.new);
+final activityControllerProvider =
+NotifierProvider.autoDispose<ActivityController, ActivityState>(ActivityController.new);

@@ -268,4 +268,11 @@ class AppStrings {
   static const String themeSystem = 'System';
   static const String themeLight = 'Light';
   static const String themeDark = 'Dark';
+
+  static const String exitAppTitle = 'Exit App?';
+  static const String exitAppMessage = 'Are you sure you want to exit the app?';
+  static const String exitAppConfirm = 'Exit';
+  static const String exitAppCancel = 'Cancel';
+
+  static const String noInternetBannerMessage = 'No internet connection';
 }

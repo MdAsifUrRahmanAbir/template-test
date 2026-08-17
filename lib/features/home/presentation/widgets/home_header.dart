@@ -28,7 +28,7 @@ class HomeHeader extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
       decoration: BoxDecoration(
         color: context.appColors.surface,
-        border: Border(bottom: BorderSide(color: AppColors.border)),
+        // border: Border(bottom: BorderSide(color: AppColors.border)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

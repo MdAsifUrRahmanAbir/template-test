@@ -4,19 +4,13 @@ import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/widgets/common/app_header_bar.dart';
 import '../../../../core/widgets/common/activity_filter_tabs.dart';
+import '../controllers/activity_controller.dart';
 import '../widgets/activity_item.dart';
 
-class ActivityMobileView extends ConsumerStatefulWidget {
+class ActivityMobileView extends ConsumerWidget {
   const ActivityMobileView({super.key});
 
-  @override
-  ConsumerState<ActivityMobileView> createState() => _ActivityMobileViewState();
-}
-
-class _ActivityMobileViewState extends ConsumerState<ActivityMobileView> {
-  String _selectedFilter = 'today';
-
-  // TODO: replace with activityControllerProvider once
+  // TODO: replace with activityControllerProvider's fetched data once
   // features/activity/data/repositories is implemented.
   static const _items = [
     ActivityItem(
@@ -72,7 +66,9 @@ class _ActivityMobileViewState extends ConsumerState<ActivityMobileView> {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedFilter = ref.watch(activityControllerProvider).selectedFilter;
+
     return Column(
       children: [
         AppHeaderBar(
@@ -89,8 +85,9 @@ class _ActivityMobileViewState extends ConsumerState<ActivityMobileView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ActivityFilterTabs(
-                  selected: _selectedFilter,
-                  onChanged: (filter) => setState(() => _selectedFilter = filter),
+                  selected: selectedFilter,
+                  onChanged: (filter) =>
+                      ref.read(activityControllerProvider.notifier).selectFilter(filter),
                 ),
                 const SizedBox(height: AppSizes.lg),
                 Column(children: _items),

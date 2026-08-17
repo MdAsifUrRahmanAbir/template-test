@@ -1,10 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../states/order_list_state.dart';
 
-class OrderListController extends Notifier<AsyncValue<void>> {
+
+class OrderListController extends Notifier<OrderListState> {
   @override
-  AsyncValue<void> build() {
-    return const AsyncValue.data(null);
+  OrderListState build() => const OrderListState();
+
+  void selectFilter(String filter) {
+    state = state.copyWith(selectedFilter: filter);
   }
 }
 
-final orderListControllerProvider = NotifierProvider<OrderListController, AsyncValue<void>>(OrderListController.new);
+final orderListControllerProvider =
+NotifierProvider.autoDispose<OrderListController, OrderListState>(OrderListController.new);

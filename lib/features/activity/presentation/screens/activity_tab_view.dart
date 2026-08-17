@@ -4,21 +4,13 @@ import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/widgets/common/app_header_bar.dart';
 import '../../../../core/widgets/common/activity_filter_tabs.dart';
+import '../controllers/activity_controller.dart';
 import '../widgets/activity_item.dart';
 
-/// Same content as [ActivityMobileView], centered in a fixed-width
-/// column for wider (tablet/web) viewports.
-class ActivityTabView extends ConsumerStatefulWidget {
+class ActivityTabView extends ConsumerWidget {
   const ActivityTabView({super.key});
 
-  @override
-  ConsumerState<ActivityTabView> createState() => _ActivityTabViewState();
-}
-
-class _ActivityTabViewState extends ConsumerState<ActivityTabView> {
-  String _selectedFilter = 'today';
-
-  // TODO: replace with activityControllerProvider once
+  // TODO: replace with activityControllerProvider's fetched data once
   // features/activity/data/repositories is implemented.
   static const _items = [
     ActivityItem(
@@ -74,7 +66,9 @@ class _ActivityTabViewState extends ConsumerState<ActivityTabView> {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedFilter = ref.watch(activityControllerProvider).selectedFilter;
+
     return Column(
       children: [
         AppHeaderBar(
@@ -89,15 +83,16 @@ class _ActivityTabViewState extends ConsumerState<ActivityTabView> {
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 640),
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(AppSizes.xl),
+                padding: const EdgeInsets.all(AppSizes.lg),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ActivityFilterTabs(
-                      selected: _selectedFilter,
-                      onChanged: (filter) => setState(() => _selectedFilter = filter),
+                      selected: selectedFilter,
+                      onChanged: (filter) =>
+                          ref.read(activityControllerProvider.notifier).selectFilter(filter),
                     ),
-                    const SizedBox(height: AppSizes.xl),
+                    const SizedBox(height: AppSizes.lg),
                     Column(children: _items),
                   ],
                 ),

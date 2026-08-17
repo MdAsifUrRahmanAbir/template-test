@@ -2,29 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
+import '../controllers/analytics_mode_controller.dart';
 import '../widgets/analytics_header.dart';
 import '../widgets/analytics_stat_grid.dart';
 import '../widgets/revenue_expense_chart_card.dart';
 import '../widgets/category_breakdown_card.dart';
 
-class AnalyticsMobileView extends ConsumerStatefulWidget {
+class AnalyticsMobileView extends ConsumerWidget {
   const AnalyticsMobileView({super.key});
 
   @override
-  ConsumerState<AnalyticsMobileView> createState() => _AnalyticsMobileViewState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedRange = ref.watch(analyticsControllerProvider).selectedRange;
 
-class _AnalyticsMobileViewState extends ConsumerState<AnalyticsMobileView> {
-  String _range = 'W';
-
-  @override
-  Widget build(BuildContext context,) {
     return Column(
       children: [
         AnalyticsHeader(
           dateRangeLabel: 'Jan 1, 2026 - Jan 31, 2026',
           onExportTap: () {
-            // TODO: open export options once analyticsControllerProvider exists
+            // TODO: open export options once analyticsControllerProvider
+            // has real data to export.
           },
           onDateRangeTap: () {
             // TODO: open a date-range picker
@@ -41,8 +38,9 @@ class _AnalyticsMobileViewState extends ConsumerState<AnalyticsMobileView> {
                 const AnalyticsStatGrid(),
                 const SizedBox(height: AppSizes.lg),
                 RevenueExpenseChartCard(
-                  selectedRange: _range,
-                  onRangeChanged: (r) => setState(() => _range = r),
+                  selectedRange: selectedRange,
+                  onRangeChanged: (r) =>
+                      ref.read(analyticsControllerProvider.notifier).selectRange(r),
                   revenueValues: const [45, 62, 40, 95, 55, 105, 88, 130],
                   expenseValues: const [40, 55, 35, 78, 50, 90, 80, 130],
                   yAxisLabels: const ['120k', '80k', '40k', '0k'],

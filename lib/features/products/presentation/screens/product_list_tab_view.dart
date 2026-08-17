@@ -4,24 +4,18 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/widgets/common/app_header_bar.dart';
+import '../controllers/product_controller.dart';
 import '../widgets/product_category_tabs.dart';
 import '../widgets/product_search_bar.dart';
 import '../widgets/product_card_item.dart';
 
 /// Same content as [ProductListMobileView], centered in a
 /// fixed-width column with a 3-column grid for wider viewports.
-class ProductListTabView extends ConsumerStatefulWidget {
+class ProductListTabView extends ConsumerWidget {
   const ProductListTabView({super.key});
 
-  @override
-  ConsumerState<ProductListTabView> createState() => _ProductListTabViewState();
-}
-
-class _ProductListTabViewState extends ConsumerState<ProductListTabView> {
-  String _selectedCategory = 'All';
-
-  // TODO: replace hardcoded products with productControllerProvider
-  // once features/products/data/repositories is implemented.
+  // TODO: replace hardcoded products with productListControllerProvider's
+  // fetched data once features/products/data/repositories is implemented.
   static const _products = [
     ProductCardItem(category: 'Electronics', name: 'Quantum Wireless Mouse', price: '\$64.99', stockStatus: ProductStockStatus.inStock),
     ProductCardItem(category: 'Clothing', name: 'Minimalist Leather Backpack', price: '\$120.00', stockStatus: ProductStockStatus.inStock),
@@ -30,7 +24,9 @@ class _ProductListTabViewState extends ConsumerState<ProductListTabView> {
   ];
 
   @override
-  Widget build(BuildContext context,) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedCategory = ref.watch(productListControllerProvider).selectedCategory;
+
     return Column(
       children: [
         const AppHeaderBar(title: AppStrings.productsTitle),
@@ -44,13 +40,17 @@ class _ProductListTabViewState extends ConsumerState<ProductListTabView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ProductCategoryTabs(
-                      selected: _selectedCategory,
-                      onChanged: (category) => setState(() => _selectedCategory = category),
+                      selected: selectedCategory,
+                      onChanged: (category) =>
+                          ref.read(productListControllerProvider.notifier).selectCategory(category),
                     ),
                     const SizedBox(height: AppSizes.lg),
                     ProductSearchBar(
-                      onChanged: (query) {},
-                      onFilterTap: () {},
+                      onChanged: (query) =>
+                          ref.read(productListControllerProvider.notifier).updateSearchQuery(query),
+                      onFilterTap: () {
+                        // TODO: open product filter options
+                      },
                     ),
                     const SizedBox(height: AppSizes.lg),
                     GridView.count(

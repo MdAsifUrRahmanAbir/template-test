@@ -4,22 +4,16 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/widgets/common/app_header_bar.dart';
+import '../controllers/product_controller.dart';
 import '../widgets/product_category_tabs.dart';
 import '../widgets/product_search_bar.dart';
 import '../widgets/product_card_item.dart';
 
-class ProductListMobileView extends ConsumerStatefulWidget {
+class ProductListMobileView extends ConsumerWidget {
   const ProductListMobileView({super.key});
 
-  @override
-  ConsumerState<ProductListMobileView> createState() => _ProductListMobileViewState();
-}
-
-class _ProductListMobileViewState extends ConsumerState<ProductListMobileView> {
-  String _selectedCategory = 'All';
-
-  // TODO: replace hardcoded products with productControllerProvider
-  // once features/products/data/repositories is implemented.
+  // TODO: replace hardcoded products with productListControllerProvider's
+  // fetched data once features/products/data/repositories is implemented.
   static const _products = [
     ProductCardItem(category: 'Electronics', name: 'Quantum Wireless Mouse', price: '\$64.99', stockStatus: ProductStockStatus.inStock),
     ProductCardItem(category: 'Clothing', name: 'Minimalist Leather Backpack', price: '\$120.00', stockStatus: ProductStockStatus.inStock),
@@ -28,7 +22,9 @@ class _ProductListMobileViewState extends ConsumerState<ProductListMobileView> {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedCategory = ref.watch(productListControllerProvider).selectedCategory;
+
     return Column(
       children: [
         const AppHeaderBar(title: AppStrings.productsTitle),
@@ -39,16 +35,16 @@ class _ProductListMobileViewState extends ConsumerState<ProductListMobileView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ProductCategoryTabs(
-                  selected: _selectedCategory,
-                  onChanged: (category) => setState(() => _selectedCategory = category),
+                  selected: selectedCategory,
+                  onChanged: (category) =>
+                      ref.read(productListControllerProvider.notifier).selectCategory(category),
                 ),
                 const SizedBox(height: AppSizes.md),
                 ProductSearchBar(
-                  onChanged: (query) {
-                    // TODO: filter products once productControllerProvider exists
-                  },
+                  onChanged: (query) =>
+                      ref.read(productListControllerProvider.notifier).updateSearchQuery(query),
                   onFilterTap: () {
-                    // TODO: open sort/filter options
+                    // TODO: open product filter options
                   },
                 ),
                 const SizedBox(height: AppSizes.md),
@@ -56,12 +52,12 @@ class _ProductListMobileViewState extends ConsumerState<ProductListMobileView> {
                   crossAxisCount: 2,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  crossAxisSpacing: AppSizes.sm + AppSizes.xs,
-                  mainAxisSpacing: AppSizes.sm + AppSizes.xs,
-                  childAspectRatio: 0.68,
+                  crossAxisSpacing: AppSizes.md,
+                  mainAxisSpacing: AppSizes.md,
+                  childAspectRatio: 0.72,
                   children: _products,
                 ),
-                const SizedBox(height: AppSizes.md),
+                const SizedBox(height: AppSizes.sm),
                 const Center(
                   child: Text(
                     'Showing 4 of 124 products',

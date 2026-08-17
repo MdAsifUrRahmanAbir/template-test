@@ -27,7 +27,6 @@ class OnboardingScreen extends ConsumerWidget {
 }
 
 
-
 class OnboardingMobileView extends ConsumerStatefulWidget {
   const OnboardingMobileView({super.key});
 

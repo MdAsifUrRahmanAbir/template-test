@@ -5,19 +5,13 @@ import '../../../../core/constants/app_strings.dart';
 import '../../../../core/widgets/common/app_header_bar.dart';
 import '../../../../core/widgets/common/custom_filter_bar.dart';
 import '../../../../core/widgets/utility/info_tip_banner.dart';
+import '../controllers/notification_controller.dart';
 import '../widgets/notification_tile.dart';
 
-class NotificationsMobileView extends ConsumerStatefulWidget {
+class NotificationsMobileView extends ConsumerWidget {
   const NotificationsMobileView({super.key});
 
-  @override
-  ConsumerState<NotificationsMobileView> createState() => _NotificationsMobileViewState();
-}
-
-class _NotificationsMobileViewState extends ConsumerState<NotificationsMobileView> {
-  final Set<String> _selectedFilter = {'all'};
-
-  // TODO: replace with notificationControllerProvider once
+  // TODO: replace with notificationControllerProvider's fetched data once
   // features/notifications/data/repositories is implemented.
   static const _items = [
     NotificationTile(
@@ -61,15 +55,15 @@ class _NotificationsMobileViewState extends ConsumerState<NotificationsMobileVie
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedFilter = ref.watch(notificationControllerProvider).selectedFilter;
+
     return Column(
       children: [
         AppHeaderBar(
           title: AppStrings.notificationsTitle,
           trailingLabel: AppStrings.markAllAsRead,
-          onTrailingTap: () {
-            // TODO: call notificationControllerProvider.markAllAsRead()
-          },
+          onTrailingTap: () => ref.read(notificationControllerProvider.notifier).markAllAsRead(),
         ),
         Expanded(
           child: SingleChildScrollView(
@@ -78,16 +72,15 @@ class _NotificationsMobileViewState extends ConsumerState<NotificationsMobileVie
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomFilterBar<String>(
+                  // TODO: replace hardcoded (12) / (2) counts with real
+                  // unread/total counts once notification data is fetched.
                   filters: const ['all', 'unread'],
-                  selectedFilters: _selectedFilter,
+                  selectedFilters: {selectedFilter},
                   labelBuilder: (filter) => filter == 'all'
                       ? '${AppStrings.filterAll} (12)'
                       : '${AppStrings.filterUnread} (2)',
-                  onSelected: (filter) => setState(() {
-                    _selectedFilter
-                      ..clear()
-                      ..add(filter);
-                  }),
+                  onSelected: (filter) =>
+                      ref.read(notificationControllerProvider.notifier).selectFilter(filter),
                 ),
                 const SizedBox(height: AppSizes.md),
                 const InfoTipBanner(text: AppStrings.notificationsTip),

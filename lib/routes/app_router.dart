@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:template_test/features/analytics_mode/presentation/screens/analytics_mode_screen.dart';
 import 'package:template_test/features/order_list/presentation/screens/order_list_screen.dart';
 import 'package:template_test/features/audit_log/presentation/screens/audit_log_screen.dart';
@@ -30,16 +31,45 @@ import 'package:template_test/features/change_password/presentation/screens/chan
 import 'package:template_test/features/help_support/presentation/screens/help_support_screen.dart';
 import 'package:template_test/features/cart/presentation/screens/cart_screen.dart';
 
+import '../core/network/connectivity_provider.dart';
 import '../core/observers/logging_observer.dart';
 import '../features/edit_profile/presentation/screens/edit_profile_screen.dart';
 
-final routerProvider = Provider<GoRouter>(
-  (ref) => GoRouter(
+final hasCompletedInitialNavigationProvider = StateProvider<bool>((ref) => false);
+
+final routerProvider = Provider<GoRouter>((ref) {
+  final connectivityService = ref.watch(connectivityServiceProvider);
+
+  return GoRouter(
     initialLocation: RouteNames.splash,
     errorBuilder: (context, state) => const NotFoundScreen(),
     observers: [LoggingObserver()],
-    routes: [
+    refreshListenable: GoRouterRefreshStream(connectivityService.onStatusChange),
 
+    redirect: (context, state) {
+      if (state.matchedLocation == RouteNames.splash) return null;
+
+      if (!ref.read(hasCompletedInitialNavigationProvider)) {
+        ref.read(hasCompletedInitialNavigationProvider.notifier).state = true;
+        return null;
+      }
+
+      final isConnected = ref.read(connectivityServiceProvider).isConnected;
+      final offlineModeEnabled = ref.read(offlineModeProvider);
+      final onNoInternetRoute = state.matchedLocation == RouteNames.noInternet;
+
+      if (!isConnected && !offlineModeEnabled) {
+        return onNoInternetRoute ? null : RouteNames.noInternet;
+      }
+
+      if (isConnected && offlineModeEnabled) {
+        ref.read(offlineModeProvider.notifier).disable();
+      }
+
+      return null;
+    },
+
+    routes: [
       GoRoute(path: RouteNames.splash, builder: (_, _) => const SplashScreen()),
       GoRoute(
         path: RouteNames.onboarding,
@@ -119,22 +149,22 @@ final routerProvider = Provider<GoRouter>(
         path: RouteNames.editProfile,
         builder: (context, state) => const EditProfileScreen(),
       ),
-    GoRoute(
+      GoRoute(
         path: RouteNames.termsPrivacy,
         builder: (context, state) => const TermsPrivacyScreen(),
       ),
-    GoRoute(
+      GoRoute(
         path: RouteNames.auditLog,
         builder: (context, state) => const AuditLogScreen(),
       ),
-    GoRoute(
+      GoRoute(
         path: RouteNames.orderList,
         builder: (context, state) => const OrderListScreen(),
       ),
-    GoRoute(
+      GoRoute(
         path: RouteNames.analyticsMode,
         builder: (context, state) => const AnalyticsModeScreen(),
       ),
-  ],
-  ),
-);
+    ],
+  );
+});

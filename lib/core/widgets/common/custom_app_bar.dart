@@ -40,7 +40,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   decoration: BoxDecoration(
                     color: context.appColors.surface,
                     borderRadius: BorderRadius.circular(AppSizes.radiusSm),
-                    border: Border.all(color: AppColors.border),
+                    // border: Border.all(color: AppColors.border),
                   ),
                   child: const Icon(Icons.arrow_back_rounded, size: AppSizes.iconSm, color: AppColors.textPrimary),
                 ),

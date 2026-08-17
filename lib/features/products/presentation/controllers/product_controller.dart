@@ -1,9 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:template_test/features/products/data/models/product_model.dart';
+import '../states/product_list_state.dart';
 
-class ProductController extends Notifier<AsyncValue<List<ProductModel>>> {
+class ProductListController extends Notifier<ProductListState> {
   @override
-  AsyncValue<List<ProductModel>> build() => const AsyncValue.data([]);
+  ProductListState build() => const ProductListState();
+
+  void selectCategory(String category) {
+    state = state.copyWith(selectedCategory: category);
+  }
+
+  void updateSearchQuery(String query) {
+    state = state.copyWith(searchQuery: query);
+  }
+
 }
 
-final productControllerProvider = NotifierProvider<ProductController, AsyncValue<List<ProductModel>>>(ProductController.new);
+final productListControllerProvider =
+NotifierProvider.autoDispose<ProductListController, ProductListState>(ProductListController.new);

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+
 class SettingsState {
   final bool darkMode;
   final bool pushNotifications;
@@ -72,8 +73,7 @@ class SettingsController extends Notifier<SettingsState> {
   }
 
   Future<void> deleteAccount() async {
-    // TODO:
-    // await settingsRepository.deleteAccount();
+
   }
 }
 

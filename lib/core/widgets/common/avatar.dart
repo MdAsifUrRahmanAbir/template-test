@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:template_test/core/constants/app_colors.dart';
 import 'package:template_test/core/constants/app_sizes.dart';
 
-
 class AppAvatar extends StatelessWidget {
   final String? imageUrl;
   final String? label;

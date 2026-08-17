@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/session/auth_session_controller.dart';
 import '../../../../core/theme/theme_controller.dart';
 import '../../../../core/widgets/common/app_header_bar.dart';
 import '../../../../core/widgets/common/radio_option.dart';
@@ -66,6 +67,10 @@ class SettingsMobileView extends ConsumerWidget {
 
     if (confirmed == true) {
       await ref.read(settingsControllerProvider.notifier).deleteAccount();
+
+      await ref.read(authSessionControllerProvider.notifier).logout();
+      if(!context.mounted) return;
+      context.go(RouteNames.login);
     }
   }
 
@@ -154,9 +159,10 @@ class SettingsMobileView extends ConsumerWidget {
                 SettingsFooterActions(
                   versionLabel: 'v2.4.1 (Build 2026)',
 
-                  onLogOutTap: () {
-                    // TODO: call authControllerProvider.logout()
-                    // and navigate to RouteNames.login
+                  onLogOutTap: () async{
+                    await ref.read(authSessionControllerProvider.notifier).logout();
+                    if(!context.mounted) return;
+                    context.go(RouteNames.login);
                   },
 
                   onDeleteAccountTap: () {

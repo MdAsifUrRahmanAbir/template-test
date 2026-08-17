@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/session/auth_session_controller.dart';
 import '../../../../core/widgets/common/custom_app_bar.dart';
 import '../../../../core/widgets/common/custom_card.dart';
 import '../../../../core/widgets/utility/custom_snackbar.dart';
@@ -34,10 +35,17 @@ class LoginMobileView extends ConsumerWidget {
                         const LoginHeader(),
                         const SizedBox(height: AppSizes.lg),
                         LoginForm(
-                          onSignIn: (email, password, rememberMe) {
-                            // TODO: wire to authControllerProvider.login(email, password)
-                            // once the login/data/repositories layer is ready.
+                          onSignIn: (email, password, rememberMe) async{
+
+                            await ref.read(authSessionControllerProvider.notifier).onLoginSuccess(
+                              accessToken: "response.accessToken",
+                              refreshToken: "response.refreshToken",
+                            );
+
+                            if (!context.mounted) return;
+
                             context.go(RouteNames.mainShell);
+
                           },
                           onForgotPassword: () => context.push(RouteNames.forgotPassword),
                         ),

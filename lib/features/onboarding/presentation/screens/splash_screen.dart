@@ -1,15 +1,43 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/session/auth_session_controller.dart';
+import '../../../../core/session/auth_session_state.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../routes/route_names.dart';
 import '../widgets/splash_logo.dart';
 import '../widgets/splash_brand_text.dart';
 import '../widgets/splash_loading_indicator.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends ConsumerState<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _bootstrap();
+  }
+
+  Future<void> _bootstrap() async {
+    await ref.read(authSessionControllerProvider.notifier).restoreSession();
+
+    if (!mounted) return;
+
+    final status = ref.read(authSessionControllerProvider).status;
+
+    context.go(
+      status == AuthStatus.authenticated
+          ? RouteNames.mainShell
+          : RouteNames.onboarding,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,25 +50,8 @@ class SplashScreen extends StatelessWidget {
   }
 }
 
-
-
-class SplashMobileView extends StatefulWidget {
+class SplashMobileView extends StatelessWidget {
   const SplashMobileView({super.key});
-
-  @override
-  State<SplashMobileView> createState() => _SplashMobileViewState();
-}
-
-class _SplashMobileViewState extends State<SplashMobileView> {
-  @override
-  void initState() {
-    super.initState();
-    // TODO: replace with the real bootstrap check (auth token, app config...)
-    // once the onboarding/data/repositories layer is ready.
-    Timer(const Duration(seconds: 2), () {
-      if (mounted) context.go(RouteNames.onboarding);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,26 +80,8 @@ class _SplashMobileViewState extends State<SplashMobileView> {
   }
 }
 
-
-
-/// Same content as [SplashMobileView], centered in a fixed-width
-/// column for wider (tablet/web) viewports.
-class SplashTabView extends StatefulWidget {
+class SplashTabView extends StatelessWidget {
   const SplashTabView({super.key});
-
-  @override
-  State<SplashTabView> createState() => _SplashTabViewState();
-}
-
-class _SplashTabViewState extends State<SplashTabView> {
-  @override
-  void initState() {
-    super.initState();
-    // TODO: replace with the real bootstrap check (auth token, app config...)
-    Timer(const Duration(seconds: 2), () {
-      if (mounted) context.go(RouteNames.onboarding);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

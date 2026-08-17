@@ -24,7 +24,7 @@ class AnalyticsHeader extends StatelessWidget {
       padding: const EdgeInsets.all(AppSizes.md),
       decoration: BoxDecoration(
         color: context.appColors.surface,
-        border: Border(bottom: BorderSide(color: AppColors.border)),
+        // border: Border(bottom: BorderSide(color: AppColors.border)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

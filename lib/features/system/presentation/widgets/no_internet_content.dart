@@ -34,13 +34,21 @@ class NoInternetContent extends StatelessWidget {
         const Text(
           AppStrings.noInternetTitle,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: AppSizes.fontXxl, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+          style: TextStyle(
+            fontSize: AppSizes.fontXxl,
+            fontWeight: FontWeight.w700,
+            color: AppColors.textPrimary,
+          ),
         ),
         const SizedBox(height: AppSizes.sm),
         const Text(
           AppStrings.noInternetSubtitle,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: AppSizes.fontMd, color: AppColors.textSecondary, height: 1.5),
+          style: TextStyle(
+            fontSize: AppSizes.fontMd,
+            color: AppColors.textSecondary,
+            height: 1.5,
+          ),
         ),
         const SizedBox(height: AppSizes.xl),
         PrimaryButton(
@@ -48,10 +56,7 @@ class NoInternetContent extends StatelessWidget {
           onPressed: onCheckConnection,
         ),
         const SizedBox(height: AppSizes.sm),
-        AppTextButton(
-          label: AppStrings.workOffline,
-          onPressed: onWorkOffline,
-        ),
+        AppTextButton(label: AppStrings.workOffline, onPressed: onWorkOffline),
       ],
     );
   }

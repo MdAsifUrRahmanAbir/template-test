@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../core/widgets/utility/custom_filter_bar.dart';
+
+import '../../../../core/widgets/common/custom_filter_bar.dart';
 
 /// All / Electronics / Clothing / Home / Sports category filter.
 /// Purely presentational — reports the selected category up via

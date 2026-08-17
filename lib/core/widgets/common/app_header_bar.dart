@@ -58,7 +58,7 @@ class AppHeaderBar extends StatelessWidget implements PreferredSizeWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: context.appColors.surface,
-              border: Border.all(color: AppColors.border),
+              // border: Border.all(color: AppColors.border),
             ),
             alignment: Alignment.center,
             child: const Icon(Icons.arrow_back_rounded, size: AppSizes.iconSm, color: AppColors.textPrimary),
@@ -105,7 +105,7 @@ class AppHeaderBar extends StatelessWidget implements PreferredSizeWidget {
       padding: const EdgeInsets.symmetric(horizontal: AppSizes.lg),
       decoration: BoxDecoration(
         color: context.appColors.surface,
-        border: const Border(bottom: BorderSide(color: AppColors.border)),
+        // border: const Border(bottom: BorderSide(color: AppColors.border)),
       ),
       child: Row(
         children: [
