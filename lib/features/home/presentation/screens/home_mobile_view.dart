@@ -137,7 +137,7 @@ class HomeMobileView extends ConsumerWidget {
                       child: QuickActionItem(
                           icon: Icons.calendar_today_outlined,
                         label: AppStrings.calender,
-                        onTap: () => context.push(RouteNames.products),
+                        onTap: () => context.push(RouteNames.product),
                       ),
                     ),
                     const SizedBox(width: AppSizes.sm),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:template_test/core/constants/app_colors.dart';
-import 'package:template_test/core/constants/app_sizes.dart';
+import '../../constants/app_colors.dart';
+import '../../constants/app_sizes.dart';
 
 class RadioOption<T> extends StatelessWidget {
   final T value;
   final T? groupValue;
-  final ValueChanged<T?>? onChanged;
+  final ValueChanged<T?> onChanged;
   final String title;
   final String? subtitle;
 
@@ -20,14 +20,16 @@ class RadioOption<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RadioListTile<T>(
-      value: value,
+    return RadioGroup<T>(
       groupValue: groupValue,
       onChanged: onChanged,
-      activeColor: AppColors.primary,
-      contentPadding: const EdgeInsets.symmetric(horizontal: AppSizes.xs),
-      title: Text(title),
-      subtitle: subtitle == null ? null : Text(subtitle!),
+      child: RadioListTile<T>(
+        value: value,
+        activeColor: AppColors.primary,
+        contentPadding: const EdgeInsets.symmetric(horizontal: AppSizes.xs),
+        title: Text(title),
+        subtitle: subtitle == null ? null : Text(subtitle!),
+      ),
     );
   }
 }

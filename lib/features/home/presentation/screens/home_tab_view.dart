@@ -110,7 +110,7 @@ class HomeTabView extends ConsumerWidget {
                           child: QuickActionItem(
                             icon: Icons.inventory_2_outlined,
                             label: 'Inventory',
-                            onTap: () => context.go(RouteNames.products),
+                            onTap: () => context.go(RouteNames.product),
                           ),
                         ),
                         const SizedBox(width: AppSizes.sm),

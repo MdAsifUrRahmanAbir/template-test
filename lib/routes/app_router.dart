@@ -1,3 +1,4 @@
+import 'package:template_test/features/product/presentation/screens/product_screen.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:template_test/features/analytics_mode/presentation/screens/analytics_mode_screen.dart';
 import 'package:template_test/features/order_list/presentation/screens/order_list_screen.dart';
@@ -19,7 +20,6 @@ import 'package:template_test/features/search/presentation/screens/search_screen
 import 'package:template_test/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:template_test/features/profile/presentation/screens/profile_screen.dart';
 import 'package:template_test/features/settings/presentation/screens/settings_screen.dart';
-import 'package:template_test/features/products/presentation/screens/product_list_screen.dart';
 import 'package:template_test/features/system/presentation/screens/not_found_screen.dart';
 import 'package:template_test/features/system/presentation/screens/error_screen.dart';
 import 'package:template_test/features/system/presentation/screens/no_internet_screen.dart';
@@ -41,7 +41,7 @@ final routerProvider = Provider<GoRouter>((ref) {
   final connectivityService = ref.watch(connectivityServiceProvider);
 
   return GoRouter(
-    initialLocation: RouteNames.splash,
+    initialLocation: RouteNames.product,
     errorBuilder: (context, state) => const NotFoundScreen(),
     observers: [LoggingObserver()],
     refreshListenable: GoRouterRefreshStream(connectivityService.onStatusChange),
@@ -111,10 +111,6 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (_, _) => const SettingsScreen(),
       ),
       GoRoute(
-        path: RouteNames.products,
-        builder: (_, _) => const ProductListScreen(),
-      ),
-      GoRoute(
         path: RouteNames.notFound,
         builder: (_, _) => const NotFoundScreen(),
       ),
@@ -165,6 +161,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: RouteNames.analyticsMode,
         builder: (context, state) => const AnalyticsModeScreen(),
       ),
-    ],
+      GoRoute(path: RouteNames.product, builder: (context, state) => const ProductScreen()),
+  ],
   );
 });

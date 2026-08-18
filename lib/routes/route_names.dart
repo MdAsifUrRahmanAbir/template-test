@@ -13,7 +13,6 @@ class RouteNames {
   static const String notifications = '/notifications';
   static const String profile = '/profile';
   static const String settings = '/settings';
-  static const String products = '/products';
   static const String notFound = '/not-found';
   static const String error = '/error';
   static const String noInternet = '/no-internet';
@@ -31,4 +30,5 @@ class RouteNames {
   static const String auditLog = '/audit_log';
   static const String orderList = '/order_list';
   static const String analyticsMode = '/analytics_mode';
+  static const String product = '/product';
 }
