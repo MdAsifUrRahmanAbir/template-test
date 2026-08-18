@@ -41,7 +41,7 @@ final routerProvider = Provider<GoRouter>((ref) {
   final connectivityService = ref.watch(connectivityServiceProvider);
 
   return GoRouter(
-    initialLocation: RouteNames.product,
+    initialLocation: RouteNames.splash,
     errorBuilder: (context, state) => const NotFoundScreen(),
     observers: [LoggingObserver()],
     refreshListenable: GoRouterRefreshStream(connectivityService.onStatusChange),
