@@ -110,7 +110,12 @@ class ProductMobileView extends ConsumerWidget {
   }
 
   ProductCardItem _mapToCard(ResultDatum item) {
-    final price = double.tryParse(item.salePrice) ?? 0;
+    final price = double.parse(item.salePrice) ?? 0;
+    print("--------------------");
+    // print(item);
+    print(item.salePrice);
+    print(price.toStringAsFixed(2));
+    print( CurrencyFormatter.format(price));
     return ProductCardItem(
       category: item.category,
       name: item.name,

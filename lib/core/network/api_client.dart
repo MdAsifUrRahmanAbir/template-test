@@ -27,7 +27,7 @@ class ApiClient {
         connectTimeout: const Duration(seconds: 20),
         receiveTimeout: const Duration(seconds: 20),
         headers: {
-          'Content-Type': 'application/json',
+          // 'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
       ),
