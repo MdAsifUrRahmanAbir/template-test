@@ -32,7 +32,7 @@ class ProductMobileView extends ConsumerWidget {
 
     return Column(
       children: [
-        const AppHeaderBar(title: AppStrings.productsTitle),
+        const AppHeaderBar(title: AppStrings.productsTitle, backStyle: HeaderBackStyle.chevron,),
         Expanded(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(AppSizes.md),

@@ -17,6 +17,7 @@ class AuditLogTabView extends ConsumerWidget {
         AppHeaderBar(
           title: AppStrings.auditLogTitle,
           trailingIcon: Icons.search_rounded,
+        backStyle: HeaderBackStyle.chevron,
           onTrailingTap: () {
             // TODO: open audit-log search once that flow exists
           },

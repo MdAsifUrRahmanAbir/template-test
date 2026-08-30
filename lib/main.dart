@@ -46,12 +46,8 @@ class PosApp extends ConsumerWidget {
       themeMode: themeMode,
       routerConfig: router,
       builder: (context, child) {
-        return Stack(
-          children: [
-            ?child,
-            const ConnectivityBanner(),
-          ],
-        );
-      },    );
+        return Stack(children: [?child, const ConnectivityBanner()]);
+      },
+    );
   }
 }
