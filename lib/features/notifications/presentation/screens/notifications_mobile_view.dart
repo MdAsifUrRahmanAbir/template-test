@@ -63,6 +63,7 @@ class NotificationsMobileView extends ConsumerWidget {
         AppHeaderBar(
           title: AppStrings.notificationsTitle,
           trailingLabel: AppStrings.markAllAsRead,
+          backStyle: HeaderBackStyle.chevron,
           onTrailingTap: () => ref.read(notificationControllerProvider.notifier).markAllAsRead(),
         ),
         Expanded(
