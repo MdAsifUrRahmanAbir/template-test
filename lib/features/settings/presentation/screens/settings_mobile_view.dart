@@ -84,7 +84,7 @@ class SettingsMobileView extends ConsumerWidget {
 
     return Column(
       children: [
-        const AppHeaderBar(title: AppStrings.settingsTitle),
+        const AppHeaderBar(title: AppStrings.settingsTitle,         backStyle: HeaderBackStyle.chevron,),
 
         Expanded(
           child: SingleChildScrollView(

@@ -49,6 +49,7 @@ class SettingsTabView extends ConsumerWidget {
     return Column(
       children: [
         const AppHeaderBar(
+          backStyle: HeaderBackStyle.chevron,
           title: AppStrings.settingsTitle,
         ),
 
